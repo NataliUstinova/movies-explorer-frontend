@@ -28,6 +28,7 @@ const AboutMe = () => {
             className="about-me__link"
             href="https://github.com/NataliUstinova"
             target="_blank"
+            rel="noreferrer"
           >
             Github
           </a>
