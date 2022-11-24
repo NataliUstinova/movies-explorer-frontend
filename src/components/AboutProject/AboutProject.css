@@ -14,7 +14,7 @@
 
 .aboutProject__info-container {
   display: flex;
-  flex-direction: row;
+  flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
   gap: 40px;
@@ -71,7 +71,7 @@
   place-items: center;
 }
 
-.timeline__1week-text {
+.timeline__text {
   padding: 9px 0;
   min-width: 68px;
   margin: 0;
@@ -82,17 +82,7 @@
   text-align: center;
 }
 
-.timeline__4week-text {
-  padding: 9px 0;
-  margin: 0;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 17px;
-  letter-spacing: 0;
-  text-align: center;
-}
-
-.timeline__2row-text {
+.timeline__text_gray {
   margin: 0;
   padding: 14px 0;
   font-style: normal;
@@ -101,5 +91,60 @@
   line-height: 17px;
   text-align: center;
   color: #A0A0A0;
+}
 
+@media (max-width: 768px) {
+  .aboutProject {
+    padding: 90px 50px;
+  }
+  .aboutProject__info-container {
+    margin: 70px 0 93px;
+    gap: 30px;
+  }
+  .aboutProject__info {
+    max-width: 319px;
+    gap: 22px;
+  }
+  .aboutProject__text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .aboutProject__timeline-container {
+    grid-template-columns: calc((100vw - 100px)*0.2) calc((100vw - 100px)*0.8);
+  }
+}
+
+@media (max-width: 320px) {
+  .aboutProject {
+    padding: 70px 18px;
+  }
+  .aboutProject__info-container {
+    margin: 60px 0;
+    gap: 56px;
+    flex-wrap: wrap;
+  }
+  .aboutProject__info {
+    gap: 16px;
+  }
+  .aboutProject__subtitle {
+    font-size: 18px;
+    line-height: 22px;
+  }
+  .aboutProject__text {
+    font-size: 11px;
+    line-height: 16px;
+  }
+  .aboutProject__timeline-container {
+    grid-template-columns: calc((100vw - 36px)*0.35) calc((100vw - 36px)*0.65);
+    grid-template-rows: 35px 35px;
+  }
+  .timeline__text {
+    font-size: 11px;
+    line-height: 13px;
+  }
+  .timeline__text_gray {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+  }
 }

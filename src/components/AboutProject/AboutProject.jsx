@@ -30,16 +30,16 @@ const AboutProject = () => {
       <div className="aboutProject__timeline-container">
         <div className="timeline__first-column">
           <div className="timeline__1week-block">
-            <p className="timeline__1week-text">1 неделя</p>
+            <p className="timeline__text">1 неделя</p>
           </div>
-          <p className="timeline__2row-text">Back-end</p>
+          <p className="timeline__text_gray">Back-end</p>
         </div>
 
         <div className="timeline__second-column">
           <div className="timeline__4week-block">
-            <p className="timeline__4week-text">4 недели</p>
+            <p className="timeline__text">4 недели</p>
           </div>
-          <p className="timeline__2row-text">Front-end</p>
+          <p className="timeline__text_gray">Front-end</p>
         </div>
       </div>
     </section>

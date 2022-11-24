@@ -7,3 +7,15 @@
 .separator_bold {
   background-color: #000;
 }
+
+@media (max-width: 768px) {
+  .separator {
+    width: calc(100vw - 100px);
+  }
+}
+
+@media (max-width: 320px) {
+  .separator {
+    width: calc(100vw - 36px);
+  }
+}
