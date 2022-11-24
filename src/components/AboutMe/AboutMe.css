@@ -134,6 +134,7 @@
     gap: 40px;
   }
   .about-me__img {
+    align-self: center;
     height: 352px;
     width: 292px;
   }
