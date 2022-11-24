@@ -1,0 +1,9 @@
+.separator {
+  background-color: #E8E8E8;
+  height: 1px;
+  width: calc(100vw - 140px);
+}
+
+.separator_bold {
+  background-color: #000;
+}

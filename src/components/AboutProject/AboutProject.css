@@ -1,0 +1,106 @@
+.aboutProject {
+  height: 608px;
+  padding: 110px 70px; 
+}
+
+.aboutProject__title {
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  text-align: left;
+  padding: 0;
+  margin: 0 0 23px 0;
+}
+
+.aboutProject__info-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin: 70px 0 110px;
+}
+
+.aboutProject__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 26px;
+}
+
+.aboutProject__subtitle {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
+.aboutProject__text {
+  max-width: 550px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
+.aboutProject__timeline-container {
+  display: grid;
+  justify-items: stretch;
+  align-items: stretch;
+  grid-template-columns: calc((100vw - 140px)*0.2) calc((100vw - 140px)*0.8);
+  grid-template-rows: 36px 36px;
+}
+
+.timeline__first-column {
+  align-items: stretch;
+}
+
+.timeline__1week-block {
+  background-color: #2BE080;
+}
+
+.timeline__4week-block {
+  background-color: #F2F2F2;
+  place-items: center;
+}
+
+.timeline__1week-text {
+  padding: 9px 0;
+  min-width: 68px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  letter-spacing: 0;
+  text-align: center;
+}
+
+.timeline__4week-text {
+  padding: 9px 0;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  letter-spacing: 0;
+  text-align: center;
+}
+
+.timeline__2row-text {
+  margin: 0;
+  padding: 14px 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #A0A0A0;
+
+}
