@@ -1,21 +1,9 @@
 .separator {
   background-color: #E8E8E8;
   height: 1px;
-  width: calc(100vw - 140px);
+  width: 100%;
 }
 
 .separator_bold {
   background-color: #000;
-}
-
-@media (max-width: 768px) {
-  .separator {
-    width: calc(100vw - 100px);
-  }
-}
-
-@media (max-width: 320px) {
-  .separator {
-    width: calc(100vw - 28px);
-  }
 }
