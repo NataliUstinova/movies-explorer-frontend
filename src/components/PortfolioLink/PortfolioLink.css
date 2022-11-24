@@ -45,3 +45,30 @@
     transform: rotate(0deg);
   }
 }
+
+@media (max-width: 768px) {
+  .portfolio-link {
+    height: 69px;
+  }
+  .portfolio-link__text {
+    font-size: 28px;
+    line-height: 50px;
+  }
+}
+
+@media (max-width: 320px) {
+  .portfolio-link {
+    height: 47px;
+  }
+  .portfolio-link__text {
+    font-size: 18px;
+    line-height: 28px;
+  }
+  .portfolio-link__arrow {
+    background: url(./../../images/arrow.svg) no-repeat center center;
+    background-size: cover;
+    width: 11px;
+    height: 11px;
+    
+  }
+}

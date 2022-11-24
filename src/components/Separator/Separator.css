@@ -16,6 +16,6 @@
 
 @media (max-width: 320px) {
   .separator {
-    width: calc(100vw - 36px);
+    width: calc(100vw - 28px);
   }
 }
