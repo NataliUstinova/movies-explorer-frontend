@@ -12,7 +12,8 @@
   z-index: 0;
   width: 320px;
   height: 320px;
-  background-image: url(../../images/promo-bg.svg);
+  background: url(../../images/promo-bg.svg) no-repeat center center;
+  background-size: cover;
 }
 
 .promo__title {
@@ -23,4 +24,24 @@
   text-align: center;
   color: #fff;
   max-width: 730px;
+}
+
+@media (max-width: 768px) {
+  .promo {
+    height: 784px;
+  }
+}
+
+@media (max-width: 320px) {
+  .promo {
+    height: 570px;
+  }
+  .promo__bg {
+    width: 248px;
+    height: 248px;
+  }
+  .promo__title {
+    font-size: 31px;
+    line-height: 39px;
+  }
 }
