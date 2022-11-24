@@ -4,7 +4,7 @@ import { HashLink as Link } from "react-router-hash-link";
 
 const Navigation = () => {
   return (
-    <div className="navigation">
+    <nav className="navigation">
       <Link smooth to="#AboutProject" className="navigation__link">
         О проекте
       </Link>
@@ -14,7 +14,7 @@ const Navigation = () => {
       <Link smooth to="#AboutMe" className="navigation__link">
         Студент
       </Link>
-    </div>
+    </nav>
   );
 };
 
