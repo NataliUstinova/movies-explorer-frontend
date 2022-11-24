@@ -5,13 +5,13 @@ import { HashLink as Link } from "react-router-hash-link";
 const Navigation = () => {
   return (
     <div className="navigation">
-      <Link smooth to="Main#AboutProject" className="navigation__link">
+      <Link smooth to="#AboutProject" className="navigation__link">
         О проекте
       </Link>
-      <Link smooth to="Main#Techs" className="navigation__link">
+      <Link smooth to="#Techs" className="navigation__link">
         Технологии
       </Link>
-      <Link smooth to="Main#AboutMe" className="navigation__link">
+      <Link smooth to="#AboutMe" className="navigation__link">
         Студент
       </Link>
     </div>

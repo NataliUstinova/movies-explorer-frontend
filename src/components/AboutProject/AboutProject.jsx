@@ -4,7 +4,7 @@ import Separator from "../Separator/Separator";
 
 const AboutProject = () => {
   return (
-    <section className="aboutProject">
+    <section className="aboutProject" id="AboutProject">
       <h2 className="aboutProject__title">О проекте</h2>
       <Separator bold={true} />
       <div className="aboutProject__info-container">
