@@ -12,6 +12,16 @@
   margin: 0 0 23px 0;
 }
 
+.about-me__header {
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  text-align: left;
+  padding: 0;
+  margin: 0 0 23px 0;
+}
+
 .about-me__container {
   display: flex;
   flex-direction: row;
@@ -27,7 +37,7 @@
   gap: 99px;
 }
 
-.about-me__title {
+.about-me__header {
   margin: 0 0 18px;
   padding: 0;
   font-style: normal;

@@ -6,12 +6,12 @@ const AboutMe = () => {
   const age = new Date().getFullYear() - 1993;
   return (
     <section className="about-me" id="AboutMe">
-      <h2 className="techs__title">Студент</h2>
+      <h2 className="about-me__title">Студент</h2>
       <Separator bold={true} />
       <div className="about-me__container">
         <div className="about-me__info">
           <div>
-            <p className="about-me__title">Наталья</p>
+            <p className="about-me__header">Наталья</p>
             <p className="about-me__subtitle">
               Фронтенд-разработчик, {age} лет
             </p>
