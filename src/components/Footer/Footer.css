@@ -1,0 +1,54 @@
+.footer {
+  height: 172px;
+  background-color: #FAFAFA;
+  padding: 0 70px;
+}
+
+.footer__title {
+  margin: 0;
+  padding: 79px 0 20px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  color: #A0A0A0;
+}
+
+.footer__text {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  
+}
+
+.footer__year {
+  margin: 0;
+  padding: 0;
+}
+
+.footer__links {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.footer__link {
+  margin: 0;
+  padding: 0;
+  color: #000;
+  text-decoration: none;
+}
+
+.footer__link:hover {
+  opacity: 0.5;
+}
+
+.footer__link:visited {
+  color: #000;
+}
