@@ -54,7 +54,7 @@
   display: grid;
   justify-items: stretch;
   align-items: stretch;
-  grid-template-columns: calc((100vw - 140px)*0.2) calc((100vw - 140px)*0.8);
+  grid-template-columns: 20% 80%;
   grid-template-rows: 36px 36px;
 }
 
@@ -109,8 +109,11 @@
     font-size: 12px;
     line-height: 18px;
   }
+}
+@media (max-width: 550px) {
   .aboutProject__timeline-container {
-    grid-template-columns: calc((100vw - 100px)*0.2) calc((100vw - 100px)*0.8);
+    grid-template-columns: 37% 63%;
+    grid-template-rows: 35px 35px;
   }
 }
 
@@ -135,7 +138,7 @@
     line-height: 16px;
   }
   .aboutProject__timeline-container {
-    grid-template-columns: calc((100vw - 36px)*0.35) calc((100vw - 36px)*0.65);
+    grid-template-columns: 35% 65%;
     grid-template-rows: 35px 35px;
   }
   .timeline__text {
