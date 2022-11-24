@@ -90,12 +90,16 @@
 }
 
 @media (max-width: 768px) {
+  .about-me__container {
+    gap: 20px;
+  }
   .about-me {
     padding: 90px 50px 91px;
   }
   .about-me__img {
     height: 307px;
     width: 255px;
+    min-width: 220px;
   }
   .about-me__info {
     gap: 87px;
@@ -117,12 +121,13 @@
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 510px) {
   .about-me {
     padding: 70px 14px;
   }
   .about-me__container {
     margin: 60px 0 0;
+    gap: 0;
     flex-direction: column-reverse;
   }
   .about-me__header {
