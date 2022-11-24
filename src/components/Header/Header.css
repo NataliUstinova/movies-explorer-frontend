@@ -49,3 +49,24 @@
   opacity: 0.5;
 }
 
+@media (max-width: 768px) {
+  .header {
+    padding: 0 30px;
+  }
+}
+
+@media (max-width: 320px) {
+  .header {
+    padding: 0 14px;
+  }
+  .header__links {
+    gap: 14px;
+  }
+  .header__link{
+    font-size: 10px;
+  }
+  .header__button {
+    width: 54px;
+    height: 26px;
+  }
+}

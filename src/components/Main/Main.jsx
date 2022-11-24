@@ -1,4 +1,5 @@
 import React from "react";
+import Header from "../Header/Header";
 import Promo from "../Promo/Promo";
 import Navigation from "../Navigation/Navigation";
 import AboutProject from "../AboutProject/AboutProject";
@@ -10,6 +11,7 @@ import Footer from "../Footer/Footer";
 const Main = () => {
   return (
     <main>
+      <Header />
       <Promo />
       <Navigation />
       <AboutProject />
