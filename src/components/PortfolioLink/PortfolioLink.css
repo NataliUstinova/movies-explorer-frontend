@@ -65,7 +65,6 @@
     line-height: 28px;
   }
   .portfolio-link__arrow {
-    background: url(./../../images/arrow.svg) no-repeat center center;
     background-size: cover;
     width: 11px;
     height: 11px;
