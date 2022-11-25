@@ -21,7 +21,7 @@ const Form = ({ title, isLoginForm }) => {
     <div className="form">
       <Logo />
       <h1 className="form__title">{title}</h1>
-      <form onSubmit={handleSubmit}>
+      <form className="form__form" onSubmit={handleSubmit}>
         <div className="form__container">
           <div className="form__inputs">
             {!isLoginForm && (

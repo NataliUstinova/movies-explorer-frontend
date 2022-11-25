@@ -12,7 +12,7 @@ export default function useValidation() {
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: eventTarget.validationMessage });
 
-    setIsDisabled(eventTarget.closest(".form__inputs").checkValidity());
+    setIsDisabled(eventTarget.closest(".form__form").checkValidity());
   }
 
   const resetForm = useCallback(
