@@ -42,9 +42,7 @@ const Form = ({ title, isLoginForm }) => {
                   value={values.name || ""}
                   onChange={handleInputChange}
                 />
-                <span className={errors.name && "form__input-error-text"}>
-                  {errors.name}
-                </span>
+                <p className="form__input-error-text">{errors.name}</p>
               </div>
             )}
 
@@ -66,9 +64,7 @@ const Form = ({ title, isLoginForm }) => {
                 value={values.email || ""}
                 onChange={handleInputChange}
               />
-              <span className={errors.email && "form__input-error-text"}>
-                {errors.email}
-              </span>
+              <p className="form__input-error-text">{errors.email}</p>
             </div>
 
             <div className="form__input-container">
@@ -77,7 +73,7 @@ const Form = ({ title, isLoginForm }) => {
               </label>
               <input
                 minLength="5"
-                maxLength="100"
+                maxLength="40"
                 className={`form__input ${
                   errors.password && "form__input-error-color"
                 }`}
@@ -88,9 +84,7 @@ const Form = ({ title, isLoginForm }) => {
                 value={values.password || ""}
                 onChange={handleInputChange}
               />
-              <span className={errors.password && "form__input-error-text"}>
-                {errors.password}
-              </span>
+              <p className="form__input-error-text">{errors.password}</p>
             </div>
           </div>
         </div>
