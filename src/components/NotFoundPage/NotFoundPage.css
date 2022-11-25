@@ -1,0 +1,44 @@
+.not-found {
+  display: grid;
+  place-items: center;
+}
+
+.not-found__title {
+  margin: 246px 0 5px;
+  padding: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 140px;
+  line-height: 169px;
+  text-align: center;
+}
+
+.not-found__text {
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+}
+
+.not-found__back-button {
+  margin: 114px 0 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #2BE080;
+  /*increase tap area*/
+  width: 70px;
+  height: 70px;
+}
+
+.not-found__back-button:hover {
+  opacity: 0.6;
+}
