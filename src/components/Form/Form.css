@@ -100,6 +100,7 @@
   background: #fff;
   border: 1px solid #2BE080;
   color: #2BE080;
+  pointer-events: none;
 }
 
 .form__button:hover {

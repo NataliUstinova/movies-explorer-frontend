@@ -36,8 +36,7 @@ const Form = ({ title, isLoginForm }) => {
                   type="text"
                   name="name"
                   required
-                  minLength="2"
-                  maxLength="40"
+                  pattern="[a-zA-Zа-яА-ЯёЁ\\ \\-]{2,40}"
                   placeholder="Введите имя"
                   value={values.name || ""}
                   onChange={handleInputChange}
