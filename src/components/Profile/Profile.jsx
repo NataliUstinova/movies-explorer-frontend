@@ -24,6 +24,7 @@ const Profile = ({}) => {
         </div>
       </div>
       <ul className="profile__links">
+        {/*TODO edit and sign out functions*/}
         <li className="profile__link">Редактировать</li>
         <li className="profile__link profile__link_exit">Выйти из аккаунта</li>
       </ul>

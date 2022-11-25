@@ -49,6 +49,32 @@
   text-align: center;
 }
 
+.profile__link:hover {
+  opacity: 0.5;
+}
+
 .profile__link_exit {
   color: #EE3465;
+}
+
+@media (max-width: 768px) {
+  .profile__title {
+    margin: 236px 0 96px;
+  }
+  .profile__links {
+    bottom: 40px;
+  }
+}
+
+@media (max-width: 420px) {
+  .profile__title {
+    margin: 70px 0 80px;
+  }
+  .profile__link {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .profile__info-container {
+    width: 260px;
+  }
 }
