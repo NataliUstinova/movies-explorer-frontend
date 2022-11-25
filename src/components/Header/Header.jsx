@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
+import Logo from "../Logo/Logo";
 
 const Header = () => {
   return (
     <header className="header">
-      <Link className="header__logo" to="/" />
+      <Logo />
       <nav className="header__links">
         <Link className="header__link" to="/signup">
           Регистрация

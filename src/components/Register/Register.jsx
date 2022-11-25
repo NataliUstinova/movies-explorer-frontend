@@ -1,11 +1,9 @@
 import React from "react";
+import "./Register.css";
+import Form from "../Form/Form";
 
 const Register = () => {
-  return (
-    <div>
-      <h1>Register page</h1>
-    </div>
-  );
+  return <Form isLoginForm={false} title={"Добро пожаловать!"}></Form>;
 };
 
 export default Register;
