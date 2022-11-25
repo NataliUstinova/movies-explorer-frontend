@@ -7,11 +7,19 @@
   background-color: #5C5C5C;
 }
 
+.movies-header {
+  background: transparent;
+}
+
 .header__links {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 30px;
+}
+
+.header__links_movies {
+  gap: 20px;
 }
 
 .header__link {
@@ -22,6 +30,12 @@
   font-size: 12px;
   line-height: 16px;
   color: #fff;
+}
+
+.header__link_movies {
+  font-size: 14px;
+  line-height: 18px;
+  color: #000;
 }
 
 .header__link:visited {
@@ -39,7 +53,38 @@
   color: #000;
 }
 
-.header__link:hover, .header__link:active, .header__button:hover, .header__button:active {
+.header__account-button {
+  margin: 0 0 0 30px;
+  padding: 0 3px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+  color: #000;
+  height: 32px;
+  width: 100px;
+  background: #FFFFFF;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
+  border-radius: 40px;
+  text-decoration: none;
+}
+
+.header__account-button-text {
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 12px;
+}
+
+.header__account-icon {
+  background: url(./../../images/ava.svg) no-repeat center center;
+  height: 26px;
+  width: 26px;
+}
+
+.header__link:hover, .header__account-button:hover, .header__link:active, .header__button:hover, .header__button:active {
   opacity: 0.5;
 }
 
