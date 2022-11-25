@@ -83,6 +83,7 @@ const Form = ({ title, isLoginForm }) => {
                 }`}
                 type="password"
                 name="password"
+                autoComplete={isLoginForm ? "current-password" : "new-password"}
                 placeholder="Введите пароль"
                 value={values.password || ""}
                 onChange={handleInputChange}
