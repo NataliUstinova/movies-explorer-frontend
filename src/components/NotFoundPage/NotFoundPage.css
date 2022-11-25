@@ -42,3 +42,28 @@
 .not-found__back-button:hover {
   opacity: 0.6;
 }
+
+@media (max-width: 768px) {
+  .not-found__title {
+    margin: 408px 0 5px;
+  }
+  .not-found__back-button {
+    margin-bottom: 152px;
+  }
+}
+
+@media (max-width: 500px) {
+  .not-found__title {
+    margin: 329px 0 10px;
+    font-size: 80px;
+    line-height: 97px;
+  }
+  .not-found__back-button {
+    position: absolute;
+    bottom: 10px;
+    font-size: 12px;
+    line-height: 15px;
+    width: 30px;
+    height: 30px;
+  }
+}
