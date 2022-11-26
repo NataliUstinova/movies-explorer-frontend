@@ -3,16 +3,15 @@ import Logo from "../Logo/Logo";
 import Burger from "../Burger/Burger";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import HeaderLinks from "../HeaderLinks/HeaderLinks";
-import usePageIdentification from "../../hooks/usePageIdentification";
 
-const Header = () => {
-  const isMainPage = usePageIdentification();
+const Header = ({ isMainPage }) => {
   const { isSmallScreen } = useMediaQuery();
-
   return (
-    <header className={`header ${!isMainPage && "movies-header"}`}>
+    <header
+      className={`${isMainPage ? "header" : "header header-transparent"}`}
+    >
       <Logo />
-      {isSmallScreen ? <Burger /> : <HeaderLinks />}
+      {isSmallScreen ? <Burger isMainPage={isMainPage} /> : <HeaderLinks />}
     </header>
   );
 };

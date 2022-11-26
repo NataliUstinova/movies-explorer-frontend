@@ -1,10 +1,13 @@
 import "./Burger.css";
-import usePageIdentification from "../../hooks/usePageIdentification";
 
-const Burger = () => {
-  const { isMainPage } = usePageIdentification();
-
-  return <div className={`${isMainPage ? "burger_white" : "burger"}`} />;
+const Burger = ({ isMainPage }) => {
+  return (
+    <button
+      className={`${
+        isMainPage ? "burger burger_white" : "burger burger_black"
+      }`}
+    />
+  );
 };
 
 export default Burger;

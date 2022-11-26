@@ -1,17 +1,16 @@
-import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const usePageIdentification = () => {
-  const location = useLocation();
+  const location = window.location.pathname;
   const [isMainPage, setIsMainPage] = useState(true);
 
   useEffect(() => {
-    if (location.pathname === "/") {
+    if (location === "/") {
       setIsMainPage(true);
-    } else {
+    } else if (location !== "/") {
       setIsMainPage(false);
     }
-  });
+  }, [location]);
 
   return { isMainPage };
 };

@@ -1,7 +1,11 @@
 .burger {
-  background: url(../../images/burger.svg) no-repeat center center;
   width: 44px;
   height: 44px;
+  border: none;
+}
+
+.burger_black {
+  background: url(../../images/burger.svg) no-repeat center center;
 }
 
 .burger_white {

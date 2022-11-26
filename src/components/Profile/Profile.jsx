@@ -10,7 +10,7 @@ const Profile = ({}) => {
   };
   return (
     <div className="profile">
-      <Header isMainHeader={false} />
+      <Header isMainPage={false} />
       <h1 className="profile__title">Привет, {currentUser.name}!</h1>
       <div className="profile__info-container">
         <div className="profile__info-row">
