@@ -9,6 +9,13 @@
   gap: 20px;
 }
 
+.header-links__container {
+  display: flex;
+  flex-direction: column;
+  height: 75vh;
+  justify-content: space-between;
+}
+
 .header-links__link {
   text-decoration: none;
   padding: 0;
@@ -19,15 +26,36 @@
   color: #fff;
 }
 
+.header-links__pages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
 .header-links__link_movies {
   font-size: 14px;
   line-height: 18px;
   color: #000;
 }
 
+.header-links_modal {
+  padding: 159px 0 ;
+  flex-direction: column;
+  gap: 28px;
+}
+
+
+
 .header-links__link_movies-white {
   color: #fff;
 }
+
+.header-link_modal {
+  color: #000;
+}
+
+
 
 .header-links__link:visited {
   text-decoration: none;
@@ -77,6 +105,12 @@
 
 .header-links__link:hover, .header-links__account-button:hover, .header-links__link:active, .header-links__button:hover, .header-links__button:active {
   opacity: 0.5;
+}
+
+.header-link_modal:hover, .header-link_modal:active {
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 @media (max-width: 420px) {

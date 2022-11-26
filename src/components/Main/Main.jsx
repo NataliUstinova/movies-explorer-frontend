@@ -8,10 +8,10 @@ import AboutMe from "../AboutMe/AboutMe";
 import Portfolio from "../Portfolio/Portfolio";
 import Footer from "../Footer/Footer";
 
-const Main = () => {
+const Main = ({ openModal, closeModal }) => {
   return (
     <main>
-      <Header isMainPage={true} />
+      <Header isMainPage={true} openModal={openModal} closeModal={closeModal} />
       <Promo />
       <Navigation />
       <AboutProject />

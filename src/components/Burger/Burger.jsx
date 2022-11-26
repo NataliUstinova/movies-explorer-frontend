@@ -1,12 +1,15 @@
 import "./Burger.css";
 
-const Burger = ({ isMainPage }) => {
+const Burger = ({ isMainPage, openModal }) => {
   return (
-    <button
-      className={`${
-        isMainPage ? "burger burger_white" : "burger burger_black"
-      }`}
-    />
+    <>
+      <button
+        className={`${
+          isMainPage ? "burger burger_white" : "burger burger_black"
+        }`}
+        onClick={openModal}
+      />
+    </>
   );
 };
 

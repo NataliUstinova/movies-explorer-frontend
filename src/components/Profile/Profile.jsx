@@ -3,14 +3,14 @@ import "./Profile.css";
 import Header from "../Header/Header";
 import Separator from "../Separator/Separator";
 
-const Profile = ({}) => {
+const Profile = ({ openModal, closeModal }) => {
   const currentUser = {
     name: "Ната",
     email: "nata@mail.ru",
   };
   return (
     <div className="profile">
-      <Header isMainPage={false} />
+      <Header openModal={openModal} closeModal={closeModal} />
       <h1 className="profile__title">Привет, {currentUser.name}!</h1>
       <div className="profile__info-container">
         <div className="profile__info-row">

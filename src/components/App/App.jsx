@@ -8,19 +8,31 @@ import Register from "../Register/Register";
 import Profile from "../Profile/Profile";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import NotFoundPage from "../NotFoundPage/NotFoundPage";
+import ModalMenu from "../ModalMenu/ModalMenu";
+import { useState } from "react";
 
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  function openModal() {
+    setIsModalOpen(true);
+  }
+
+  function closeModal() {
+    setIsModalOpen(false);
+  }
+
   return (
     <div className="app">
       <Switch>
         <Route exact path="/">
-          <Main />
+          <Main openModal={openModal} closeModal={closeModal} />
         </Route>
         <Route exact path="/movies">
-          <Movies />
+          <Movies openModal={openModal} closeModal={closeModal} />
         </Route>
         <Route exact path="/saved">
-          <SavedMovies />
+          <SavedMovies openModal={openModal} closeModal={closeModal} />
         </Route>
         <Route exact path="/signin">
           <Login />
@@ -29,12 +41,13 @@ function App() {
           <Register />
         </Route>
         <Route exact path="/profile">
-          <Profile />
+          <Profile openModal={openModal} closeModal={closeModal} />
         </Route>
         <Route exact path="*">
           <NotFoundPage />
         </Route>
       </Switch>
+      <ModalMenu isModalOpen={isModalOpen} closeModal={closeModal} />
     </div>
   );
 }
