@@ -1,15 +1,15 @@
-.header__links {
+.header-links {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 30px;
 }
 
-.header__links_movies {
+.header-links_movies {
   gap: 20px;
 }
 
-.header__link {
+.header-links__link {
   text-decoration: none;
   padding: 0;
   margin: 0;
@@ -19,21 +19,21 @@
   color: #fff;
 }
 
-.header__link_movies {
+.header-links__link_movies {
   font-size: 14px;
   line-height: 18px;
   color: #000;
 }
 
-.header__link_movies-white {
+.header-links__link_movies-white {
   color: #fff;
 }
 
-.header__link:visited {
+.header-links__link:visited {
   text-decoration: none;
 }
 
-.header__button {
+.header-links__button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,7 +44,7 @@
   color: #000;
 }
 
-.header__account-button {
+.header-links__account-button {
   margin: 0 0 0 30px;
   padding: 0 3px;
   display: flex;
@@ -61,7 +61,7 @@
   text-decoration: none;
 }
 
-.header__account-button-text {
+.header-links__account-button-text {
   padding: 0;
   margin: 0;
   font-weight: 500;
@@ -69,24 +69,24 @@
   line-height: 12px;
 }
 
-.header__account-icon {
+.header-links__account-icon {
   background: url(./../../images/ava.svg) no-repeat center center;
   height: 26px;
   width: 26px;
 }
 
-.header__link:hover, .header__account-button:hover, .header__link:active, .header__button:hover, .header__button:active {
+.header-links__link:hover, .header-links__account-button:hover, .header-links__link:active, .header-links__button:hover, .header-links__button:active {
   opacity: 0.5;
 }
 
 @media (max-width: 420px) {
-  .header__links {
+  .header-links {
     gap: 14px;
   }
-  .header__link{
+  .header-links__link{
     font-size: 10px;
   }
-  .header__button {
+  .header-links__button {
     width: 54px;
     height: 26px;
   }
