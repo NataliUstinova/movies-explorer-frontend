@@ -15,12 +15,8 @@ export default function useValidation() {
       ...errors,
       [name]: message,
     });
-    if (
-      message === "Please match the format requested." ||
-      message === "Match the requested format" ||
-      message === "Подберите запрошенный формат"
-    ) {
-      setErrors({ ...errors, name: eventTarget.title });
+    if (eventTarget.validity.patternMismatch) {
+      setErrors({ ...errors, [name]: eventTarget.title });
     }
     setIsDisabled(eventTarget.closest(".form__form").checkValidity());
   }
