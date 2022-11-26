@@ -17,6 +17,7 @@ export default function useValidation() {
     });
     if (
       message === "Please match the format requested." ||
+      message === "Match the requested format" ||
       message === "Подберите запрошенный формат"
     ) {
       setErrors({ ...errors, name: eventTarget.title });
