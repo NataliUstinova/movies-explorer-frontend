@@ -37,6 +37,7 @@ const Form = ({ title, isLoginForm }) => {
                   name="name"
                   required
                   pattern="[a-zA-Zа-яА-ЯёЁ\\ \\-]{2,40}"
+                  title="Имя должно быть от 2 до 40 символов и может содержать латиницу, кириллицу, пробел или дефис"
                   placeholder="Введите имя"
                   value={values.name || ""}
                   onChange={handleInputChange}

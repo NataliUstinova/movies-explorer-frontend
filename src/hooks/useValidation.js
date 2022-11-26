@@ -9,9 +9,18 @@ export default function useValidation() {
     const name = e.target.name;
     const value = e.target.value;
     const eventTarget = e.target;
+    const message = eventTarget.validationMessage;
     setValues({ ...values, [name]: value });
-    setErrors({ ...errors, [name]: eventTarget.validationMessage });
-
+    setErrors({
+      ...errors,
+      [name]: message,
+    });
+    if (
+      message === "Please match the format requested." ||
+      message === "Подберите запрошенный формат"
+    ) {
+      setErrors({ ...errors, name: eventTarget.title });
+    }
     setIsDisabled(eventTarget.closest(".form__form").checkValidity());
   }
 
