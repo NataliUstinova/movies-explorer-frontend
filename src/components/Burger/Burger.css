@@ -1,0 +1,12 @@
+.burger {
+  background: url(../../images/burger.svg) no-repeat center center;
+  width: 44px;
+  height: 44px;
+}
+
+.burger_white {
+  width: 44px;
+  height: 44px;
+  background-color: #fff;
+  mask-image: url(../../images/burger.svg); 
+}
