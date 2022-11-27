@@ -59,18 +59,6 @@
   line-height: 18px;
 }
 
-.search-form__toggle_on {
-  background: url(./../../images/toggle-on.svg)  no-repeat left center;
-  width: 36px;
-  height: 25px;
-}
-
-.search-form__toggle_off {
-  background: url(./../../images/toggle-off.svg)  no-repeat right center;
-  width: 36px;
-  height: 25px;
-}
-
 @media (max-width: 768px) {
   .search-form {
     padding: 80px 30px 10px;
