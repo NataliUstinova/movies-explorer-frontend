@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./HeaderLinks.css";
 import usePageIdentification from "../../hooks/usePageIdentification";
 
@@ -11,15 +11,15 @@ const HeaderLinks = ({ isModalOpen, closeModal }) => {
     <>
       {isMainPage && !isLoggedIn && (
         <nav className="header-links">
-          <Link className="header-links__link" to="/signup">
+          <NavLink className="header-links__link" to="/signup">
             Регистрация
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             className="header-links__link header-links__button"
             to="/signin"
           >
             Войти
-          </Link>
+          </NavLink>
         </nav>
       )}
 
@@ -36,7 +36,7 @@ const HeaderLinks = ({ isModalOpen, closeModal }) => {
             }
           >
             {isModalOpen && (
-              <Link
+              <NavLink
                 className={`header-links__link header-links__link_movies ${
                   isMainPage && "header-links__link_movies-white"
                 } ${isModalOpen && "header-link_modal"}`}
@@ -44,9 +44,10 @@ const HeaderLinks = ({ isModalOpen, closeModal }) => {
                 onClick={closeModal}
               >
                 Главная
-              </Link>
+              </NavLink>
             )}
-            <Link
+            <NavLink
+              activeClassName="header-links__link_movies_active"
               className={`header-links__link header-links__link_movies ${
                 isMainPage && "header-links__link_movies-white"
               } ${isModalOpen && "header-link_modal"}`}
@@ -54,8 +55,9 @@ const HeaderLinks = ({ isModalOpen, closeModal }) => {
               onClick={closeModal}
             >
               Фильмы
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
+              activeClassName="header-links__link_movies_active"
               className={`header-links__link header-links__link_movies ${
                 isMainPage && "header-links__link_movies-white"
               } ${isModalOpen && "header-link_modal"}`}
@@ -63,17 +65,17 @@ const HeaderLinks = ({ isModalOpen, closeModal }) => {
               onClick={closeModal}
             >
               Сохранённые фильмы
-            </Link>
+            </NavLink>
           </div>
 
-          <Link
+          <NavLink
             className="header-links__account-button"
             to="/profile"
             onClick={closeModal}
           >
             <p className="header-links__account-button-text">Аккаунт</p>
             <div className="header-links__account-icon" />
-          </Link>
+          </NavLink>
         </nav>
       )}
     </>

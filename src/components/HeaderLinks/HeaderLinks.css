@@ -45,6 +45,10 @@
   color: #fff;
 }
 
+.header-links__link_movies_active {
+  font-weight: 400;
+}
+
 .header-link_modal {
   color: #000;
 }

@@ -1,18 +1,14 @@
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import mockCards from "../MoviesCard/mock-data";
 import { useState } from "react";
 
-const MoviesCardList = () => {
+const MoviesCardList = ({ movies }) => {
   //временные стейты кврточек
   //TODO сделать логику в app
-  const [cards, setCards] = useState(mockCards.slice(0, 7));
+  const [cards, setCards] = useState(movies.slice(0, 7));
 
   function loadCards() {
-    setCards((cards) => [
-      ...cards,
-      ...mockCards.slice(7, mockCards.length - 1),
-    ]);
+    setCards((cards) => [...cards, ...movies.slice(7, movies.length - 1)]);
   }
 
   return (
@@ -26,7 +22,7 @@ const MoviesCardList = () => {
           thumbnail={card.thumbnail}
         />
       ))}
-      {mockCards.length > 7 && cards.length !== mockCards.length && (
+      {movies.length > 7 && cards.length !== movies.length && (
         <button className="movies-card-list__more-button" onClick={loadCards}>
           Ещё
         </button>

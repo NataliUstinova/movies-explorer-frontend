@@ -1,14 +1,19 @@
 import React from "react";
-import "./SavedMovies.css";
 import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
+import Preloader from "../Preloader/Preloader";
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import Footer from "../Footer/Footer";
+import { savedMovies } from "../MoviesCard/mock-data";
 
-const SavedMovies = ({ openModal, closeModal }) => {
+const SavedMovies = ({ openModal, closeModal, isLoading }) => {
   return (
-    <div className="saved-movies">
+    <>
       <Header openModal={openModal} closeModal={closeModal} />
       <SearchForm />
-    </div>
+      {isLoading ? <Preloader /> : <MoviesCardList movies={savedMovies} />}
+      <Footer />
+    </>
   );
 };
 

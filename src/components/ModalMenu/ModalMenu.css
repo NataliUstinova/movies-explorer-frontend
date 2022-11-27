@@ -29,7 +29,7 @@
 }
 
 .modal-menu__close-btn {
-  background: url(./../../images/close.svg) no-repeat center center;
+  background: url(../../images/cross.svg) no-repeat center center;
   height: 22px;
   width: 22px;
   border: none;

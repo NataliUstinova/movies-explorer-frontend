@@ -59,6 +59,17 @@
   height: 12px;
 }
 
+.movies-card__delete {
+  background: url(../../images/cross.svg) no-repeat center center;
+  background-size: cover;
+  width: 14px;
+  height: 12px;
+}
+
+.movies-card__delete:hover {
+  opacity: 0.6;
+}
+
 .movies-card-list__more-button {
   margin: 10px 0 70px;
   padding: 0;
