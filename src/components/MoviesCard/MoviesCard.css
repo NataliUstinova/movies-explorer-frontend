@@ -43,6 +43,7 @@
 }
 
 .movies-card__img {
+  object-fit: cover;
   width: 220px;
   height: 122px;
 }
@@ -56,6 +57,28 @@
   background: url(./../../images/heart-red.svg) no-repeat center center;
   width: 14px;
   height: 12px;
+}
+
+.movies-card-list__more-button {
+  margin: 10px 0 70px;
+  padding: 0;
+  border: none;
+  background: #F9F9F9;
+  border-radius: 6px;
+  height: 36px;
+  width: 100%;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.movies-card-list__more-button:hover {
+  opacity: 0.6;
 }
 
 @media (max-width: 420px) {
@@ -76,6 +99,5 @@
   .movies-card__img {
     width: 100%;
     height: 168px;
-    object-fit: cover;
   }
 }
