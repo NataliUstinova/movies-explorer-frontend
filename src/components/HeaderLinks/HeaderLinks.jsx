@@ -8,7 +8,7 @@ const HeaderLinks = ({ isModalOpen, closeModal }) => {
   const { isMainPage } = usePageIdentification();
 
   return (
-    <div className="">
+    <>
       {isMainPage && !isLoggedIn && (
         <nav className="header-links">
           <Link className="header-links__link" to="/signup">
@@ -76,7 +76,7 @@ const HeaderLinks = ({ isModalOpen, closeModal }) => {
           </Link>
         </nav>
       )}
-    </div>
+    </>
   );
 };
 

@@ -1,9 +1,12 @@
 import React from "react";
+import Header from "../Header/Header";
+import SearchForm from "../SearchForm/SearchForm";
 
-const Movies = () => {
+const Movies = ({ openModal, closeModal }) => {
   return (
-    <div>
-      <h1>Movies</h1>
+    <div className="movies">
+      <Header openModal={openModal} closeModal={closeModal} />
+      <SearchForm />
     </div>
   );
 };
