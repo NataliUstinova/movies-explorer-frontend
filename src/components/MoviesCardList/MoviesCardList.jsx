@@ -17,9 +17,9 @@ const MoviesCardList = ({ movies }) => {
         <MoviesCard
           key={card.id}
           trailerLink={card.trailerLink}
-          title={card.title}
+          title={card.nameRU}
           duration={card.duration}
-          thumbnail={card.thumbnail}
+          thumbnail={card.image.formats.thumbnail.url}
         />
       ))}
       {movies.length > 7 && cards.length !== movies.length && (

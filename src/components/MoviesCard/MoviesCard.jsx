@@ -1,8 +1,11 @@
 import "./MoviesCard.css";
 import { useState } from "react";
 import usePageIdentification from "../../hooks/usePageIdentification";
+import useDuration from "../../hooks/useDuration";
 
 const MoviesCard = ({ title, duration, thumbnail, trailerLink }) => {
+  const { hours, minutes } = useDuration({ duration });
+
   const { isSavedPage } = usePageIdentification();
   const [isLiked, setIsLiked] = useState(false);
 
@@ -17,7 +20,10 @@ const MoviesCard = ({ title, duration, thumbnail, trailerLink }) => {
           <a className="movies-card__title" href={trailerLink} target="_blank">
             <p className="movies-card__title">{title}</p>
           </a>
-          <p className="movies-card__duration">{duration}</p>
+          <p className="movies-card__duration">
+            {hours && `${hours}ч `}
+            {minutes && `${minutes}м`}
+          </p>
         </div>
         {isSavedPage ? (
           <div className="movies-card__delete" />
