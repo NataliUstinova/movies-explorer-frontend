@@ -22,6 +22,7 @@
 .modal-menu__container {
   width: 67vh;
   height: 100vh;
+  min-width: 320px;
   background-color: #fff;
   position: relative;
   animation: fadeInRight 0.2s ease-in-out;
@@ -48,5 +49,11 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+@media (max-width: 420px) {
+  .modal-menu__container {
+    width: 100%;
   }
 }

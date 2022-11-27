@@ -41,8 +41,6 @@
   justify-content: space-between;
 }
 
-
-
 .header-links__link_movies-white {
   color: #fff;
 }
@@ -50,8 +48,6 @@
 .header-link_modal {
   color: #000;
 }
-
-
 
 .header-links__link:visited {
   text-decoration: none;
@@ -110,6 +106,8 @@
   text-underline-offset: 3px;
 }
 
+
+
 @media (max-width: 420px) {
   .header-links {
     gap: 14px;
@@ -120,5 +118,21 @@
   .header-links__button {
     width: 54px;
     height: 26px;
+  }
+  .header-links_modal {
+    padding: 144px 0 ;
+    gap: 24px;
+    height: 65vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-links__account-button {
+    margin-left: 0;
+  }
+  .header-link_modal {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
   }
 }

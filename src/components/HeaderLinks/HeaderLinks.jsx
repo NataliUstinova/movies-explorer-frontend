@@ -35,6 +35,17 @@ const HeaderLinks = ({ isModalOpen, closeModal }) => {
               isModalOpen ? "header-links__pages" : "header-links_movies"
             }
           >
+            {isModalOpen && (
+              <Link
+                className={`header-links__link header-links__link_movies ${
+                  isMainPage && "header-links__link_movies-white"
+                } ${isModalOpen && "header-link_modal"}`}
+                to="/"
+                onClick={closeModal}
+              >
+                Главная
+              </Link>
+            )}
             <Link
               className={`header-links__link header-links__link_movies ${
                 isMainPage && "header-links__link_movies-white"
