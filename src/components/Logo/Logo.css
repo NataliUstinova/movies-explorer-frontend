@@ -3,3 +3,7 @@
   width: 38px;
   background-image: url(../../images/logo.svg);
 }
+
+.logo:hover {
+  opacity: 0.8;
+}

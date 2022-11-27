@@ -4,6 +4,10 @@
   border: none;
 }
 
+.burger:hover {
+  opacity: 0.6;
+}
+
 .burger_black {
   background: url(../../images/burger.svg) no-repeat center center;
 }
@@ -13,4 +17,10 @@
   height: 44px;
   background-color: #fff;
   mask-image: url(../../images/burger.svg); 
+}
+
+@media (min-width: 769px) {
+  .burger {
+    visibility: hidden;
+  }
 }

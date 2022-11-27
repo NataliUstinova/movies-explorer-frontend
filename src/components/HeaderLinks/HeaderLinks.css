@@ -6,14 +6,8 @@
 }
 
 .header-links_movies {
-  gap: 20px;
-}
-
-.header-links__container {
   display: flex;
-  flex-direction: column;
-  height: 75vh;
-  justify-content: space-between;
+  gap: 20px;
 }
 
 .header-links__link {
@@ -43,6 +37,8 @@
   padding: 159px 0 ;
   flex-direction: column;
   gap: 28px;
+  height: 75vh;
+  justify-content: space-between;
 }
 
 
@@ -87,6 +83,7 @@
   box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
   border-radius: 40px;
   text-decoration: none;
+  justify-self: flex-end;
 }
 
 .header-links__account-button-text {

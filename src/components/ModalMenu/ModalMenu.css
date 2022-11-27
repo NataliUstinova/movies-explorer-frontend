@@ -3,11 +3,11 @@
   background-color: rgba(0, 0, 0, 0.3);
   width: 100vw;
   height: 100vh;
-  z-index: 1;
+  z-index: 20;
   position: fixed;
   top: 0;
   left: 0;
-  overflow-y: auto;
+  overflow-y: hidden;
   justify-content: flex-end;
   align-items: center;
   visibility: hidden;
@@ -24,6 +24,7 @@
   height: 100vh;
   background-color: #fff;
   position: relative;
+  animation: fadeInRight 0.2s ease-in-out;
 }
 
 .modal-menu__close-btn {
@@ -37,6 +38,15 @@
 }
 
 .modal-menu__close-btn:hover {
-  rotate: 20deg;
   opacity: 0.6;
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(700px);
+  }
+  to {
+    opacity: 1;
+  }
 }
