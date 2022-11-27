@@ -5,13 +5,18 @@ import Separator from "../Separator/Separator";
 const SearchForm = () => {
   const [isOn, setIsOn] = useState(true);
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log("Сабмит формы");
+  }
+
   function toggle() {
     setIsOn(!isOn);
   }
 
   return (
     <div className="search-form">
-      <form className="search-form__form">
+      <form className="search-form__form" onSubmit={handleSubmit}>
         <input
           type="text"
           className="search-form__input"
