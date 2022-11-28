@@ -2,19 +2,18 @@ import React from "react";
 import "./Form.css";
 import Logo from "../Logo/Logo";
 import useValidation from "../../hooks/useValidation";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Form = ({ title, isLoginForm }) => {
+  const history = useHistory();
   const { values, errors, isDisabled, handleInputChange } = useValidation({});
 
   function handleSubmit(e) {
     e.preventDefault();
     console.log("Отправка формы");
-    // {
-    //   isLoginForm
-    //     ? onLogin(values.email, values.password)
-    //     : onRegister(values.email, values.password);
-    // }
+    {
+      isLoginForm ? history.push("/movies") : history.push("/signin");
+    }
   }
 
   return (
