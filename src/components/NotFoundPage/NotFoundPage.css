@@ -1,6 +1,8 @@
 .not-found {
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .not-found__title {
@@ -35,8 +37,8 @@
   text-align: center;
   color: #2BE080;
   /*increase tap area*/
-  width: 70px;
-  height: 70px;
+  min-width: 70px;
+  min-height: 70px;
 }
 
 .not-found__back-button:hover {
@@ -63,7 +65,7 @@
     bottom: 10px;
     font-size: 12px;
     line-height: 15px;
-    width: 30px;
-    height: 30px;
+    min-width: 35px;
+    min-height: 30px;
   }
 }
