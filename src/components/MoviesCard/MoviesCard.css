@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   background: #F9F9F9;
+  list-style: none;
 }
 
 .movies-card__info {
@@ -70,32 +71,7 @@
   opacity: 0.6;
 }
 
-.movies-card-list__more-button {
-  margin: 10px 0 70px;
-  padding: 0;
-  border: none;
-  background: #F9F9F9;
-  border-radius: 6px;
-  height: 36px;
-  width: 100%;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: #000;
-}
 
-.movies-card-list__more-button:hover {
-  opacity: 0.6;
-}
-
-.movies-card-list__more-button:visited  {
-  color: #000;
-}
 
 @media (max-width: 420px) {
   .movies-card {

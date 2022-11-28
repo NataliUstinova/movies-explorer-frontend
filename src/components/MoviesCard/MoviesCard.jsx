@@ -14,7 +14,7 @@ const MoviesCard = ({ title, duration, thumbnail, trailerLink }) => {
   }
 
   return (
-    <div className="movies-card">
+    <li className="movies-card">
       <div className="movies-card__info-container">
         <div className="movies-card__info">
           <a className="movies-card__title" href={trailerLink} target="_blank">
@@ -39,7 +39,7 @@ const MoviesCard = ({ title, duration, thumbnail, trailerLink }) => {
       <a className="movies-card__img" href={trailerLink} target="_blank">
         <img src={thumbnail} alt={title} className="movies-card__img" />
       </a>
-    </div>
+    </li>
   );
 };
 
