@@ -14,7 +14,7 @@ const useMediaQuery = () => {
     } else {
       setIsSmallScreen(false);
     }
-  }, [width]);
+  }, [width, mediaQuery]);
 
   return { isSmallScreen };
 };

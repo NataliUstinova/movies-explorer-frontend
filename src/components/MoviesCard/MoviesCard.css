@@ -86,10 +86,15 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  color: #000;
 }
 
 .movies-card-list__more-button:hover {
   opacity: 0.6;
+}
+
+.movies-card-list__more-button:visited  {
+  color: #000;
 }
 
 @media (max-width: 420px) {

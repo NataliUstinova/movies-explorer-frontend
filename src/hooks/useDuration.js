@@ -1,5 +1,3 @@
-import React from "react";
-
 const useDuration = ({ duration }) => {
   let hours = Math.floor(duration / 60);
   hours = hours === 0 ? null : hours;

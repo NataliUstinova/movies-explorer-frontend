@@ -68,7 +68,7 @@ const Form = ({ title, isLoginForm }) => {
             </div>
 
             <div className="form__input-container">
-              <label htmlFor="email" className="form__label">
+              <label htmlFor="password" className="form__label">
                 Пароль
               </label>
               <input

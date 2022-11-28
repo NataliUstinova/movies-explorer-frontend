@@ -12,6 +12,8 @@ import ModalMenu from "../ModalMenu/ModalMenu";
 import { useState, useEffect } from "react";
 
 function App() {
+  //TODO временная переменная для состояния логина
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -22,22 +24,37 @@ function App() {
   function closeModal() {
     setIsModalOpen(false);
   }
-  //временный лоадер
+  //временный лоадер на 2сек
   useEffect(() => {
     setTimeout(() => setIsLoading(false), 2000);
   }, []);
+
+  //временное решение для просмотра разного состояния меню, надо перезагружать страницу
+  useEffect(() => {
+    if (window.location.pathname !== "/") {
+      setIsLoggedIn(true);
+      console.log(isLoggedIn);
+    } else {
+      setIsLoggedIn(false);
+    }
+  });
 
   return (
     <div className="app">
       <Switch>
         <Route exact path="/">
-          <Main openModal={openModal} closeModal={closeModal} />
+          <Main
+            openModal={openModal}
+            closeModal={closeModal}
+            isLoggedIn={isLoggedIn}
+          />
         </Route>
         <Route exact path="/movies">
           <Movies
             openModal={openModal}
             closeModal={closeModal}
             isLoading={isLoading}
+            isLoggedIn={isLoggedIn}
           />
         </Route>
         <Route exact path="/saved">
@@ -45,6 +62,7 @@ function App() {
             openModal={openModal}
             closeModal={closeModal}
             isLoading={isLoading}
+            isLoggedIn={isLoggedIn}
           />
         </Route>
         <Route exact path="/signin">
@@ -54,7 +72,11 @@ function App() {
           <Register />
         </Route>
         <Route exact path="/profile">
-          <Profile openModal={openModal} closeModal={closeModal} />
+          <Profile
+            openModal={openModal}
+            closeModal={closeModal}
+            isLoggedIn={isLoggedIn}
+          />
         </Route>
         <Route exact path="*">
           <NotFoundPage />

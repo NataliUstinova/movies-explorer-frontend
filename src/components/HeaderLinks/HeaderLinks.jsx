@@ -2,9 +2,7 @@ import { NavLink } from "react-router-dom";
 import "./HeaderLinks.css";
 import usePageIdentification from "../../hooks/usePageIdentification";
 
-const HeaderLinks = ({ isModalOpen, closeModal }) => {
-  //TODO временная переменная для состояния логина
-  const isLoggedIn = true;
+const HeaderLinks = ({ isModalOpen, closeModal, isLoggedIn }) => {
   const { isMainPage } = usePageIdentification();
 
   return (
