@@ -1,0 +1,86 @@
+.footer {
+  height: 172px;
+  background-color: #FAFAFA;
+  padding: 0 70px;
+}
+
+.footer__title {
+  margin: 0;
+  padding: 79px 0 20px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  color: #A0A0A0;
+}
+
+.footer__text {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  
+}
+
+.footer__year {
+  margin: 0;
+  padding: 0;
+}
+
+.footer__links {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.footer__link {
+  margin: 0;
+  padding: 0;
+  color: #000;
+  text-decoration: none;
+}
+
+.footer__link:hover {
+  opacity: 0.5;
+}
+
+.footer__link:visited {
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    background-color: #fff;
+    padding: 0 30px;
+  }
+}
+
+@media (max-width: 420px) {
+  .footer {
+    height: 252px;
+    padding: 0 10px;
+  }
+  .footer__title {
+    padding: 79px 0 21px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .footer__text {
+    margin: 30px 0 0;
+    flex-direction: column-reverse;
+    gap: 30px;
+  }
+  .footer__links {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+  .footer__year {
+    color: #A0A0A0;
+  }
+}

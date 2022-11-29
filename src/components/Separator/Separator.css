@@ -1,0 +1,9 @@
+.separator {
+  background-color: #E8E8E8;
+  height: 1px;
+  width: 100%;
+}
+
+.separator_bold {
+  background-color: #000;
+}

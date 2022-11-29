@@ -1,0 +1,11 @@
+.filter-checkbox_on {
+  background: url(./../../images/toggle-on.svg) no-repeat left center;
+  width: 36px;
+  height: 25px;
+}
+
+.filter-checkbox_off {
+  background: url(./../../images/toggle-off.svg) no-repeat right center;
+  width: 36px;
+  height: 25px;
+}

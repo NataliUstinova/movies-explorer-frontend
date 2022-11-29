@@ -1,0 +1,142 @@
+.header-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+}
+
+.header-links_movies {
+  display: flex;
+  gap: 20px;
+}
+
+.header-links__link {
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #fff;
+}
+
+.header-links__pages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.header-links__link_movies {
+  font-size: 14px;
+  line-height: 18px;
+  color: #000;
+}
+
+.header-links_modal {
+  padding: 159px 0 ;
+  flex-direction: column;
+  gap: 28px;
+  height: 75vh;
+  justify-content: space-between;
+}
+
+.header-links__link_movies-white {
+  color: #fff;
+}
+
+.header-links__link_movies_active {
+  font-weight: 400;
+}
+
+.header-link_modal {
+  color: #000;
+}
+
+.header-links__link:visited {
+  text-decoration: none;
+}
+
+.header-links__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 32px;
+  border-radius: 3px;
+  background-color: #2BE080;
+  color: #000;
+}
+
+.header-links__account-button {
+  margin: 0 0 0 30px;
+  padding: 0 3px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+  color: #000;
+  height: 32px;
+  width: 100px;
+  background: #FFFFFF;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
+  border-radius: 40px;
+  text-decoration: none;
+  justify-self: flex-end;
+}
+
+.header-links__account-button-text {
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 12px;
+}
+
+.header-links__account-icon {
+  background: url(./../../images/ava.svg) no-repeat center center;
+  height: 26px;
+  width: 26px;
+}
+
+.header-links__link:hover, .header-links__account-button:hover, .header-links__link:active, .header-links__button:hover, .header-links__button:active {
+  opacity: 0.5;
+}
+
+.header-link_modal:hover, .header-link_modal:active {
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+
+
+@media (max-width: 420px) {
+  .header-links {
+    gap: 14px;
+  }
+  .header-links__link{
+    font-size: 10px;
+  }
+  .header-links__button {
+    width: 54px;
+    height: 26px;
+  }
+  .header-links_modal {
+    padding: 144px 0 ;
+    gap: 24px;
+    height: 65vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-links__account-button {
+    margin-left: 0;
+  }
+  .header-link_modal {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

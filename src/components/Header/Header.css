@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 74px;
+  padding: 0 30px;
+  background-color: #5C5C5C;
+}
+
+.header-transparent {
+  background: transparent;
+}
+
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0 30px;
+  }
+}
+
+@media (max-width: 420px) {
+  .header {
+    padding: 0 14px;
+  }
+}
