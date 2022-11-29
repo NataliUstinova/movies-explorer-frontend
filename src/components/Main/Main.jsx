@@ -10,21 +10,23 @@ import Footer from "../Footer/Footer";
 
 const Main = ({ openModal, closeModal, isLoggedIn }) => {
   return (
-    <main>
+    <>
       <Header
         isMainPage={true}
         openModal={openModal}
         closeModal={closeModal}
         isLoggedIn={isLoggedIn}
       />
-      <Promo />
-      <Navigation />
-      <AboutProject />
-      <Techs />
-      <AboutMe />
-      <Portfolio />
+      <main>
+        <Promo />
+        <Navigation />
+        <AboutProject />
+        <Techs />
+        <AboutMe />
+        <Portfolio />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 };
 

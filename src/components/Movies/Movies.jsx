@@ -13,8 +13,10 @@ const Movies = ({ openModal, closeModal, isLoading, isLoggedIn }) => {
         closeModal={closeModal}
         isLoggedIn={isLoggedIn}
       />
-      <SearchForm />
-      {isLoading ? <Preloader /> : <MoviesCardList movies={allMovies} />}
+      <main>
+        <SearchForm />
+        {isLoading ? <Preloader /> : <MoviesCardList movies={allMovies} />}
+      </main>
       <Footer />
     </>
   );

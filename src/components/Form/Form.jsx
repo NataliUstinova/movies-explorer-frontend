@@ -17,7 +17,7 @@ const Form = ({ title, isLoginForm }) => {
   }
 
   return (
-    <div className="form">
+    <main className="form">
       <Logo />
       <h1 className="form__title">{title}</h1>
       <form className="form__form" onSubmit={handleSubmit}>
@@ -115,7 +115,7 @@ const Form = ({ title, isLoginForm }) => {
           )}
         </div>
       </form>
-    </div>
+    </main>
   );
 };
 

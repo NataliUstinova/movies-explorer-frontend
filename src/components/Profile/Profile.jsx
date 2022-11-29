@@ -27,7 +27,7 @@ const Profile = ({ openModal, closeModal, isLoggedIn }) => {
         closeModal={closeModal}
         isLoggedIn={isLoggedIn}
       />
-      <div className="profile">
+      <main className="profile">
         <h1 className="profile__title">Привет, {currentUser.name}!</h1>
         <form className="profile__edit-form" onSubmit={handleSubmit}>
           <div className="profile__info-container">
@@ -82,7 +82,7 @@ const Profile = ({ openModal, closeModal, isLoggedIn }) => {
             </Link>
           </div>
         </form>
-      </div>
+      </main>
     </>
   );
 };

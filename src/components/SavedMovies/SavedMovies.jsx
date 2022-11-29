@@ -14,8 +14,10 @@ const SavedMovies = ({ openModal, closeModal, isLoading, isLoggedIn }) => {
         closeModal={closeModal}
         isLoggedIn={isLoggedIn}
       />
-      <SearchForm />
-      {isLoading ? <Preloader /> : <MoviesCardList movies={savedMovies} />}
+      <main>
+        <SearchForm />
+        {isLoading ? <Preloader /> : <MoviesCardList movies={savedMovies} />}
+      </main>
       <Footer />
     </>
   );
