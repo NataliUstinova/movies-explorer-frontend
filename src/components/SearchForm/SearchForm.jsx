@@ -19,7 +19,9 @@ const SearchForm = () => {
           minLength="2"
           maxLength="200"
         />
-        <button className="search-form__button">Найти</button>
+        <button className="search-form__button" aria-label="найти">
+          Найти
+        </button>
       </form>
       <div className="search-form__filter-container">
         <FilterCheckbox />

@@ -12,24 +12,30 @@ const MoviesCardList = ({ movies }) => {
   }
 
   return (
-    <ul className="movies-card-list">
-      {cards.map((card) => (
-        <MoviesCard
-          key={card.id}
-          trailerLink={card.trailerLink}
-          title={card.nameRU}
-          duration={card.duration}
-          thumbnail={card.image.formats.thumbnail.url}
-        />
-      ))}
+    <>
+      <ul className="movies-card-list">
+        {cards.map((card) => (
+          <MoviesCard
+            key={card.id}
+            trailerLink={card.trailerLink}
+            title={card.nameRU}
+            duration={card.duration}
+            thumbnail={card.image.formats.thumbnail.url}
+          />
+        ))}
+      </ul>
       {movies.length > 7 && cards.length !== movies.length ? (
-        <button className="movies-card-list__more-button" onClick={loadCards}>
+        <button
+          aria-label="ещё"
+          className="movies-card-list__more-button"
+          onClick={loadCards}
+        >
           Ещё
         </button>
       ) : (
         <div className="movies-card-list__white-space" />
       )}
-    </ul>
+    </>
   );
 };
 

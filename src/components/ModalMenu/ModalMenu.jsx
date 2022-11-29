@@ -7,7 +7,11 @@ const ModalMenu = ({ isModalOpen, closeModal }) => {
     <div className={`modal-menu ${isModalOpen && "modal-menu_opened"}`}>
       {isModalOpen && (
         <nav className="modal-menu__container">
-          <button className="modal-menu__close-btn" onClick={closeModal} />
+          <button
+            aria-label="закрыть"
+            className="modal-menu__close-btn"
+            onClick={closeModal}
+          />
           <HeaderLinks isModalOpen={isModalOpen} closeModal={closeModal} />
         </nav>
       )}

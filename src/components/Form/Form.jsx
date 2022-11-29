@@ -92,6 +92,7 @@ const Form = ({ title, isLoginForm }) => {
           <button
             className={`form__button ${!isDisabled && "form__button_disabled"}`}
             type="submit"
+            aria-label={isLoginForm ? "Войти" : "Зарегистрироваться"}
           >
             {isLoginForm ? "Войти" : "Зарегистрироваться"}
           </button>

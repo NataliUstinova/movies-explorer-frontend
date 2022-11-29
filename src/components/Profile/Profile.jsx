@@ -71,6 +71,7 @@ const Profile = ({ openModal, closeModal, isLoggedIn }) => {
             <p className="profile__text profile__error-text">{errors.email}</p>
             <button
               type="submit"
+              aria-label="Редактировать"
               className={`profile__text ${
                 !isDisabled && "profile__text_disabled"
               }`}
