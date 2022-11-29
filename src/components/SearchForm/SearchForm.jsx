@@ -16,6 +16,8 @@ const SearchForm = () => {
           className="search-form__input"
           placeholder="Фильмы"
           required
+          minLength="2"
+          maxLength="200"
         />
         <button className="search-form__button">Найти</button>
       </form>
