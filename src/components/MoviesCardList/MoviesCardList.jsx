@@ -20,7 +20,7 @@ const MoviesCardList = ({ movies }) => {
             trailerLink={card.trailerLink}
             title={card.nameRU}
             duration={card.duration}
-            thumbnail={card.image.formats.thumbnail.url}
+            thumbnail={card.image.url}
           />
         ))}
       </ul>
