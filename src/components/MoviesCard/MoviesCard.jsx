@@ -26,9 +26,9 @@ const MoviesCard = ({ title, duration, thumbnail, trailerLink }) => {
           </p>
         </div>
         {isSavedPage ? (
-          <div className="movies-card__delete" />
+          <button className="movies-card__delete" />
         ) : (
-          <div
+          <button
             className={
               isLiked ? "movies-card__like_active" : "movies-card__like"
             }

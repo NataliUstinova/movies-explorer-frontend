@@ -50,17 +50,20 @@
 }
 
 .movies-card__like {
+  border: none;
   background: url(./../../images/heart-grey.svg) no-repeat center center;
   width: 14px;
   height: 12px;
 }
 .movies-card__like_active {
+  border: none;
   background: url(./../../images/heart-red.svg) no-repeat center center;
   width: 14px;
   height: 12px;
 }
 
 .movies-card__delete {
+  border: none;
   background: url(../../images/cross.svg) no-repeat center center;
   background-size: cover;
   width: 14px;
@@ -73,7 +76,7 @@
 
 
 
-@media (max-width: 420px) {
+@media (max-width: 546px) {
   .movies-card {
     flex-direction: column-reverse;
   }
