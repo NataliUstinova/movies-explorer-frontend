@@ -6,7 +6,7 @@ import React from "react";
 const PortfolioLink = ({ text, link }) => {
   const [hover, setIsHover] = useState(false);
   return (
-    <>
+    <li>
       <a
         href={link}
         target="_blank"
@@ -26,7 +26,7 @@ const PortfolioLink = ({ text, link }) => {
           }`}
         />
       </a>
-    </>
+    </li>
   );
 };
 

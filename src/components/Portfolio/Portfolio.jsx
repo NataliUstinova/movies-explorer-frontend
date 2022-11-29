@@ -7,7 +7,7 @@ const Portfolio = () => {
   return (
     <section className="portfolio">
       <p className="portfolio__title">Портфолио</p>
-      <div className="portfolio__links">
+      <ul className="portfolio__links">
         <PortfolioLink
           text={"Статичный сайт"}
           link={"https://github.com/NataliUstinova/first-project"}
@@ -22,7 +22,7 @@ const Portfolio = () => {
           text={"Одностраничное приложение"}
           link={"https://mesto.nata.u.nomoredomains.icu/"}
         />
-      </div>
+      </ul>
     </section>
   );
 };
