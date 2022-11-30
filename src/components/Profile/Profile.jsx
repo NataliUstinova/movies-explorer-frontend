@@ -1,15 +1,18 @@
 import "./Profile.css";
 import Header from "../Header/Header";
 import Separator from "../Separator/Separator";
-import { Link } from "react-router-dom";
 import useValidation from "../../hooks/useValidation";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { useContext } from "react";
 
-const Profile = ({ openModal, closeModal, isLoggedIn }) => {
-  //TODO user context and edit functions
-  const currentUser = {
-    name: "Ната",
-    email: "nata@mail.ru",
-  };
+const Profile = ({
+  openModal,
+  closeModal,
+  isLoggedIn,
+  onUpdateUser,
+  onLogout,
+}) => {
+  const currentUser = useContext(CurrentUserContext);
 
   const { values, errors, isDisabled, handleInputChange } = useValidation({
     form: "editProfile",
@@ -17,7 +20,7 @@ const Profile = ({ openModal, closeModal, isLoggedIn }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("Редактирование");
+    onUpdateUser({ name: values.name, email: values.email });
   }
 
   return (
@@ -43,7 +46,7 @@ const Profile = ({ openModal, closeModal, isLoggedIn }) => {
                 placeholder={currentUser.name}
                 pattern="[a-zA-Zа-яА-ЯёЁ\\ \\-]{2,40}"
                 title="Имя должно быть от 2 до 40 символов и может содержать латиницу, кириллицу, пробел или дефис"
-                value={values.name || currentUser.name}
+                value={values.name || currentUser.name || ""}
                 onChange={handleInputChange}
               />
             </div>
@@ -61,7 +64,7 @@ const Profile = ({ openModal, closeModal, isLoggedIn }) => {
                 maxLength="40"
                 className="profile__info-text"
                 placeholder={currentUser.email}
-                value={values.email || currentUser.email}
+                value={values.email || currentUser.email || ""}
                 onChange={handleInputChange}
               />
             </div>
@@ -78,9 +81,12 @@ const Profile = ({ openModal, closeModal, isLoggedIn }) => {
             >
               Редактировать
             </button>
-            <Link to="/" className="profile__text profile__text_exit">
+            <div
+              className="profile__text profile__text_exit"
+              onClick={onLogout}
+            >
               Выйти из аккаунта
-            </Link>
+            </div>
           </div>
         </form>
       </main>

@@ -74,12 +74,22 @@ function App() {
       .signout()
       .then(() => {
         setIsLoggedIn(false);
-        history.push("/sign-in");
+        history.push("/");
       })
       .catch((err) => {
         console.log(err);
       });
   }
+
+  function handleUserUpdate({ name, email }) {
+    mainApi
+      .editProfile({ name, email })
+      .then((res) => setCurrentUser(res))
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   //movies
   useEffect(() => {
     if (!isLoggedIn) return;
@@ -155,6 +165,8 @@ function App() {
               openModal={openModal}
               closeModal={closeModal}
               isLoggedIn={isLoggedIn}
+              onLogout={handleLogout}
+              onUpdateUser={handleUserUpdate}
             />
           </Route>
           <Route exact path="*">
