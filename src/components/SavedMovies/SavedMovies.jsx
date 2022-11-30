@@ -6,7 +6,13 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 import { savedMovies } from "../MoviesCard/mock-data";
 
-const SavedMovies = ({ openModal, closeModal, isLoading, isLoggedIn }) => {
+const SavedMovies = ({
+  openModal,
+  closeModal,
+  isLoading,
+  isLoggedIn,
+  filterShortFilms,
+}) => {
   return (
     <>
       <Header
@@ -15,7 +21,7 @@ const SavedMovies = ({ openModal, closeModal, isLoading, isLoggedIn }) => {
         isLoggedIn={isLoggedIn}
       />
       <main>
-        <SearchForm />
+        <SearchForm filterShortFilms={filterShortFilms} />
         {isLoading ? <Preloader /> : <MoviesCardList movies={savedMovies} />}
       </main>
       <Footer />

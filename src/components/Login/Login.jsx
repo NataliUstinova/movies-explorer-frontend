@@ -1,8 +1,10 @@
 import React from "react";
 import Form from "../Form/Form";
 
-const Login = () => {
-  return <Form isLoginForm={true} title={"Рады видеть!"}></Form>;
+const Login = ({ onLogin }) => {
+  return (
+    <Form isLoginForm={true} title={"Рады видеть!"} onLogin={onLogin}></Form>
+  );
 };
 
 export default Login;

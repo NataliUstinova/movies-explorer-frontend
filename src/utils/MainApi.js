@@ -1,4 +1,4 @@
-class Api {
+class MainApi {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
@@ -8,49 +8,37 @@ class Api {
     return res.ok ? res.json() : Promise.reject(res.status);
   }
 
-  signup(email, password) {
-    return fetch(`${BASE_URL}/signup`, {
+  signup({ name, email, password }) {
+    return fetch(`${this._baseUrl}/signup`, {
       method: "POST",
       credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ password: password, email: email }),
+      headers: this._headers,
+      body: JSON.stringify({ name: name, email: email, password: password }),
     }).then(this._checkServerResponse);
   }
 
-  signin(email, password) {
-    return fetch(`${BASE_URL}/signin`, {
+  signin({ email, password }) {
+    return fetch(`${this._baseUrl}/signin`, {
       method: "POST",
       credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ password: password, email: email }),
+      headers: this._headers,
+      body: JSON.stringify({ email: email, password: password }),
     }).then(this._checkServerResponse);
   }
 
   signout() {
-    return fetch(`${BASE_URL}/signout`, {
+    return fetch(`${this._baseUrl}/signout`, {
       method: "GET",
       credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
+      headers: this._headers,
     }).then(this._checkServerResponse);
   }
 
-  getAllMovies() {
-    return fetch(`${BASE_URL}/movies`, {
+  getSavedMovies() {
+    return fetch(`${this._baseUrl}/movies`, {
       method: "GET",
       credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
+      headers: this._headers,
     }).then(this._checkServerResponse);
   }
   getUserInfo() {
@@ -91,10 +79,11 @@ class Api {
   }
 }
 
-export const api = new Api({
+export const mainApi = new MainApi({
   // baseUrl: "https://api.movies.nata.u.nomoredomains.club",
   baseUrl: "http://localhost:3002",
   headers: {
+    Accept: "application/json",
     "Content-Type": "application/json",
   },
 });

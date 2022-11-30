@@ -2,7 +2,7 @@ import "./SearchForm.css";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import Separator from "../Separator/Separator";
 
-const SearchForm = () => {
+const SearchForm = ({ filterShortFilms }) => {
   function handleSubmit(e) {
     e.preventDefault();
     console.log("Сабмит формы");
@@ -24,7 +24,7 @@ const SearchForm = () => {
         </button>
       </form>
       <div className="search-form__filter-container">
-        <FilterCheckbox />
+        <FilterCheckbox filterShortFilms={filterShortFilms} />
         <p className="search-form__filter-text">Короткометражки</p>
       </div>
       <Separator />
