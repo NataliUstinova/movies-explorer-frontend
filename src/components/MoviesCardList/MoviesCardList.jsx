@@ -1,6 +1,5 @@
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import { useState } from "react";
 import { moviesApi } from "../../utils/MoviesApi";
 
 const MoviesCardList = ({ movies }) => {

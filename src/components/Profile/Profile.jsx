@@ -14,9 +14,8 @@ const Profile = ({
 }) => {
   const currentUser = useContext(CurrentUserContext);
 
-  const { values, errors, isDisabled, handleInputChange } = useValidation({
-    form: "editProfile",
-  });
+  const { values, errors, isDisabled, handleInputChange } =
+    useValidation(".editProfile");
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -46,7 +45,8 @@ const Profile = ({
                 placeholder={currentUser.name}
                 pattern="[a-zA-Zа-яА-ЯёЁ\\ \\-]{2,40}"
                 title="Имя должно быть от 2 до 40 символов и может содержать латиницу, кириллицу, пробел или дефис"
-                value={values.name || currentUser.name || ""}
+                //TODO чтобы отправлялось  дефолтное значение поля которе не редактировалось
+                value={values.name || ""}
                 onChange={handleInputChange}
               />
             </div>
@@ -64,7 +64,8 @@ const Profile = ({
                 maxLength="40"
                 className="profile__info-text"
                 placeholder={currentUser.email}
-                value={values.email || currentUser.email || ""}
+                //TODO
+                value={values.email || ""}
                 onChange={handleInputChange}
               />
             </div>

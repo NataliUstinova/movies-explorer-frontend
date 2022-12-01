@@ -1,12 +1,12 @@
 import "./FilterCheckbox.css";
 import { useState } from "react";
 
-const FilterCheckbox = ({ filterShortFilms }) => {
+const FilterCheckbox = ({ onToggle }) => {
   const [isOn, setIsOn] = useState(false);
 
   function toggle() {
     setIsOn(!isOn);
-    filterShortFilms(isOn);
+    onToggle(!isOn);
   }
 
   return (

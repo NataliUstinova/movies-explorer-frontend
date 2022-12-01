@@ -5,11 +5,11 @@ import useValidation from "../../hooks/useValidation";
 import { Link } from "react-router-dom";
 
 const Form = ({ title, isLoginForm, onLogin, onRegister }) => {
-  const { values, errors, isDisabled, handleInputChange } = useValidation({});
+  const { values, errors, isDisabled, handleInputChange } =
+    useValidation(".form__form");
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("Отправка формы");
     {
       isLoginForm
         ? onLogin({
@@ -88,6 +88,7 @@ const Form = ({ title, isLoginForm, onLogin, onRegister }) => {
                 name="password"
                 autoComplete={isLoginForm ? "current-password" : "new-password"}
                 placeholder="Введите пароль"
+                //TODO
                 value={values.password || ""}
                 onChange={handleInputChange}
               />

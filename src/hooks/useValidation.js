@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-export default function useValidation({ form }) {
+export default function useValidation(formClass) {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isDisabled, setIsDisabled] = useState(false);
@@ -18,11 +18,8 @@ export default function useValidation({ form }) {
     if (eventTarget.validity.patternMismatch) {
       setErrors({ ...errors, [name]: eventTarget.title });
     }
-    if (form === "editProfile") {
-      setIsDisabled(eventTarget.closest(".profile__edit-form").checkValidity());
-    } else {
-      setIsDisabled(eventTarget.closest(".form__form").checkValidity());
-    }
+
+    setIsDisabled(eventTarget.closest(formClass).checkValidity());
   }
 
   const resetForm = useCallback(

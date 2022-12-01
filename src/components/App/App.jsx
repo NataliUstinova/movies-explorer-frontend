@@ -22,7 +22,15 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState({});
 
+  const [allMovies, setAllMovies] = useState([]);
   const [movies, setMovies] = useState([]);
+
+  //local storage
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    localStorage.setItem("items", JSON.stringify(items));
+  }, [items]);
 
   function openModal() {
     setIsModalOpen(true);
@@ -42,13 +50,13 @@ function App() {
       .catch((err) => console.log(err));
   }, [isLoggedIn]);
 
-  function handleRegister(name, email, password) {
+  function handleRegister({ name, email, password }) {
     mainApi
-      .signup(name, email, password)
+      .signup({ name, email, password })
       .then((res) => {
         if (res.email) {
           setTimeout(() => {
-            handleLogin(email, password);
+            handleLogin({ email, password });
           }, 1000);
         }
       })
@@ -56,9 +64,9 @@ function App() {
         console.log(err);
       });
   }
-  function handleLogin(email, password) {
+  function handleLogin({ email, password }) {
     mainApi
-      .signin(email, password)
+      .signin({ email, password })
       .then(() => {
         setIsLoggedIn(true);
         history.push("/movies");
@@ -92,35 +100,34 @@ function App() {
 
   //movies
   useEffect(() => {
-    if (!isLoggedIn) return;
-
     setIsLoading(true);
     moviesApi
       .getAllMovies()
       .then((res) => {
         setIsLoading(false);
-        setMovies(res);
+        setAllMovies(res);
+        console.log("allMovies", allMovies);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  function filterShortFilms(isOn) {
-    if (isOn) {
-      setMovies(movies.filter((movie) => movie.duration <= 40));
-      console.log(movies);
-    } else {
-      setMovies((prev) => [...prev]);
-    }
+  //search movies
+  function handleSearch(inputQuery) {
+    setMovies(
+      allMovies.filter((movie) =>
+        movie.nameRU.toLowerCase().includes(inputQuery.toLowerCase())
+      )
+    );
+    setItems([inputQuery, movies]);
   }
 
-  //временное решение для просмотра разного состояния меню, надо перезагружать страницу
-  useEffect(() => {
-    if (window.location.pathname !== "/") {
-      setIsLoggedIn(true);
+  function handleShortsToggle(isOn) {
+    if (isOn) {
+      setMovies(allMovies.filter((movie) => movie.duration <= 40));
     } else {
-      setIsLoggedIn(false);
+      setMovies(allMovies);
     }
-  });
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -142,7 +149,8 @@ function App() {
             isLoading={isLoading}
             isLoggedIn={isLoggedIn}
             movies={movies}
-            filterShortFilms={filterShortFilms}
+            onSearch={handleSearch}
+            onToggle={handleShortsToggle}
           ></ProtectedRoute>
           <ProtectedRoute
             exact
@@ -152,7 +160,6 @@ function App() {
             closeModal={closeModal}
             isLoading={isLoading}
             isLoggedIn={isLoggedIn}
-            filterShortFilms={filterShortFilms}
           ></ProtectedRoute>
           <Route exact path="/signin">
             <Login onLogin={handleLogin} />

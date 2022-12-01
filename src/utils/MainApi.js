@@ -8,6 +8,7 @@ class MainApi {
     return res.ok ? res.json() : Promise.reject(res.status);
   }
 
+  //user
   signup({ name, email, password }) {
     return fetch(`${this._baseUrl}/signup`, {
       method: "POST",
@@ -34,13 +35,6 @@ class MainApi {
     }).then(this._checkServerResponse);
   }
 
-  getSavedMovies() {
-    return fetch(`${this._baseUrl}/movies`, {
-      method: "GET",
-      credentials: "include",
-      headers: this._headers,
-    }).then(this._checkServerResponse);
-  }
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
@@ -58,6 +52,15 @@ class MainApi {
         name,
         email,
       }),
+    }).then(this._checkServerResponse);
+  }
+
+  //movies
+  getSavedMovies() {
+    return fetch(`${this._baseUrl}/movies`, {
+      method: "GET",
+      credentials: "include",
+      headers: this._headers,
     }).then(this._checkServerResponse);
   }
 
