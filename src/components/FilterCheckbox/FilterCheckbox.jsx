@@ -1,17 +1,14 @@
 import "./FilterCheckbox.css";
-import { useState } from "react";
 
-const FilterCheckbox = ({ onToggle }) => {
-  const [isOn, setIsOn] = useState(false);
-
+const FilterCheckbox = ({ onToggle, isShorts, setIsShorts }) => {
   function toggle() {
-    setIsOn(!isOn);
-    onToggle(!isOn);
+    setIsShorts(!isShorts);
+    onToggle(!isShorts);
   }
 
   return (
     <div
-      className={isOn ? "filter-checkbox_on" : "filter-checkbox_off"}
+      className={isShorts ? "filter-checkbox_on" : "filter-checkbox_off"}
       onClick={toggle}
     />
   );

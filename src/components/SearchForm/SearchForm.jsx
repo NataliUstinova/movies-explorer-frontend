@@ -3,7 +3,7 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import Separator from "../Separator/Separator";
 import useValidation from "../../hooks/useValidation";
 
-const SearchForm = ({ onSearch, onToggle }) => {
+const SearchForm = ({ onSearch, onToggle, isShorts, setIsShorts }) => {
   const { values, errors, isDisabled, handleInputChange } =
     useValidation(".search-form__form");
 
@@ -31,7 +31,11 @@ const SearchForm = ({ onSearch, onToggle }) => {
         </button>
       </form>
       <div className="search-form__filter-container">
-        <FilterCheckbox onToggle={onToggle} />
+        <FilterCheckbox
+          onToggle={onToggle}
+          isShorts={isShorts}
+          setIsShorts={setIsShorts}
+        />
         <p className="search-form__filter-text">Короткометражки</p>
       </div>
       <Separator />

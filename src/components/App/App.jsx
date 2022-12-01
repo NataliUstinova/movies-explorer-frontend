@@ -24,6 +24,7 @@ function App() {
 
   const [allMovies, setAllMovies] = useState([]);
   const [movies, setMovies] = useState([]);
+  const [isShorts, setIsShorts] = useState(false);
 
   //local storage
   const [items, setItems] = useState([]);
@@ -118,7 +119,7 @@ function App() {
         movie.nameRU.toLowerCase().includes(inputQuery.toLowerCase())
       )
     );
-    setItems([inputQuery, movies]);
+    setItems([{ inputQuery: inputQuery }, movies, isShorts]);
   }
 
   function handleShortsToggle(isOn) {
@@ -151,6 +152,8 @@ function App() {
             movies={movies}
             onSearch={handleSearch}
             onToggle={handleShortsToggle}
+            isShorts={isShorts}
+            setIsShorts={setIsShorts}
           ></ProtectedRoute>
           <ProtectedRoute
             exact

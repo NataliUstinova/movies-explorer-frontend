@@ -12,6 +12,8 @@ const Movies = ({
   movies,
   onSearch,
   onToggle,
+  isShorts,
+  setIsShorts,
 }) => {
   return (
     <>
@@ -21,7 +23,12 @@ const Movies = ({
         isLoggedIn={isLoggedIn}
       />
       <main>
-        <SearchForm onSearch={onSearch} onToggle={onToggle} />
+        <SearchForm
+          onSearch={onSearch}
+          onToggle={onToggle}
+          isShorts={isShorts}
+          setIsShorts={setIsShorts}
+        />
         {isLoading ? <Preloader /> : <MoviesCardList movies={movies} />}
       </main>
       <Footer />
