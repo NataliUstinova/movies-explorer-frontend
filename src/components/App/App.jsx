@@ -21,17 +21,18 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState({});
+  const [serverResponse, setServerResponse] = useState("");
 
   const [allMovies, setAllMovies] = useState([]);
   const [movies, setMovies] = useState([]);
   const [isShorts, setIsShorts] = useState(false);
 
   //local storage
-  const [items, setItems] = useState([]);
+  const [localItems, setLocalItems] = useState([]);
 
   useEffect(() => {
-    localStorage.setItem("items", JSON.stringify(items));
-  }, [items]);
+    localStorage.setItem("items", JSON.stringify(localItems));
+  }, [localItems]);
 
   function openModal() {
     setIsModalOpen(true);
@@ -43,15 +44,19 @@ function App() {
 
   //user
   useEffect(() => {
+    setServerResponse("");
     mainApi
       .getUserInfo()
       .then((res) => {
         setCurrentUser(res);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setServerResponse(err);
+      });
   }, [isLoggedIn]);
 
   function handleRegister({ name, email, password }) {
+    setServerResponse("");
     mainApi
       .signup({ name, email, password })
       .then((res) => {
@@ -62,23 +67,28 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        setServerResponse(err);
       });
   }
   function handleLogin({ email, password }) {
+    setServerResponse("");
     mainApi
       .signin({ email, password })
-      .then(() => {
-        setIsLoggedIn(true);
-        history.push("/movies");
+      .then((res) => {
+        setServerResponse(res.message);
+        setTimeout(() => {
+          setIsLoggedIn(true);
+          history.push("/movies");
+        }, 1000);
       })
       .catch((err) => {
-        console.log(err);
+        setServerResponse(err);
         setIsLoggedIn(false);
       });
   }
 
   function handleLogout() {
+    setServerResponse("");
     mainApi
       .signout()
       .then(() => {
@@ -87,30 +97,37 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        setServerResponse(err);
       });
   }
 
   function handleUserUpdate({ name, email }) {
+    setServerResponse("");
     mainApi
       .editProfile({ name, email })
       .then((res) => setCurrentUser(res))
       .catch((err) => {
         console.log(err);
+        setServerResponse(err);
       });
   }
 
   //movies
-  useEffect(() => {
-    setIsLoading(true);
-    moviesApi
-      .getAllMovies()
-      .then((res) => {
-        setIsLoading(false);
-        setAllMovies(res);
-        console.log("allMovies", allMovies);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   moviesApi
+  //     .getAllMovies()
+  //     .then((res) => {
+  //       setIsLoading(false);
+  //       setAllMovies(res);
+  //       setLocalItems((prev) => [...prev, allMovies]);
+  //       console.log("localItems", localItems);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       setServerResponse(err);
+  //     });
+  // }, []);
 
   //search movies
   function handleSearch(inputQuery) {
@@ -119,7 +136,7 @@ function App() {
         movie.nameRU.toLowerCase().includes(inputQuery.toLowerCase())
       )
     );
-    setItems([{ inputQuery: inputQuery }, movies, isShorts]);
+    setLocalItems([{ inputQuery: inputQuery }, movies, isShorts]);
   }
 
   function handleShortsToggle(isOn) {
@@ -128,6 +145,13 @@ function App() {
     } else {
       setMovies(allMovies);
     }
+  }
+
+  function handleLike(movie) {
+    mainApi
+      .saveUserMovie(movie)
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
   }
 
   return (
@@ -165,20 +189,24 @@ function App() {
             isLoggedIn={isLoggedIn}
           ></ProtectedRoute>
           <Route exact path="/signin">
-            <Login onLogin={handleLogin} />
+            <Login onLogin={handleLogin} serverResponse={serverResponse} />
           </Route>
           <Route exact path="/signup">
-            <Register onRegister={handleRegister} />
-          </Route>
-          <Route exact path="/profile">
-            <Profile
-              openModal={openModal}
-              closeModal={closeModal}
-              isLoggedIn={isLoggedIn}
-              onLogout={handleLogout}
-              onUpdateUser={handleUserUpdate}
+            <Register
+              onRegister={handleRegister}
+              serverResponse={serverResponse}
             />
           </Route>
+          <ProtectedRoute
+            exact
+            path="/profile"
+            openModal={openModal}
+            closeModal={closeModal}
+            isLoggedIn={isLoggedIn}
+            onLogout={handleLogout}
+            onUpdateUser={handleUserUpdate}
+            component={Profile}
+          ></ProtectedRoute>
           <Route exact path="*">
             <NotFoundPage />
           </Route>

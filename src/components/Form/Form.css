@@ -80,6 +80,18 @@
   color: #EE3465;
 }
 
+.form__input-error-text_black {
+  height: 22px;
+  padding: 0;
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 10px;
+  color: #000;
+  text-align: center;
+}
+
 .form__button {
   padding: 0;
   margin: 0;

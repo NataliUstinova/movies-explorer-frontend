@@ -4,7 +4,7 @@ import Logo from "../Logo/Logo";
 import useValidation from "../../hooks/useValidation";
 import { Link } from "react-router-dom";
 
-const Form = ({ title, isLoginForm, onLogin, onRegister }) => {
+const Form = ({ title, isLoginForm, onLogin, onRegister, serverResponse }) => {
   const { values, errors, isDisabled, handleInputChange } =
     useValidation(".form__form");
 
@@ -96,8 +96,8 @@ const Form = ({ title, isLoginForm, onLogin, onRegister }) => {
             </div>
           </div>
         </div>
-
         <div>
+          <p className="form__input-error-text_black">{serverResponse}</p>
           <button
             className={`form__button ${!isDisabled && "form__button_disabled"}`}
             type="submit"

@@ -4,8 +4,9 @@ class MainApi {
     this._headers = headers;
   }
 
-  _checkServerResponse(res) {
-    return res.ok ? res.json() : Promise.reject(res.status);
+  async _checkServerResponse(res) {
+    const result = await res.json();
+    return res.ok ? result : Promise.reject(result.message);
   }
 
   //user

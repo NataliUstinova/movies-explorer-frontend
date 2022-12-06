@@ -5,7 +5,7 @@ class MoviesApi {
   }
 
   _checkServerResponse(res) {
-    return res.ok ? res.json() : Promise.reject(res.status);
+    return res.ok ? res.json() : Promise.reject(res.json());
   }
 
   getAllMovies() {
@@ -14,13 +14,6 @@ class MoviesApi {
       headers: this._headers,
     }).then(this._checkServerResponse);
   }
-
-  // searchAllMovies(query) {
-  //   return fetch(`${this._baseUrl}/beatfilm-movies?query=${query}`, {
-  //     method: "GET",
-  //     headers: this._headers,
-  //   }).then(this._checkServerResponse);
-  // }
 }
 
 export const moviesApi = new MoviesApi({
