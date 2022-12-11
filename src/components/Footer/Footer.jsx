@@ -10,7 +10,7 @@ const Footer = () => {
       </p>
       <Separator />
       <div className="footer__text">
-        <p className="footer__year">&#64;&nbsp;{new Date().getFullYear()}</p>
+        <p className="footer__year">&#169;&nbsp;{new Date().getFullYear()}</p>
         <div className="footer__links">
           <a
             className="footer__link"

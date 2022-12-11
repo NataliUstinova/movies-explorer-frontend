@@ -11,6 +11,7 @@ class MoviesApi {
   getAllMovies() {
     return fetch(`${this._baseUrl}/beatfilm-movies`, {
       method: "GET",
+      // credentials: "include",
       headers: this._headers,
     }).then(this._checkServerResponse);
   }

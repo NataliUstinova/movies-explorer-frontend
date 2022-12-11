@@ -14,9 +14,11 @@ import { moviesApi } from "../../utils/MoviesApi";
 import { mainApi } from "../../utils/MainApi";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 function App() {
   const history = useHistory();
+  const { setItem, getItem } = useLocalStorage();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -27,12 +29,7 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [isShorts, setIsShorts] = useState(false);
 
-  //local storage
-  const [localItems, setLocalItems] = useState([]);
-
-  useEffect(() => {
-    localStorage.setItem("items", JSON.stringify(localItems));
-  }, [localItems]);
+  const path = window.location.pathname;
 
   function openModal() {
     setIsModalOpen(true);
@@ -44,16 +41,20 @@ function App() {
 
   //user
   useEffect(() => {
+    // if (!isLoggedIn) return;
+
     setServerResponse("");
     mainApi
       .getUserInfo()
       .then((res) => {
         setCurrentUser(res);
+        setIsLoggedIn(true);
+        history.push(path);
       })
       .catch((err) => {
         setServerResponse(err);
       });
-  }, [isLoggedIn]);
+  }, []);
 
   function handleRegister({ name, email, password }) {
     setServerResponse("");
@@ -93,6 +94,7 @@ function App() {
       .signout()
       .then(() => {
         setIsLoggedIn(false);
+        localStorage.clear();
         history.push("/");
       })
       .catch((err) => {
@@ -112,38 +114,52 @@ function App() {
       });
   }
 
-  //movies
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   moviesApi
-  //     .getAllMovies()
-  //     .then((res) => {
-  //       setIsLoading(false);
-  //       setAllMovies(res);
-  //       setLocalItems((prev) => [...prev, allMovies]);
-  //       console.log("localItems", localItems);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       setServerResponse(err);
-  //     });
-  // }, []);
+  //get all movies
+  useEffect(() => {
+    setIsLoading(true);
+    if (getItem("allMovies") && getItem("allMovies").length > 0) {
+      setIsLoading(false);
+      setAllMovies(getItem("allMovies"));
+    } else if (
+      getItem("searchedMovies") &&
+      getItem("searchedMovies").length > 0
+    ) {
+      setMovies(getItem("searchedMovies"));
+    } else {
+      moviesApi
+        .getAllMovies()
+        .then((res) => {
+          setIsLoading(false);
+          setAllMovies(res);
+          setItem("allMovies", res);
+        })
+        .catch((err) => {
+          console.log(err);
+          setServerResponse(err);
+        });
+    }
+  }, []);
 
   //search movies
-  function handleSearch(inputQuery) {
-    setMovies(
-      allMovies.filter((movie) =>
-        movie.nameRU.toLowerCase().includes(inputQuery.toLowerCase())
-      )
+  async function handleSearch(inputQuery) {
+    const searchedMovies = allMovies.filter((movie) =>
+      movie.nameRU.toLowerCase().includes(inputQuery.toLowerCase())
     );
-    setLocalItems([{ inputQuery: inputQuery }, movies, isShorts]);
+    setItem("inputQuery", inputQuery);
+    setItem("searchedMovies", searchedMovies);
+    await setMovies(searchedMovies);
+    console.log("search", searchedMovies);
+    console.log("movies", movies);
+    setItem("isShorts", isShorts.toString());
   }
 
   function handleShortsToggle(isOn) {
     if (isOn) {
-      setMovies(allMovies.filter((movie) => movie.duration <= 40));
+      setItem("isShorts", !isShorts);
+      setMovies(movies.filter((movie) => movie.duration <= 40));
     } else {
-      setMovies(allMovies);
+      setItem("isShorts", !isShorts);
+      setMovies(getItem("searchedMovies"));
     }
   }
 
@@ -178,6 +194,7 @@ function App() {
             onToggle={handleShortsToggle}
             isShorts={isShorts}
             setIsShorts={setIsShorts}
+            serverResponse={serverResponse}
           ></ProtectedRoute>
           <ProtectedRoute
             exact

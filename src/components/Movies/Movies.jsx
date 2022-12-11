@@ -14,6 +14,7 @@ const Movies = ({
   onToggle,
   isShorts,
   setIsShorts,
+  serverResponse,
 }) => {
   return (
     <>
@@ -29,7 +30,11 @@ const Movies = ({
           isShorts={isShorts}
           setIsShorts={setIsShorts}
         />
-        {isLoading ? <Preloader /> : <MoviesCardList movies={movies} />}
+        {isLoading ? (
+          <Preloader />
+        ) : (
+          <MoviesCardList serverResponse={serverResponse} movies={movies} />
+        )}
       </main>
       <Footer />
     </>

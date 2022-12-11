@@ -1,41 +1,54 @@
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import { moviesApi } from "../../utils/MoviesApi";
+import { useEffect, useState } from "react";
 
-const MoviesCardList = ({ movies }) => {
-  //временные стейты кaрточек
-  //TODO сделать логику в app
-  // const [cards, setCards] = useState(movies.slice(0, 7));
-  //
-  // function loadCards() {
-  //   setCards((cards) => [...cards, ...movies.slice(7, movies.length - 1)]);
-  // }
+const MoviesCardList = ({ movies, serverResponse }) => {
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    setCards(movies.slice(0, 7 || movies.length));
+  }, [movies]);
+
+  function loadCards() {
+    setCards((cards) => [
+      ...cards,
+      ...movies.slice(cards.length, cards.length + 7 || movies.length),
+    ]);
+  }
 
   return (
-    <>
-      <ul className="movies-card-list">
-        {movies.map((card) => (
-          <MoviesCard
-            key={card.id}
-            trailerLink={card.trailerLink}
-            title={card.nameRU}
-            duration={card.duration}
-            thumbnail={`${moviesApi._baseUrl}${card.image.url}`}
-          />
-        ))}
-      </ul>
-      {/*{movies.length > 7 && cards.length !== movies.length ? (*/}
-      {/*  <button*/}
-      {/*    aria-label="ещё"*/}
-      {/*    className="movies-card-list__more-button"*/}
-      {/*    onClick={loadCards}*/}
-      {/*  >*/}
-      {/*    Ещё*/}
-      {/*  </button>*/}
-      {/*) : (*/}
-      {/*  <div className="movies-card-list__white-space" />*/}
-      {/*)}*/}
-    </>
+    <div className="movies-card-list">
+      {cards.map((card) => (
+        <MoviesCard
+          key={card.id}
+          trailerLink={card.trailerLink}
+          title={card.nameRU}
+          duration={card.duration}
+          thumbnail={`${moviesApi._baseUrl}${card.image.url}`}
+        />
+      ))}
+
+      {movies.length === 0 && (
+        <>
+          <p className="movies-card-list__alert">Ничего не найдено</p>
+          {serverResponse && (
+            <p className="movies-card-list__alert">{serverResponse}</p>
+          )}
+        </>
+      )}
+      {movies.length > 7 && cards.length !== movies.length ? (
+        <button
+          aria-label="ещё"
+          className="movies-card-list__more-button"
+          onClick={loadCards}
+        >
+          Ещё
+        </button>
+      ) : (
+        <div className="movies-card-list__white-space" />
+      )}
+    </div>
   );
 };
 

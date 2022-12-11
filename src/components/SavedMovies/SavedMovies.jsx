@@ -1,4 +1,3 @@
-import React from "react";
 import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
 import Preloader from "../Preloader/Preloader";
