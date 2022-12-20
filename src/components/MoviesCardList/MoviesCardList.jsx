@@ -2,9 +2,11 @@ import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import { moviesApi } from "../../utils/MoviesApi";
 import { useEffect, useState } from "react";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 const MoviesCardList = ({ movies, serverResponse }) => {
   const [cards, setCards] = useState([]);
+  const { getItem } = useLocalStorage();
 
   useEffect(() => {
     setCards(movies.slice(0, 7 || movies.length));

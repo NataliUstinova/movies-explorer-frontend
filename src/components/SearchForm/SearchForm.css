@@ -4,7 +4,7 @@
 
 .search-form__form {
   display: grid;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   grid-template-columns: 9fr 70px;
   column-gap: 10px;
   align-items: center;
@@ -42,8 +42,23 @@
   text-align: center;
 }
 
+.search-form__error {
+  margin: 3px 0 0;
+  padding: 0;
+  height: 12px;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #EE3465;
+}
+
 .search-form__button:hover {
-  opacity: 0.8;
+  opacity: 0.6;
+}
+
+.search-form__form:invalid .search-form__button {
+  opacity: 0.6;
+  pointer-events: none;
 }
 
 .search-form__filter-container {

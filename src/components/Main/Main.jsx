@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import Header from "../Header/Header";
 import Promo from "../Promo/Promo";
 import Navigation from "../Navigation/Navigation";
@@ -7,10 +7,8 @@ import Techs from "../Techs/Techs";
 import AboutMe from "../AboutMe/AboutMe";
 import Portfolio from "../Portfolio/Portfolio";
 import Footer from "../Footer/Footer";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 const Main = ({ openModal, closeModal, isLoggedIn }) => {
-  const currentUser = useContext(CurrentUserContext);
   return (
     <>
       <Header

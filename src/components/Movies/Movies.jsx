@@ -36,7 +36,7 @@ const Movies = ({
           <MoviesCardList serverResponse={serverResponse} movies={movies} />
         )}
       </main>
-      <Footer />
+      <Footer movies={movies} />
     </>
   );
 };

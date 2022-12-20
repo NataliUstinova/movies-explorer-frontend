@@ -27,7 +27,9 @@ function App() {
 
   const [allMovies, setAllMovies] = useState([]);
   const [movies, setMovies] = useState([]);
+  const [searchedMovies, setSearchedMovies] = useState([]);
   const [isShorts, setIsShorts] = useState(false);
+  const [searchedShortMovies, setSearchedShortMovies] = useState([]);
 
   const path = window.location.pathname;
 
@@ -80,6 +82,7 @@ function App() {
         setTimeout(() => {
           setIsLoggedIn(true);
           history.push("/movies");
+          setServerResponse("");
         }, 1000);
       })
       .catch((err) => {
@@ -107,7 +110,10 @@ function App() {
     setServerResponse("");
     mainApi
       .editProfile({ name, email })
-      .then((res) => setCurrentUser(res))
+      .then((res) => {
+        setCurrentUser(res);
+        setServerResponse("Данные успешно обновлены");
+      })
       .catch((err) => {
         console.log(err);
         setServerResponse(err);
@@ -117,15 +123,18 @@ function App() {
   //get all movies
   useEffect(() => {
     setIsLoading(true);
+    if (getItem("searchedMovies").length > 0) {
+      console.log("searched work");
+      setSearchedMovies(getItem("searchedMovies"));
+      setIsLoading(false);
+      return;
+    }
     if (getItem("allMovies") && getItem("allMovies").length > 0) {
+      console.log("all work");
       setIsLoading(false);
       setAllMovies(getItem("allMovies"));
-    } else if (
-      getItem("searchedMovies") &&
-      getItem("searchedMovies").length > 0
-    ) {
-      setMovies(getItem("searchedMovies"));
     } else {
+      console.log("api work");
       moviesApi
         .getAllMovies()
         .then((res) => {
@@ -138,19 +147,21 @@ function App() {
           setServerResponse(err);
         });
     }
-  }, []);
+  }, [currentUser.name]);
 
   //search movies
-  async function handleSearch(inputQuery) {
-    const searchedMovies = allMovies.filter((movie) =>
-      movie.nameRU.toLowerCase().includes(inputQuery.toLowerCase())
+  function handleSearch(inputQuery) {
+    console.log("inputQuery", inputQuery);
+    setSearchedMovies(
+      allMovies.filter((movie) =>
+        movie.nameRU.toLowerCase().includes(inputQuery.toLowerCase())
+      )
     );
-    setItem("inputQuery", inputQuery);
-    setItem("searchedMovies", searchedMovies);
-    await setMovies(searchedMovies);
+    // setItem("inputQuery", inputQuery);
+    // setItem("searchedMovies", searchedMovies);
     console.log("search", searchedMovies);
     console.log("movies", movies);
-    setItem("isShorts", isShorts.toString());
+    // setItem("isShorts", isShorts.toString());
   }
 
   function handleShortsToggle(isOn) {
@@ -189,7 +200,7 @@ function App() {
             closeModal={closeModal}
             isLoading={isLoading}
             isLoggedIn={isLoggedIn}
-            movies={movies}
+            movies={searchedMovies}
             onSearch={handleSearch}
             onToggle={handleShortsToggle}
             isShorts={isShorts}
@@ -222,11 +233,10 @@ function App() {
             isLoggedIn={isLoggedIn}
             onLogout={handleLogout}
             onUpdateUser={handleUserUpdate}
+            serverResponse={serverResponse}
             component={Profile}
           ></ProtectedRoute>
-          <Route exact path="*">
-            <NotFoundPage />
-          </Route>
+          <ProtectedRoute exact path="*" component={NotFoundPage} />
         </Switch>
         <ModalMenu isModalOpen={isModalOpen} closeModal={closeModal} />
       </div>

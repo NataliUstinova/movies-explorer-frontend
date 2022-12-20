@@ -3,7 +3,7 @@ import Header from "../Header/Header";
 import Separator from "../Separator/Separator";
 import useValidation from "../../hooks/useValidation";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 const Profile = ({
   openModal,
@@ -11,11 +11,20 @@ const Profile = ({
   isLoggedIn,
   onUpdateUser,
   onLogout,
+  serverResponse,
 }) => {
   const currentUser = useContext(CurrentUserContext);
 
   const { values, errors, isDisabled, handleInputChange } =
     useValidation(".editProfile");
+
+  useEffect(() => {
+    if (currentUser) {
+      console.log("current work");
+      values.name = currentUser.name;
+      values.email = currentUser.email;
+    }
+  }, [currentUser]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -64,7 +73,6 @@ const Profile = ({
                 maxLength="40"
                 className="profile__info-text"
                 placeholder={currentUser.email}
-                //TODO
                 value={values.email || ""}
                 onChange={handleInputChange}
               />
@@ -73,6 +81,7 @@ const Profile = ({
           <div className="profile__text-container">
             <p className="profile__text profile__error-text">{errors.name}</p>
             <p className="profile__text profile__error-text">{errors.email}</p>
+            <p className="profile__text">{serverResponse}</p>
             <button
               type="submit"
               aria-label="Редактировать"
