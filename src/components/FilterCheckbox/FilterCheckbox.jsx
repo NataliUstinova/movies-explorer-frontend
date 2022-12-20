@@ -1,12 +1,12 @@
 import "./FilterCheckbox.css";
-import { useEffect } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
 const FilterCheckbox = ({ isShorts, setIsShorts }) => {
-  const { getItem } = useLocalStorage();
+  const { setItem } = useLocalStorage();
 
   function toggle() {
     setIsShorts(!isShorts);
+    setItem("isShorts", !isShorts);
   }
 
   return (

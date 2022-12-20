@@ -125,6 +125,14 @@ function App() {
       });
   }
 
+  useEffect(() => {
+    if (isShorts) {
+      setMovies(searchedShortMovies);
+    } else {
+      setMovies(searchedMovies);
+    }
+  }, [isShorts]);
+
   //get all movies
   useEffect(() => {
     setIsLoading(true);
@@ -182,14 +190,6 @@ function App() {
     console.log("search", searched);
     // setItem("isShorts", isShorts.toString());
   }
-
-  useEffect(() => {
-    if (isShorts) {
-      setMovies(searchedShortMovies);
-    } else {
-      setMovies(searchedMovies);
-    }
-  }, [isShorts]);
 
   function handleLike(movie) {
     mainApi
