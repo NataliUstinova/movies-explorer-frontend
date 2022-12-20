@@ -43,8 +43,13 @@ function App() {
 
   //user
   useEffect(() => {
-    // if (!isLoggedIn) return;
+    //shorts toggle check
+    const toggleShortsState = getItem("isShorts");
+    if (toggleShortsState) {
+      setIsShorts(toggleShortsState);
+    }
 
+    // if (!isLoggedIn) return;
     setServerResponse("");
     mainApi
       .getUserInfo()
@@ -123,16 +128,24 @@ function App() {
   //get all movies
   useEffect(() => {
     setIsLoading(true);
-    if (getItem("searchedMovies")?.length > 0) {
+    const shortMovies = getItem("shorts");
+    const searchedFilms = getItem("searchedMovies");
+    const isOn = getItem("isShorts");
+    const allFilms = getItem("allMovies");
+    setMovies(isOn ? shortMovies : searchedFilms);
+    if (shortMovies?.length > 0) {
+      setSearchedShortMovies(shortMovies);
+    }
+    if (searchedFilms?.length > 0) {
       console.log("searched work");
-      setSearchedMovies(getItem("searchedMovies"));
+      setSearchedMovies(searchedFilms);
       setIsLoading(false);
       return;
     }
-    if (getItem("allMovies") && getItem("allMovies")?.length > 0) {
+    if (allFilms && allFilms?.length > 0) {
       console.log("all work");
       setIsLoading(false);
-      setAllMovies(getItem("allMovies"));
+      setAllMovies(allFilms);
     } else {
       console.log("api work");
       moviesApi
@@ -156,6 +169,11 @@ function App() {
       movie.nameRU.toLowerCase().includes(inputQuery.toLowerCase())
     );
     const shorts = searched.filter((movie) => movie.duration <= 40);
+    if (isShorts) {
+      setMovies(shorts);
+    } else {
+      setMovies(searched);
+    }
     setSearchedMovies(searched);
     setSearchedShortMovies(shorts);
     setItem("shorts", shorts);
@@ -165,15 +183,13 @@ function App() {
     // setItem("isShorts", isShorts.toString());
   }
 
-  function handleShortsToggle(isOn) {
-    if (isOn) {
-      // setItem("isShorts", !isShorts);
-      // setMovies(movies.filter((movie) => movie.duration <= 40));
+  useEffect(() => {
+    if (isShorts) {
+      setMovies(searchedShortMovies);
     } else {
-      setItem("isShorts", !isShorts);
-      setMovies(getItem("searchedMovies"));
+      setMovies(searchedMovies);
     }
-  }
+  }, [isShorts]);
 
   function handleLike(movie) {
     mainApi
@@ -201,9 +217,8 @@ function App() {
             closeModal={closeModal}
             isLoading={isLoading}
             isLoggedIn={isLoggedIn}
-            movies={searchedMovies}
+            movies={movies}
             onSearch={handleSearch}
-            onToggle={handleShortsToggle}
             isShorts={isShorts}
             setIsShorts={setIsShorts}
             serverResponse={serverResponse}

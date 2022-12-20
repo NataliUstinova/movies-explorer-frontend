@@ -11,7 +11,6 @@ const Movies = ({
   isLoggedIn,
   movies,
   onSearch,
-  onToggle,
   isShorts,
   setIsShorts,
   serverResponse,
@@ -26,7 +25,6 @@ const Movies = ({
       <main>
         <SearchForm
           onSearch={onSearch}
-          onToggle={onToggle}
           isShorts={isShorts}
           setIsShorts={setIsShorts}
         />

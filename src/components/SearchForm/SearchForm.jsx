@@ -6,7 +6,7 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import { useContext, useEffect } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-const SearchForm = ({ onSearch, onToggle, isShorts, setIsShorts }) => {
+const SearchForm = ({ onSearch, isShorts, setIsShorts }) => {
   const currentUser = useContext(CurrentUserContext);
   const { setItem, getItem } = useLocalStorage();
   const { values, errors, handleInputChange } =
@@ -44,11 +44,7 @@ const SearchForm = ({ onSearch, onToggle, isShorts, setIsShorts }) => {
         <p className="search-form__error">{errors.search}</p>
       </form>
       <div className="search-form__filter-container">
-        <FilterCheckbox
-          onToggle={onToggle}
-          isShorts={isShorts}
-          setIsShorts={setIsShorts}
-        />
+        <FilterCheckbox isShorts={isShorts} setIsShorts={setIsShorts} />
         <p className="search-form__filter-text">Короткометражки</p>
       </div>
       <Separator />
