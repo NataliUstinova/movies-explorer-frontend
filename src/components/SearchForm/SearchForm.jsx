@@ -18,11 +18,11 @@ const SearchForm = ({ onSearch, onToggle, isShorts, setIsShorts }) => {
     onSearch(values.search);
   }
 
-  // useEffect(() => {
-  //   if (window.location.pathname === "/movies" && getItem("inputQuery")) {
-  //     values.search = getItem("inputQuery");
-  //   }
-  // }, [currentUser]);
+  useEffect(() => {
+    if (getItem("inputQuery")) {
+      values.search = getItem("inputQuery");
+    }
+  }, []);
 
   return (
     <div className="search-form">

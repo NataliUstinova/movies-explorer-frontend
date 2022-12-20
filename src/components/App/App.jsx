@@ -123,13 +123,13 @@ function App() {
   //get all movies
   useEffect(() => {
     setIsLoading(true);
-    if (getItem("searchedMovies").length > 0) {
+    if (getItem("searchedMovies")?.length > 0) {
       console.log("searched work");
       setSearchedMovies(getItem("searchedMovies"));
       setIsLoading(false);
       return;
     }
-    if (getItem("allMovies") && getItem("allMovies").length > 0) {
+    if (getItem("allMovies") && getItem("allMovies")?.length > 0) {
       console.log("all work");
       setIsLoading(false);
       setAllMovies(getItem("allMovies"));
@@ -152,22 +152,23 @@ function App() {
   //search movies
   function handleSearch(inputQuery) {
     console.log("inputQuery", inputQuery);
-    setSearchedMovies(
-      allMovies.filter((movie) =>
-        movie.nameRU.toLowerCase().includes(inputQuery.toLowerCase())
-      )
+    const searched = allMovies.filter((movie) =>
+      movie.nameRU.toLowerCase().includes(inputQuery.toLowerCase())
     );
-    // setItem("inputQuery", inputQuery);
-    // setItem("searchedMovies", searchedMovies);
-    console.log("search", searchedMovies);
-    console.log("movies", movies);
+    const shorts = searched.filter((movie) => movie.duration <= 40);
+    setSearchedMovies(searched);
+    setSearchedShortMovies(shorts);
+    setItem("shorts", shorts);
+    setItem("inputQuery", inputQuery);
+    setItem("searchedMovies", searched);
+    console.log("search", searched);
     // setItem("isShorts", isShorts.toString());
   }
 
   function handleShortsToggle(isOn) {
     if (isOn) {
-      setItem("isShorts", !isShorts);
-      setMovies(movies.filter((movie) => movie.duration <= 40));
+      // setItem("isShorts", !isShorts);
+      // setMovies(movies.filter((movie) => movie.duration <= 40));
     } else {
       setItem("isShorts", !isShorts);
       setMovies(getItem("searchedMovies"));
