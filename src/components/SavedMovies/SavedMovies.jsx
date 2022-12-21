@@ -12,6 +12,9 @@ const SavedMovies = ({
   movies,
   onLike,
   onDelete,
+  onSearch,
+  isShorts,
+  setIsShorts,
 }) => {
   return (
     <>
@@ -21,7 +24,11 @@ const SavedMovies = ({
         isLoggedIn={isLoggedIn}
       />
       <main>
-        <SearchForm />
+        <SearchForm
+          onSearch={onSearch}
+          isShorts={isShorts}
+          setIsShorts={setIsShorts}
+        />
         {isLoading ? (
           <Preloader />
         ) : (

@@ -134,6 +134,38 @@ function App() {
     }
   }, [isShorts]);
 
+  useEffect(() => {
+    setIsLoading(true);
+    console.log("saved api work");
+    mainApi
+      .getSavedMovies((res) => {
+        console.log("savedApi", res);
+        setSavedMovies((prev) => [...prev, res]);
+      })
+      .catch((err) => {
+        console.log(err);
+        setServerResponse(err);
+      });
+  }, []);
+
+  //get saved movies from server
+  useEffect(() => {
+    if (isLoggedIn && currentUser) {
+      setIsLoading(true);
+      mainApi
+        .getSavedMovies()
+        .then((res) => {
+          const UserMovies = res.filter((m) => m.owner === currentUser._id);
+          setSavedMovies(UserMovies);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setServerResponse(err);
+        });
+    }
+  }, [currentUser._id, isLoggedIn]);
+
   //get all movies
   useEffect(() => {
     setIsLoading(true);

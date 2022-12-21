@@ -26,7 +26,7 @@ const MoviesCardList = ({ movies, serverResponse, onLike, onDelete }) => {
           onDelete={onDelete}
           onLike={onLike}
           movie={card}
-          key={card.id}
+          key={card._id}
           trailerLink={card.trailerLink}
           title={card.nameRU}
           duration={card.duration}
