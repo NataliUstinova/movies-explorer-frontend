@@ -11,6 +11,7 @@ const SavedMovies = ({
   isLoggedIn,
   movies,
   onLike,
+  onDelete,
 }) => {
   return (
     <>
@@ -24,7 +25,7 @@ const SavedMovies = ({
         {isLoading ? (
           <Preloader />
         ) : (
-          <MoviesCardList onLike={onLike} movies={movies} />
+          <MoviesCardList onLike={onLike} onDelete={onDelete} movies={movies} />
         )}
       </main>
       <Footer movies={movies} />

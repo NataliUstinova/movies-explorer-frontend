@@ -10,6 +10,7 @@ const MoviesCard = ({
   thumbnail,
   trailerLink,
   onLike,
+  onDelete,
 }) => {
   const { hours, minutes } = useDuration({ duration });
 
@@ -34,7 +35,11 @@ const MoviesCard = ({
           </p>
         </div>
         {isSavedPage ? (
-          <button className="movies-card__delete" aria-label="удалить" />
+          <button
+            className="movies-card__delete"
+            aria-label="удалить"
+            onClick={() => onDelete(movie)}
+          />
         ) : (
           <button
             aria-label="лайк"

@@ -203,10 +203,24 @@ function App() {
   }
 
   function handleDelete(movie) {
+    console.log("movie", movie);
     const savedMovie = savedMovies.find(
       (item) => item.movieId === movie.id || item.movieId === movie.movieId
     );
-    mainApi.deleteSavedMovie(movie).then();
+    console.log(savedMovie);
+    mainApi
+      .deleteSavedMovie(savedMovie._id)
+      .then(() => {
+        const newSavedMovies = savedMovies.filter((m) => {
+          if (movie.id === m.movieId || movie.movieId === m.movieId) {
+            return false;
+          } else {
+            return true;
+          }
+        });
+        setSavedMovies(newSavedMovies);
+      })
+      .catch((err) => console.log(err));
   }
 
   return (
@@ -239,6 +253,7 @@ function App() {
             exact
             path="/saved"
             component={SavedMovies}
+            onDelete={handleDelete}
             openModal={openModal}
             closeModal={closeModal}
             onSearch={handleSearch}
