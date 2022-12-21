@@ -5,6 +5,7 @@ import Footer from "../Footer/Footer";
 import Preloader from "../Preloader/Preloader";
 
 const Movies = ({
+  onLike,
   openModal,
   closeModal,
   isLoading,
@@ -31,7 +32,11 @@ const Movies = ({
         {isLoading ? (
           <Preloader />
         ) : (
-          <MoviesCardList serverResponse={serverResponse} movies={movies} />
+          <MoviesCardList
+            serverResponse={serverResponse}
+            movies={movies}
+            onLike={onLike}
+          />
         )}
       </main>
       <Footer movies={movies} />

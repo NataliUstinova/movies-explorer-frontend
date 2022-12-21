@@ -30,6 +30,7 @@ function App() {
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [isShorts, setIsShorts] = useState(false);
   const [searchedShortMovies, setSearchedShortMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
 
   const path = window.location.pathname;
 
@@ -194,8 +195,18 @@ function App() {
   function handleLike(movie) {
     mainApi
       .saveUserMovie(movie)
-      .then((res) => res.json())
+      .then((movie) => {
+        setSavedMovies([movie, ...savedMovies]);
+        console.log("savedM", savedMovies);
+      })
       .catch((err) => console.log(err));
+  }
+
+  function handleDelete(movie) {
+    const savedMovie = savedMovies.find(
+      (item) => item.movieId === movie.id || item.movieId === movie.movieId
+    );
+    mainApi.deleteSavedMovie(movie).then();
   }
 
   return (
@@ -217,6 +228,7 @@ function App() {
             closeModal={closeModal}
             isLoading={isLoading}
             isLoggedIn={isLoggedIn}
+            onLike={handleLike}
             movies={movies}
             onSearch={handleSearch}
             isShorts={isShorts}
@@ -229,8 +241,12 @@ function App() {
             component={SavedMovies}
             openModal={openModal}
             closeModal={closeModal}
+            onSearch={handleSearch}
+            isShorts={isShorts}
+            setIsShorts={setIsShorts}
             isLoading={isLoading}
             isLoggedIn={isLoggedIn}
+            movies={savedMovies}
           ></ProtectedRoute>
           <Route exact path="/signin">
             <Login onLogin={handleLogin} serverResponse={serverResponse} />

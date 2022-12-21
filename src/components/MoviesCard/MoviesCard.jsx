@@ -3,7 +3,14 @@ import { useState } from "react";
 import usePageIdentification from "../../hooks/usePageIdentification";
 import useDuration from "../../hooks/useDuration";
 
-const MoviesCard = ({ title, duration, thumbnail, trailerLink }) => {
+const MoviesCard = ({
+  movie,
+  title,
+  duration,
+  thumbnail,
+  trailerLink,
+  onLike,
+}) => {
   const { hours, minutes } = useDuration({ duration });
 
   const { isSavedPage } = usePageIdentification();
@@ -11,6 +18,7 @@ const MoviesCard = ({ title, duration, thumbnail, trailerLink }) => {
 
   function toggleLike() {
     setIsLiked(!isLiked);
+    onLike(movie);
   }
 
   return (

@@ -70,7 +70,19 @@ class MainApi {
       method: "POST",
       credentials: "include",
       headers: this._headers,
-      body: JSON.stringify(movie),
+      body: JSON.stringify({
+        country: movie.country,
+        description: movie.description,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        image: movie.image.url,
+        trailerLink: movie.trailerLink,
+        thumbnail: movie.image.formats.thumbnail.url,
+        movieId: movie.id,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
+      }),
     }).then(this._checkServerResponse);
   }
 

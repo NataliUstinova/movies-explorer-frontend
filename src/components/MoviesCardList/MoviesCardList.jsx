@@ -4,7 +4,7 @@ import { moviesApi } from "../../utils/MoviesApi";
 import { useEffect, useState } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
-const MoviesCardList = ({ movies, serverResponse }) => {
+const MoviesCardList = ({ movies, serverResponse, onLike }) => {
   const [cards, setCards] = useState([]);
   const { getItem } = useLocalStorage();
 
@@ -23,11 +23,13 @@ const MoviesCardList = ({ movies, serverResponse }) => {
     <div className="movies-card-list">
       {cards.map((card) => (
         <MoviesCard
+          onLike={onLike}
+          movie={card}
           key={card.id}
           trailerLink={card.trailerLink}
           title={card.nameRU}
           duration={card.duration}
-          thumbnail={`${moviesApi._baseUrl}${card.image.url}`}
+          thumbnail={`${moviesApi._baseUrl}${card.image.url || card.image}`}
         />
       ))}
 
