@@ -131,7 +131,8 @@ function App() {
       .catch((err) => {
         console.log(err);
         setServerResponse(err);
-      });
+      })
+      .finally(() => setServerResponse(""));
   }
 
   useEffect(() => {

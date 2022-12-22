@@ -15,15 +15,21 @@ const Profile = ({
 }) => {
   const currentUser = useContext(CurrentUserContext);
 
-  const { values, errors, isDisabled, handleInputChange } =
-    useValidation(".editProfile");
+  const { values, errors, isDisabled, resetForm, handleInputChange } =
+    useValidation(".profile__edit-form");
 
   useEffect(() => {
     if (currentUser) {
-      values.name = currentUser.name;
-      values.email = currentUser.email;
+      resetForm(currentUser, {}, true);
     }
-  }, [currentUser.name, currentUser.email]);
+  }, [currentUser, resetForm]);
+
+  const customValidation =
+    !isDisabled ||
+    (values.name === currentUser.name && values.email === currentUser.email);
+
+  console.log("isDisabled", isDisabled);
+  console.log("customValidation", customValidation);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -84,7 +90,7 @@ const Profile = ({
               type="submit"
               aria-label="Редактировать"
               className={`profile__text ${
-                !isDisabled && "profile__text_disabled"
+                customValidation && "profile__text_disabled"
               }`}
             >
               Редактировать
