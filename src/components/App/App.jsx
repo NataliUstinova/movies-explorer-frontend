@@ -32,6 +32,7 @@ function App() {
   const [searchedShortMovies, setSearchedShortMovies] = useState([]);
 
   const [savedMovies, setSavedMovies] = useState([]);
+  const [allSavedMovies, setAllSavedMovies] = useState([]);
   const [savedSearchedMovies, setSavedSearchedMovies] = useState([]);
   const [savedSearchedShortMovies, setSavedSearchedShortMovies] = useState([]);
   const [isShortsSaved, setIsShortsSaved] = useState(false);
@@ -146,19 +147,6 @@ function App() {
     }
   }, [isShortsSaved]);
 
-  useEffect(() => {
-    setIsLoading(true);
-    mainApi
-      .getSavedMovies((res) => {
-        console.log("savedApi", res);
-        setSavedMovies((prev) => [...prev, res]);
-      })
-      .catch((err) => {
-        console.log(err);
-        setServerResponse(err);
-      });
-  }, []);
-
   //get saved movies from server
   useEffect(() => {
     if (isLoggedIn && currentUser) {
@@ -167,13 +155,15 @@ function App() {
         .getSavedMovies()
         .then((res) => {
           const UserMovies = res.filter((m) => m.owner === currentUser._id);
+          setAllSavedMovies(UserMovies);
           setSavedMovies(UserMovies);
-          setIsLoading(false);
+          setItem("allSavedMovies", UserMovies);
         })
         .catch((err) => {
           console.log(err);
           setServerResponse(err);
-        });
+        })
+        .finally(() => setIsLoading(false));
     }
   }, [currentUser._id, isLoggedIn]);
 
@@ -188,6 +178,8 @@ function App() {
     const searchMoviesSaved = getItem("searchedMoviesSaved");
     const isOnSaved = getItem("isShortsSaved");
     const shortsSaved = getItem("shortsSaved");
+    const allFilmsSaved = getItem("allMoviesSaved");
+    setAllSavedMovies(allFilmsSaved);
 
     setSavedMovies(isOnSaved ? shortsSaved : searchMoviesSaved);
 
@@ -254,18 +246,19 @@ function App() {
 
   function handleSavedSearch(inputQuery) {
     //if saved movies search by saved
-    const searched = savedMovies.filter((movie) => {
+    const searched = allSavedMovies.filter((movie) => {
       return (
         movie.nameRU.toLowerCase().includes(inputQuery.toLowerCase()) ||
         movie.nameEN.toLowerCase().includes(inputQuery.toLowerCase())
       );
     });
     const shorts = searched.filter((movie) => movie.duration <= 40);
-    if (isShorts) {
+    if (isShortsSaved) {
       setSavedMovies(shorts);
     } else {
       setSavedMovies(searched);
     }
+    console.log(searched, "searched");
     setSavedSearchedMovies(searched);
     setSavedSearchedShortMovies(shorts);
     setItem("shortsSaved", shorts);

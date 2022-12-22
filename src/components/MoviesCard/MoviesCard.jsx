@@ -20,17 +20,10 @@ const MoviesCard = ({
 
   useEffect(() => {
     if (savedMovies?.some((m) => movie.id === m.movieId)) {
-      console.log(
-        "savedMovies.some(m => movie.id === m.id)",
-        savedMovies?.some((m) => movie.id === m.id)
-      );
-      console.log(savedMovies);
       setIsLiked(true);
-      console.log("isLiked", isLiked);
     }
   }, [savedMovies]);
 
-  console.log(isLiked);
   function toggleLike() {
     setIsLiked(!isLiked);
 
