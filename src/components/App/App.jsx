@@ -30,7 +30,11 @@ function App() {
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [isShorts, setIsShorts] = useState(false);
   const [searchedShortMovies, setSearchedShortMovies] = useState([]);
+
   const [savedMovies, setSavedMovies] = useState([]);
+  const [savedSearchedMovies, setSavedSearchedMovies] = useState([]);
+  const [savedSearchedShortMovies, setSavedSearchedShortMovies] = useState([]);
+  const [isShortsSaved, setIsShortsSaved] = useState(false);
 
   const path = window.location.pathname;
 
@@ -172,7 +176,25 @@ function App() {
     const searchedFilms = getItem("searchedMovies");
     const isOn = getItem("isShorts");
     const allFilms = getItem("allMovies");
+
+    const searchMoviesSaved = getItem("searchedMoviesSaved");
+    const isOnSaved = getItem("isShortsSaved");
+    const shortsSaved = getItem("shortsSaved");
+
+    setSavedMovies(isOnSaved ? shortsSaved : searchMoviesSaved);
+
+    if (searchMoviesSaved?.length > 0) {
+      setSavedSearchedMovies(searchMoviesSaved);
+    }
+    if (shortsSaved?.length > 0) {
+      setSavedSearchedShortMovies(shortsSaved);
+    }
+    if (isOnSaved) {
+      setIsShortsSaved(isOnSaved);
+    }
+
     setMovies(isOn ? shortMovies : searchedFilms);
+
     if (shortMovies?.length > 0) {
       setSearchedShortMovies(shortMovies);
     }
@@ -202,6 +224,7 @@ function App() {
   //search movies
   function handleSearch(inputQuery) {
     console.log("inputQuery", inputQuery);
+    //if saved movies search by saved
     const searched = allMovies.filter((movie) => {
       return (
         movie.nameRU.toLowerCase().includes(inputQuery.toLowerCase()) ||
@@ -219,6 +242,27 @@ function App() {
     setItem("shorts", shorts);
     setItem("inputQuery", inputQuery);
     setItem("searchedMovies", searched);
+  }
+
+  function handleSavedSearch(inputQuery) {
+    //if saved movies search by saved
+    const searched = savedMovies.filter((movie) => {
+      return (
+        movie.nameRU.toLowerCase().includes(inputQuery.toLowerCase()) ||
+        movie.nameEN.toLowerCase().includes(inputQuery.toLowerCase())
+      );
+    });
+    const shorts = searched.filter((movie) => movie.duration <= 40);
+    if (isShorts) {
+      setSavedMovies(shorts);
+    } else {
+      setSavedMovies(searched);
+    }
+    setSavedSearchedMovies(searched);
+    setSavedSearchedShortMovies(shorts);
+    setItem("shortsSaved", shorts);
+    setItem("inputQuerySaved", inputQuery);
+    setItem("searchedMoviesSaved", searched);
   }
 
   function handleLike(movie) {
@@ -281,7 +325,7 @@ function App() {
             onDelete={handleDelete}
             openModal={openModal}
             closeModal={closeModal}
-            onSearch={handleSearch}
+            onSearch={handleSavedSearch}
             isShorts={isShorts}
             setIsShorts={setIsShorts}
             isLoading={isLoading}

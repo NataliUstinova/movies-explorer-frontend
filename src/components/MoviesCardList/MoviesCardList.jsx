@@ -2,7 +2,6 @@ import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import { moviesApi } from "../../utils/MoviesApi";
 import { useEffect, useState } from "react";
-import useLocalStorage from "../../hooks/useLocalStorage";
 
 const MoviesCardList = ({
   movies,
@@ -10,24 +9,24 @@ const MoviesCardList = ({
   onLike,
   onDelete,
   savedMovies,
+  isSaved,
 }) => {
   const [cards, setCards] = useState([]);
-  const { getItem } = useLocalStorage();
 
   useEffect(() => {
-    setCards(movies.slice(0, 7 || movies.length));
+    setCards(movies?.slice(0, 7 || movies?.length));
   }, [movies]);
 
   function loadCards() {
     setCards((cards) => [
       ...cards,
-      ...movies.slice(cards.length, cards.length + 7 || movies.length),
+      ...movies?.slice(cards?.length, cards?.length + 7 || movies?.length),
     ]);
   }
 
   return (
     <div className="movies-card-list">
-      {cards.map((card) => (
+      {cards?.map((card) => (
         <MoviesCard
           savedMovies={savedMovies}
           onDelete={onDelete}
@@ -41,7 +40,7 @@ const MoviesCardList = ({
         />
       ))}
 
-      {movies.length === 0 && (
+      {movies?.length === 0 && (
         <>
           <p className="movies-card-list__alert">Ничего не найдено</p>
           {serverResponse && (
@@ -49,7 +48,7 @@ const MoviesCardList = ({
           )}
         </>
       )}
-      {movies.length > 7 && cards.length !== movies.length ? (
+      {movies?.length > 7 && cards?.length !== movies?.length ? (
         <button
           aria-label="ещё"
           className="movies-card-list__more-button"

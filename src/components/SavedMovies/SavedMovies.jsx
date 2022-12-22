@@ -38,6 +38,7 @@ const SavedMovies = ({
             onDelete={onDelete}
             movies={movies}
             savedMovies={savedMovies}
+            isSaved
           />
         )}
       </main>
