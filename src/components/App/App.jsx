@@ -47,6 +47,9 @@ function App() {
     setIsModalOpen(false);
   }
 
+  useEffect(() => {
+    return () => setServerResponse("");
+  }, []);
   //user
   useEffect(() => {
     //shorts toggle check

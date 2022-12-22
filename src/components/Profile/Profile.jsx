@@ -51,7 +51,7 @@ const Profile = ({
                 required
                 name="name"
                 className="profile__info-text"
-                placeholder={currentUser.name}
+                placeholder="Введите имя"
                 pattern="[a-zA-Zа-яА-ЯёЁ\\ \\-]{2,40}"
                 title="Имя должно быть от 2 до 40 символов и может содержать латиницу, кириллицу, пробел или дефис"
                 //TODO чтобы отправлялось  дефолтное значение поля которе не редактировалось
@@ -72,7 +72,7 @@ const Profile = ({
                 minLength="2"
                 maxLength="40"
                 className="profile__info-text"
-                placeholder={currentUser.email}
+                placeholder="Введите email"
                 value={values.email || ""}
                 onChange={handleInputChange}
               />

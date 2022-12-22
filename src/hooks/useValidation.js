@@ -19,7 +19,9 @@ export default function useValidation(formClass) {
       setErrors({ ...errors, [name]: eventTarget.title });
     }
 
-    setIsDisabled(eventTarget.closest(formClass).checkValidity());
+    if (eventTarget.closest(formClass)) {
+      setIsDisabled(eventTarget.closest(formClass).checkValidity());
+    }
   }
 
   const resetForm = useCallback(
