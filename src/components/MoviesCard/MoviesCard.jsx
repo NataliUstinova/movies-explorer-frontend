@@ -1,5 +1,5 @@
 import "./MoviesCard.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import usePageIdentification from "../../hooks/usePageIdentification";
 import useDuration from "../../hooks/useDuration";
 
@@ -11,15 +11,30 @@ const MoviesCard = ({
   trailerLink,
   onLike,
   onDelete,
+  savedMovies,
 }) => {
   const { hours, minutes } = useDuration({ duration });
 
   const { isSavedPage } = usePageIdentification();
   const [isLiked, setIsLiked] = useState(false);
 
+  useEffect(() => {
+    if (savedMovies.some((m) => movie.id === m.movieId)) {
+      console.log(
+        "savedMovies.some(m => movie.id === m.id)",
+        savedMovies.some((m) => movie.id === m.id)
+      );
+      console.log(savedMovies);
+      setIsLiked(true);
+      console.log("isLiked", isLiked);
+    }
+  }, [savedMovies]);
+
+  console.log(isLiked);
   function toggleLike() {
     setIsLiked(!isLiked);
-    onLike(movie);
+
+    isLiked ? onDelete(movie) : onLike(movie);
   }
 
   return (

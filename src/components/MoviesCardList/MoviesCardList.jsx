@@ -4,7 +4,13 @@ import { moviesApi } from "../../utils/MoviesApi";
 import { useEffect, useState } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
-const MoviesCardList = ({ movies, serverResponse, onLike, onDelete }) => {
+const MoviesCardList = ({
+  movies,
+  serverResponse,
+  onLike,
+  onDelete,
+  savedMovies,
+}) => {
   const [cards, setCards] = useState([]);
   const { getItem } = useLocalStorage();
 
@@ -23,6 +29,7 @@ const MoviesCardList = ({ movies, serverResponse, onLike, onDelete }) => {
     <div className="movies-card-list">
       {cards.map((card) => (
         <MoviesCard
+          savedMovies={savedMovies}
           onDelete={onDelete}
           onLike={onLike}
           movie={card}

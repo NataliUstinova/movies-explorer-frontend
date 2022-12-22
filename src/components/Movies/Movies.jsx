@@ -5,6 +5,7 @@ import Footer from "../Footer/Footer";
 import Preloader from "../Preloader/Preloader";
 
 const Movies = ({
+  onDelete,
   onLike,
   openModal,
   closeModal,
@@ -15,6 +16,7 @@ const Movies = ({
   isShorts,
   setIsShorts,
   serverResponse,
+  savedMovies,
 }) => {
   return (
     <>
@@ -34,8 +36,10 @@ const Movies = ({
         ) : (
           <MoviesCardList
             serverResponse={serverResponse}
+            savedMovies={savedMovies}
             movies={movies}
             onLike={onLike}
+            onDelete={onDelete}
           />
         )}
       </main>

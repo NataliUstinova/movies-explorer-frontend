@@ -15,6 +15,7 @@ const SavedMovies = ({
   onSearch,
   isShorts,
   setIsShorts,
+  savedMovies,
 }) => {
   return (
     <>
@@ -32,7 +33,12 @@ const SavedMovies = ({
         {isLoading ? (
           <Preloader />
         ) : (
-          <MoviesCardList onLike={onLike} onDelete={onDelete} movies={movies} />
+          <MoviesCardList
+            onLike={onLike}
+            onDelete={onDelete}
+            movies={movies}
+            savedMovies={savedMovies}
+          />
         )}
       </main>
       <Footer movies={movies} />

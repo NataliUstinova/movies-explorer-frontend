@@ -136,7 +136,6 @@ function App() {
 
   useEffect(() => {
     setIsLoading(true);
-    console.log("saved api work");
     mainApi
       .getSavedMovies((res) => {
         console.log("savedApi", res);
@@ -178,17 +177,14 @@ function App() {
       setSearchedShortMovies(shortMovies);
     }
     if (searchedFilms?.length > 0) {
-      console.log("searched work");
       setSearchedMovies(searchedFilms);
       setIsLoading(false);
       return;
     }
     if (allFilms && allFilms?.length > 0) {
-      console.log("all work");
       setIsLoading(false);
       setAllMovies(allFilms);
     } else {
-      console.log("api work");
       moviesApi
         .getAllMovies()
         .then((res) => {
@@ -223,8 +219,6 @@ function App() {
     setItem("shorts", shorts);
     setItem("inputQuery", inputQuery);
     setItem("searchedMovies", searched);
-    console.log("search", searched);
-    // setItem("isShorts", isShorts.toString());
   }
 
   function handleLike(movie) {
@@ -232,26 +226,19 @@ function App() {
       .saveUserMovie(movie)
       .then((movie) => {
         setSavedMovies([movie, ...savedMovies]);
-        console.log("savedM", savedMovies);
       })
       .catch((err) => console.log(err));
   }
 
   function handleDelete(movie) {
-    console.log("movie", movie);
     const savedMovie = savedMovies.find(
       (item) => item.movieId === movie.id || item.movieId === movie.movieId
     );
-    console.log(savedMovie);
     mainApi
       .deleteSavedMovie(savedMovie._id)
       .then(() => {
         const newSavedMovies = savedMovies.filter((m) => {
-          if (movie.id === m.movieId || movie.movieId === m.movieId) {
-            return false;
-          } else {
-            return true;
-          }
+          return !(movie.id === m.movieId || movie.movieId === m.movieId);
         });
         setSavedMovies(newSavedMovies);
       })
@@ -273,6 +260,7 @@ function App() {
             exact
             path="/movies"
             component={Movies}
+            onDelete={handleDelete}
             openModal={openModal}
             closeModal={closeModal}
             isLoading={isLoading}
@@ -283,11 +271,13 @@ function App() {
             isShorts={isShorts}
             setIsShorts={setIsShorts}
             serverResponse={serverResponse}
+            savedMovies={savedMovies}
           ></ProtectedRoute>
           <ProtectedRoute
             exact
             path="/saved"
             component={SavedMovies}
+            savedMovies={savedMovies}
             onDelete={handleDelete}
             openModal={openModal}
             closeModal={closeModal}
