@@ -20,15 +20,14 @@ const Profile = ({
 
   useEffect(() => {
     if (currentUser) {
-      console.log("current work");
       values.name = currentUser.name;
       values.email = currentUser.email;
     }
-  }, [currentUser]);
+  }, [currentUser.name, currentUser.email]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    onUpdateUser({ name: values.name, email: values.email });
+    onUpdateUser({ name: values.name.trim(), email: values.email.trim() });
   }
 
   return (
@@ -54,7 +53,6 @@ const Profile = ({
                 placeholder="Введите имя"
                 pattern="[a-zA-Zа-яА-ЯёЁ\\ \\-]{2,40}"
                 title="Имя должно быть от 2 до 40 символов и может содержать латиницу, кириллицу, пробел или дефис"
-                //TODO чтобы отправлялось  дефолтное значение поля которе не редактировалось
                 value={values.name || ""}
                 onChange={handleInputChange}
               />

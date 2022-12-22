@@ -45,7 +45,7 @@
 }
 
 .profile__info-text::placeholder {
-  color: #000;
+  color: #ccc;
 }
 
 .profile__info-text:invalid {

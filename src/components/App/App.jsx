@@ -226,8 +226,6 @@ function App() {
 
   //search movies
   function handleSearch(inputQuery) {
-    console.log("inputQuery", inputQuery);
-    //if saved movies search by saved
     const searched = allMovies.filter((movie) => {
       return (
         movie.nameRU.toLowerCase().includes(inputQuery.toLowerCase()) ||
@@ -247,8 +245,8 @@ function App() {
     setItem("searchedMovies", searched);
   }
 
+  //saved movies search by saved
   function handleSavedSearch(inputQuery) {
-    //if saved movies search by saved
     const searched = allSavedMovies.filter((movie) => {
       return (
         movie.nameRU.toLowerCase().includes(inputQuery.toLowerCase()) ||
@@ -261,7 +259,6 @@ function App() {
     } else {
       setSavedMovies(searched);
     }
-    console.log(searched, "searched");
     setSavedSearchedMovies(searched);
     setSavedSearchedShortMovies(shorts);
     setItem("shortsSaved", shorts);
@@ -275,7 +272,10 @@ function App() {
       .then((movie) => {
         setSavedMovies([movie, ...savedMovies]);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setServerResponse(err);
+        console.log(err);
+      });
   }
 
   function handleDelete(movie) {
@@ -290,7 +290,10 @@ function App() {
         });
         setSavedMovies(newSavedMovies);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setServerResponse(err);
+        console.log(err);
+      });
   }
 
   return (
