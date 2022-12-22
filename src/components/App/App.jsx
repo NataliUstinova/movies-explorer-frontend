@@ -206,9 +206,12 @@ function App() {
   //search movies
   function handleSearch(inputQuery) {
     console.log("inputQuery", inputQuery);
-    const searched = allMovies.filter((movie) =>
-      movie.nameRU.toLowerCase().includes(inputQuery.toLowerCase())
-    );
+    const searched = allMovies.filter((movie) => {
+      return (
+        movie.nameRU.toLowerCase().includes(inputQuery.toLowerCase()) ||
+        movie.nameEN.toLowerCase().includes(inputQuery.toLowerCase())
+      );
+    });
     const shorts = searched.filter((movie) => movie.duration <= 40);
     if (isShorts) {
       setMovies(shorts);
