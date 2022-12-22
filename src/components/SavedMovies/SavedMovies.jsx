@@ -16,6 +16,8 @@ const SavedMovies = ({
   isShorts,
   setIsShorts,
   savedMovies,
+  isShortsSaved,
+  setIsShortsSaved,
 }) => {
   return (
     <>
@@ -29,6 +31,8 @@ const SavedMovies = ({
           onSearch={onSearch}
           isShorts={isShorts}
           setIsShorts={setIsShorts}
+          isShortsSaved={isShortsSaved}
+          setIsShortsSaved={setIsShortsSaved}
         />
         {isLoading ? (
           <Preloader />

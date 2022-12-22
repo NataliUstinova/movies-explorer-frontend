@@ -139,6 +139,14 @@ function App() {
   }, [isShorts]);
 
   useEffect(() => {
+    if (isShortsSaved) {
+      setSavedMovies(savedSearchedShortMovies);
+    } else {
+      setSavedMovies(savedSearchedMovies);
+    }
+  }, [isShortsSaved]);
+
+  useEffect(() => {
     setIsLoading(true);
     mainApi
       .getSavedMovies((res) => {
@@ -331,6 +339,8 @@ function App() {
             isLoading={isLoading}
             isLoggedIn={isLoggedIn}
             movies={savedMovies}
+            isShortsSaved={isShortsSaved}
+            setIsShortsSaved={setIsShortsSaved}
           ></ProtectedRoute>
           <Route exact path="/signin">
             <Login onLogin={handleLogin} serverResponse={serverResponse} />
