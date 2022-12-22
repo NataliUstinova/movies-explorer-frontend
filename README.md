@@ -1,7 +1,10 @@
 # movies-explorer-frontend
-WIP Frontend will be available at:
+Frontend is available at:
 [https://movies.nata.u.nomoredomains.club/
 ](https://movies.nata.u.nomoredomains.club/)
+
+---
+[Pull request for level-3](https://github.com/NataliUstinova/movies-explorer-frontend/pull/51) 
 
 ---
 [SSL Report for Frontend](https://www.ssllabs.com/ssltest/analyze.html?d=movies.nata.u.nomoredomains.club)
