@@ -96,8 +96,8 @@ class MainApi {
 }
 
 export const mainApi = new MainApi({
-  // baseUrl: "https://api.movies.nata.u.nomoredomains.club",
-  baseUrl: "http://localhost:3002",
+  baseUrl: "https://api.movies.nata.u.nomoredomains.club",
+  // baseUrl: "http://localhost:3002",
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",

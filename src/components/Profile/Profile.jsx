@@ -28,9 +28,6 @@ const Profile = ({
     !isDisabled ||
     (values.name === currentUser.name && values.email === currentUser.email);
 
-  console.log("isDisabled", isDisabled);
-  console.log("customValidation", customValidation);
-
   function handleSubmit(e) {
     e.preventDefault();
     onUpdateUser({ name: values.name.trim(), email: values.email.trim() });

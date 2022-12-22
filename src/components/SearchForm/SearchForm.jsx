@@ -3,8 +3,7 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import Separator from "../Separator/Separator";
 import useValidation from "../../hooks/useValidation";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import { useContext, useEffect } from "react";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { useEffect } from "react";
 
 const SearchForm = ({
   onSearch,
@@ -13,8 +12,7 @@ const SearchForm = ({
   isShortsSaved,
   setIsShortsSaved,
 }) => {
-  const currentUser = useContext(CurrentUserContext);
-  const { setItem, getItem } = useLocalStorage();
+  const { getItem } = useLocalStorage();
   const { values, errors, handleInputChange } =
     useValidation(".search-form__form");
 
