@@ -1,24 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Form.css";
 import Logo from "../Logo/Logo";
 import useValidation from "../../hooks/useValidation";
 import { Link } from "react-router-dom";
+import { EMAIL_PATTERN, NAME_PATTERN } from "../../utils/constants";
 
 const Form = ({ title, isLoginForm, onLogin, onRegister, serverResponse }) => {
-  const { values, errors, isDisabled, handleInputChange } =
+  const { values, errors, isDisabled, resetForm, handleInputChange } =
     useValidation(".form__form");
+
+  // useEffect(() => {
+  //   resetForm();
+  // }, [resetForm]);
 
   function handleSubmit(e) {
     e.preventDefault();
     {
       isLoginForm
         ? onLogin({
-            email: values.email,
+            email: values.email.trim().toLowerCase(),
             password: values.password,
           })
         : onRegister({
-            name: values.name,
-            email: values.email,
+            name: values.name.trim(),
+            email: values.email.trim().toLowerCase(),
             password: values.password,
           });
     }
@@ -43,7 +48,7 @@ const Form = ({ title, isLoginForm, onLogin, onRegister, serverResponse }) => {
                   type="text"
                   name="name"
                   required
-                  pattern="[a-zA-Zа-яА-ЯёЁ\\ \\-]{2,40}"
+                  pattern={NAME_PATTERN}
                   title="Имя должно быть от 2 до 40 символов и может содержать латиницу, кириллицу, пробел или дефис"
                   placeholder="Введите имя"
                   value={values.name || ""}
@@ -59,9 +64,10 @@ const Form = ({ title, isLoginForm, onLogin, onRegister, serverResponse }) => {
               </label>
               <input
                 autoComplete="email"
+                type="email"
+                pattern={EMAIL_PATTERN}
+                title="Неверный формат email"
                 required
-                minLength="2"
-                maxLength="40"
                 className={`form__input ${
                   errors.email && "form__input-error-color"
                 }`}
