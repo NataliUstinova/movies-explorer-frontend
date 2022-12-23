@@ -1,7 +1,7 @@
 import "./App.css";
 import Main from "../Main/Main";
 import React from "react";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route, useHistory, Redirect } from "react-router-dom";
 import Movies from "../Movies/Movies";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
@@ -343,13 +343,21 @@ function App() {
             setIsShortsSaved={setIsShortsSaved}
           ></ProtectedRoute>
           <Route exact path="/signin">
-            <Login onLogin={handleLogin} serverResponse={serverResponse} />
+            {isLoggedIn ? (
+              <Redirect to="/" />
+            ) : (
+              <Login onLogin={handleLogin} serverResponse={serverResponse} />
+            )}
           </Route>
           <Route exact path="/signup">
-            <Register
-              onRegister={handleRegister}
-              serverResponse={serverResponse}
-            />
+            {isLoggedIn ? (
+              <Redirect to="/" />
+            ) : (
+              <Register
+                onRegister={handleRegister}
+                serverResponse={serverResponse}
+              />
+            )}
           </Route>
           <ProtectedRoute
             exact
