@@ -86,6 +86,7 @@ const Form = ({ title, isLoginForm, onLogin, onRegister, serverResponse }) => {
                 }`}
                 type="password"
                 name="password"
+                required
                 autoComplete={isLoginForm ? "current-password" : "new-password"}
                 placeholder="Введите пароль"
                 //TODO
