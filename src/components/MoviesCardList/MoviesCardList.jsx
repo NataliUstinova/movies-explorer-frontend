@@ -2,6 +2,7 @@ import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import { moviesApi } from "../../utils/MoviesApi";
 import { useEffect, useState } from "react";
+import { MAX_CARDS } from "../../utils/constants";
 
 const MoviesCardList = ({
   movies,
@@ -14,13 +15,16 @@ const MoviesCardList = ({
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    setCards(movies?.slice(0, 7 || movies?.length));
+    setCards(movies?.slice(0, MAX_CARDS || movies?.length));
   }, [movies]);
 
   function loadCards() {
     setCards((cards) => [
       ...cards,
-      ...movies?.slice(cards?.length, cards?.length + 7 || movies?.length),
+      ...movies?.slice(
+        cards?.length,
+        cards?.length + MAX_CARDS || movies?.length
+      ),
     ]);
   }
 
@@ -48,7 +52,7 @@ const MoviesCardList = ({
           )}
         </>
       )}
-      {movies?.length > 7 && cards?.length !== movies?.length ? (
+      {movies?.length > MAX_CARDS && cards?.length !== movies?.length ? (
         <button
           aria-label="ещё"
           className="movies-card-list__more-button"

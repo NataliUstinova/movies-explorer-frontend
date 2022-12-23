@@ -15,6 +15,7 @@ import { mainApi } from "../../utils/MainApi";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import { SHORTS_DURATION } from "../../utils/constants";
 
 function App() {
   const history = useHistory();
@@ -58,7 +59,7 @@ function App() {
       setIsShorts(toggleShortsState);
     }
 
-    // if (!isLoggedIn) return;
+    if (!isLoggedIn) return;
     setServerResponse("");
     mainApi
       .getUserInfo()
@@ -233,7 +234,9 @@ function App() {
         movie.nameEN.toLowerCase().includes(inputQuery.toLowerCase())
       );
     });
-    const shorts = searched.filter((movie) => movie.duration <= 40);
+    const shorts = searched.filter(
+      (movie) => movie.duration <= SHORTS_DURATION
+    );
     if (isShorts) {
       setMovies(shorts);
     } else {
@@ -254,7 +257,9 @@ function App() {
         movie.nameEN.toLowerCase().includes(inputQuery.toLowerCase())
       );
     });
-    const shorts = searched.filter((movie) => movie.duration <= 40);
+    const shorts = searched.filter(
+      (movie) => movie.duration <= SHORTS_DURATION
+    );
     if (isShortsSaved) {
       setSavedMovies(shorts);
     } else {

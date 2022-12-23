@@ -18,7 +18,6 @@ const SearchForm = ({
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("submit", values.search);
     onSearch(values.search);
   }
 
