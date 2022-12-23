@@ -362,7 +362,7 @@ function App() {
             serverResponse={serverResponse}
             component={Profile}
           ></ProtectedRoute>
-          <ProtectedRoute exact path="*" component={NotFoundPage} />
+          <Route exact path="*" component={NotFoundPage} />
         </Switch>
         <ModalMenu isModalOpen={isModalOpen} closeModal={closeModal} />
       </div>
