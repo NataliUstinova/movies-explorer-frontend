@@ -50,7 +50,7 @@ function App() {
 
   useEffect(() => {
     return () => setServerResponse("");
-  }, []);
+  }, [setServerResponse]);
   //user
   useEffect(() => {
     //shorts toggle check
@@ -153,8 +153,7 @@ function App() {
       .catch((err) => {
         console.log(err);
         setServerResponse(err);
-      })
-      .finally(() => setServerResponse(""));
+      });
   }
 
   useEffect(() => {
@@ -246,7 +245,7 @@ function App() {
           setServerResponse(err);
         });
     }
-  }, [currentUser.name]);
+  }, [currentUser.email]);
 
   //search movies
   function handleSearch(inputQuery) {
@@ -395,6 +394,7 @@ function App() {
             onLogout={handleLogout}
             onUpdateUser={handleUserUpdate}
             serverResponse={serverResponse}
+            setServerResponse={setServerResponse}
             component={Profile}
           ></ProtectedRoute>
           <Route exact path="*" component={NotFoundPage} />

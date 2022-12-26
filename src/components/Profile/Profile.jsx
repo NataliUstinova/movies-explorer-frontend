@@ -4,6 +4,7 @@ import Separator from "../Separator/Separator";
 import useValidation from "../../hooks/useValidation";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { useContext, useEffect } from "react";
+import { EMAIL_PATTERN, NAME_PATTERN } from "../../utils/constants";
 
 const Profile = ({
   openModal,
@@ -12,15 +13,20 @@ const Profile = ({
   onUpdateUser,
   onLogout,
   serverResponse,
+  setServerResponse,
 }) => {
   const currentUser = useContext(CurrentUserContext);
 
   const { values, errors, isDisabled, resetForm, handleInputChange } =
     useValidation(".profile__edit-form");
 
+  useEffect(() => setServerResponse(""), []);
+
   useEffect(() => {
     if (currentUser) {
       resetForm(currentUser, {}, true);
+      values.name = currentUser.name;
+      values.email = currentUser.email;
     }
   }, [currentUser, resetForm]);
 
@@ -54,7 +60,7 @@ const Profile = ({
                 name="name"
                 className="profile__info-text"
                 placeholder="Введите имя"
-                pattern="[a-zA-Zа-яА-ЯёЁ\\ \\-]{2,40}"
+                pattern={NAME_PATTERN}
                 title="Имя должно быть от 2 до 40 символов и может содержать латиницу, кириллицу, пробел или дефис"
                 value={values.name || ""}
                 onChange={handleInputChange}
@@ -70,8 +76,8 @@ const Profile = ({
                 name="email"
                 autoComplete="email"
                 required
-                minLength="2"
-                maxLength="40"
+                pattern={EMAIL_PATTERN}
+                title="Введите правльный email"
                 className="profile__info-text"
                 placeholder="Введите email"
                 value={values.email || ""}
