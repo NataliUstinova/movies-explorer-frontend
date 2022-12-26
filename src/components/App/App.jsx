@@ -15,7 +15,11 @@ import { mainApi } from "../../utils/MainApi";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import { SHORTS_DURATION } from "../../utils/constants";
+import {
+  AUTH_ERROR,
+  SHORTS_DURATION,
+  UPDATE_SUCCESS,
+} from "../../utils/constants";
 
 function App() {
   const history = useHistory();
@@ -24,6 +28,8 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState({});
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [serverResponse, setServerResponse] = useState("");
 
   const [allMovies, setAllMovies] = useState([]);
@@ -86,7 +92,6 @@ function App() {
       })
       .catch((err) => {
         setServerResponse(err);
-        alert(err);
       });
   }
   function handleLogin({ email, password }) {
@@ -104,7 +109,6 @@ function App() {
       .catch((err) => {
         setServerResponse(err);
         setIsLoggedIn(false);
-        alert(err);
       });
   }
 
@@ -142,12 +146,12 @@ function App() {
       .editProfile({ name, email })
       .then((res) => {
         setCurrentUser(res);
-        setServerResponse("Данные успешно обновлены");
+        setServerResponse(UPDATE_SUCCESS);
       })
       .catch((err) => {
         console.log(err);
         setServerResponse(err);
-        if (err === "Необходима авторизация") {
+        if (err === AUTH_ERROR) {
           handleLogout();
           alert(err);
         }
@@ -188,7 +192,7 @@ function App() {
         .catch((err) => {
           console.log(err);
           setServerResponse(err);
-          if (err === "Необходима авторизация") {
+          if (err === AUTH_ERROR) {
             handleLogout();
           }
           alert(err);
@@ -285,7 +289,7 @@ function App() {
       .catch((err) => {
         setServerResponse(err);
         console.log(err);
-        if (err === "Необходима авторизация") {
+        if (err === AUTH_ERROR) {
           handleLogout();
         }
         alert(err);
@@ -308,7 +312,7 @@ function App() {
         setServerResponse(err);
         console.log(err);
         console.log(err.code);
-        if (err === "Необходима авторизация") {
+        if (err === AUTH_ERROR) {
           handleLogout();
         }
         alert(err);
