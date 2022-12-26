@@ -16,7 +16,6 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { SHORTS_DURATION } from "../../utils/constants";
-import { usePath } from "../../hooks/usePath";
 
 function App() {
   const history = useHistory();
@@ -27,7 +26,6 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [serverResponse, setServerResponse] = useState("");
 
-  const [inputQuery, setInputQuery] = useState("");
   const [allMovies, setAllMovies] = useState([]);
   const [movies, setMovies] = useState([]);
   const [searchedMovies, setSearchedMovies] = useState([]);
@@ -51,8 +49,6 @@ function App() {
   useEffect(() => {
     return () => setServerResponse("");
   }, [setServerResponse]);
-  console.log("user", currentUser);
-  console.log("isLoggedIn", isLoggedIn);
   //get user
   useEffect(() => {
     //shorts toggle check
@@ -68,7 +64,6 @@ function App() {
     mainApi
       .getUserInfo()
       .then((res) => {
-        console.log("user work");
         setCurrentUser(res);
         setIsLoggedIn(true);
         history.push(page);
@@ -108,8 +103,8 @@ function App() {
       })
       .catch((err) => {
         setServerResponse(err);
-        alert(err);
         setIsLoggedIn(false);
+        alert(err);
       });
   }
 
@@ -136,8 +131,8 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        alert(err);
         setServerResponse(err);
+        alert(err);
       });
   }
 
@@ -153,21 +148,11 @@ function App() {
         console.log(err);
         setServerResponse(err);
         if (err === "Необходима авторизация") {
-          alert(err);
           handleLogout();
+          alert(err);
         }
       });
   }
-
-  useEffect(() => {
-    const input = getItem("inputQuery");
-    if (path === "/movies") {
-      setInputQuery(input);
-    }
-    if (path === "/saved") {
-      setInputQuery("");
-    }
-  }, [path]);
 
   useEffect(() => {
     if (isShorts) {
@@ -202,11 +187,11 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
-          alert(err);
           setServerResponse(err);
           if (err === "Необходима авторизация") {
             handleLogout();
           }
+          alert(err);
         })
         .finally(() => setIsLoading(false));
     }
@@ -214,56 +199,41 @@ function App() {
 
   //get all movies
   useEffect(() => {
-    setIsLoading(true);
-    const shortMovies = getItem("shorts");
-    const searchedFilms = getItem("searchedMovies");
-    const isOn = getItem("isShorts");
-    const allFilms = getItem("allMovies");
-    //сохранение поиска в сохраненных
-    // const searchMoviesSaved = getItem("searchedMoviesSaved");
-    // const isOnSaved = getItem("isShortsSaved");
-    // const shortsSaved = getItem("shortsSaved");
-    // const allFilmsSaved = getItem("allMoviesSaved");
-    // setAllSavedMovies(allFilmsSaved);
-    // setSavedMovies(isOnSaved ? shortsSaved : searchMoviesSaved);
-    // if (searchMoviesSaved?.length > 0) {
-    //   setSavedSearchedMovies(searchMoviesSaved);
-    // }
-    // if (shortsSaved?.length > 0) {
-    //   setSavedSearchedShortMovies(shortsSaved);
-    // }
-    // if (isOnSaved) {
-    //   setIsShortsSaved(isOnSaved);
-    // }
+    if (isLoggedIn) {
+      setIsLoading(true);
+      const shortMovies = getItem("shorts");
+      const searchedFilms = getItem("searchedMovies");
+      const isOn = getItem("isShorts");
+      const allFilms = getItem("allMovies");
 
-    setMovies(isOn ? shortMovies : searchedFilms);
+      setMovies(isOn ? shortMovies : searchedFilms);
 
-    if (shortMovies?.length > 0) {
-      setSearchedShortMovies(shortMovies);
+      if (shortMovies?.length > 0) {
+        setSearchedShortMovies(shortMovies);
+      }
+      if (searchedFilms?.length > 0) {
+        setSearchedMovies(searchedFilms);
+        setIsLoading(false);
+      }
+      if (allFilms && allFilms?.length > 0) {
+        setIsLoading(false);
+        setAllMovies(allFilms);
+      } else {
+        moviesApi
+          .getAllMovies()
+          .then((res) => {
+            setIsLoading(false);
+            setAllMovies(res);
+            setItem("allMovies", res);
+          })
+          .catch((err) => {
+            console.log(err);
+            setServerResponse(err);
+            alert(err);
+          });
+      }
     }
-    if (searchedFilms?.length > 0) {
-      setSearchedMovies(searchedFilms);
-      setIsLoading(false);
-      return;
-    }
-    if (allFilms && allFilms?.length > 0) {
-      setIsLoading(false);
-      setAllMovies(allFilms);
-    } else {
-      moviesApi
-        .getAllMovies()
-        .then((res) => {
-          setIsLoading(false);
-          setAllMovies(res);
-          setItem("allMovies", res);
-        })
-        .catch((err) => {
-          console.log(err);
-          alert(err);
-          setServerResponse(err);
-        });
-    }
-  }, [currentUser.email]);
+  }, [isLoggedIn]);
 
   //search movies
   function handleSearch(inputQuery) {
@@ -304,11 +274,6 @@ function App() {
     } else {
       setSavedMovies(searched);
     }
-    // setSavedSearchedMovies(searched);
-    // setSavedSearchedShortMovies(shorts);
-    // setItem("shortsSaved", shorts);
-    // setItem("inputQuerySaved", inputQuery);
-    // setItem("searchedMoviesSaved", searched);
   }
 
   function handleLike(movie) {
@@ -318,12 +283,12 @@ function App() {
         setSavedMovies([movie, ...savedMovies]);
       })
       .catch((err) => {
-        alert(err);
         setServerResponse(err);
         console.log(err);
         if (err === "Необходима авторизация") {
           handleLogout();
         }
+        alert(err);
       });
   }
 
@@ -340,13 +305,13 @@ function App() {
         setSavedMovies(newSavedMovies);
       })
       .catch((err) => {
-        alert(err);
         setServerResponse(err);
         console.log(err);
         console.log(err.code);
         if (err === "Необходима авторизация") {
           handleLogout();
         }
+        alert(err);
       });
   }
 
@@ -377,7 +342,6 @@ function App() {
             setIsShorts={setIsShorts}
             serverResponse={serverResponse}
             savedMovies={savedMovies}
-            inputQuery={inputQuery}
           ></ProtectedRoute>
           <ProtectedRoute
             exact

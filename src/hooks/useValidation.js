@@ -38,5 +38,6 @@ export default function useValidation(formClass) {
     handleInputChange,
     resetForm,
     setIsDisabled,
+    setValues,
   };
 }
