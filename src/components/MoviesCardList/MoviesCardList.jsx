@@ -44,9 +44,17 @@ const MoviesCardList = ({
         />
       ))}
 
-      {movies?.length === 0 && (
+      {movies?.length === 0 && !isSaved && (
         <>
           <p className="movies-card-list__alert">Ничего не найдено</p>
+          {serverResponse && (
+            <p className="movies-card-list__alert">{serverResponse}</p>
+          )}
+        </>
+      )}
+      {movies?.length === 0 && isSaved && (
+        <>
+          <p className="movies-card-list__alert">Ничего не сохранено</p>
           {serverResponse && (
             <p className="movies-card-list__alert">{serverResponse}</p>
           )}
