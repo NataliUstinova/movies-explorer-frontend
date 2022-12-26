@@ -34,8 +34,6 @@ function App() {
 
   const [savedMovies, setSavedMovies] = useState([]);
   const [allSavedMovies, setAllSavedMovies] = useState([]);
-  const [savedSearchedMovies, setSavedSearchedMovies] = useState([]);
-  const [savedSearchedShortMovies, setSavedSearchedShortMovies] = useState([]);
   const [isShortsSaved, setIsShortsSaved] = useState(false);
 
   const path = window.location.pathname;
@@ -59,7 +57,7 @@ function App() {
       setIsShorts(toggleShortsState);
     }
 
-    if (isLoggedIn && currentUser) {
+    if (currentUser) {
       setServerResponse("");
       mainApi
         .getUserInfo()
@@ -286,8 +284,8 @@ function App() {
     } else {
       setSavedMovies(searched);
     }
-    setSavedSearchedMovies(searched);
-    setSavedSearchedShortMovies(shorts);
+    // setSavedSearchedMovies(searched);
+    // setSavedSearchedShortMovies(shorts);
     // setItem("shortsSaved", shorts);
     // setItem("inputQuerySaved", inputQuery);
     // setItem("searchedMoviesSaved", searched);
