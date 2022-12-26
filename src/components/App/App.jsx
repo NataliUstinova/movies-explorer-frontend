@@ -59,19 +59,20 @@ function App() {
       setIsShorts(toggleShortsState);
     }
 
-    if (!isLoggedIn) return;
-    setServerResponse("");
-    mainApi
-      .getUserInfo()
-      .then((res) => {
-        setCurrentUser(res);
-        setIsLoggedIn(true);
-        history.push(path);
-      })
-      .catch((err) => {
-        setServerResponse(err);
-      });
-  }, []);
+    if (isLoggedIn && currentUser) {
+      setServerResponse("");
+      mainApi
+        .getUserInfo()
+        .then((res) => {
+          setCurrentUser(res);
+          setIsLoggedIn(true);
+          history.push(path);
+        })
+        .catch((err) => {
+          setServerResponse(err);
+        });
+    }
+  }, [currentUser._id, isLoggedIn]);
 
   function handleRegister({ name, email, password }) {
     setServerResponse("");
@@ -106,12 +107,27 @@ function App() {
       });
   }
 
+  // console.log("isLoggedIn", isLoggedIn);
+  // console.log("allMovies", allMovies);
+  // console.log("serverResponse", serverResponse);
+  // console.log("isShorts", isShorts);
+  // console.log("movies", movies);
+  // console.log("searchedMovies", searchedMovies);
+  // console.log("searchedShortMovies", searchedShortMovies);
+
   function handleLogout() {
     setServerResponse("");
     mainApi
       .signout()
       .then(() => {
         setIsLoggedIn(false);
+        setCurrentUser({});
+        setServerResponse("");
+        setMovies([]);
+        setAllMovies([]);
+        setSearchedMovies([]);
+        setSearchedShortMovies([]);
+        setIsShorts(false);
         localStorage.clear();
         history.push("/");
       })
