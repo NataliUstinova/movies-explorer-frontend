@@ -20,6 +20,7 @@ import {
   SHORTS_DURATION,
   UPDATE_SUCCESS,
 } from "../../utils/constants";
+import Popup from "../Popup/Popup";
 
 function App() {
   const history = useHistory();
@@ -52,9 +53,14 @@ function App() {
     setIsModalOpen(false);
   }
 
+  function closePopup() {
+    setIsPopupOpen(false);
+  }
+
   useEffect(() => {
     return () => setServerResponse("");
   }, [setServerResponse]);
+
   //get user
   useEffect(() => {
     //shorts toggle check
@@ -62,7 +68,6 @@ function App() {
     if (toggleShortsState) {
       setIsShorts(toggleShortsState);
     }
-    setServerResponse("");
     handleUserInfo(path);
   }, []);
 
@@ -80,7 +85,6 @@ function App() {
   }
 
   function handleRegister({ name, email, password }) {
-    setServerResponse("");
     mainApi
       .signup({ name, email, password })
       .then((res) => {
@@ -91,11 +95,12 @@ function App() {
         }
       })
       .catch((err) => {
+        console.log(err);
+        setIsPopupOpen(true);
         setServerResponse(err);
       });
   }
   function handleLogin({ email, password }) {
-    setServerResponse("");
     mainApi
       .signin({ email, password })
       .then((res) => {
@@ -107,19 +112,19 @@ function App() {
         }, 1000);
       })
       .catch((err) => {
+        console.log(err);
+        setIsPopupOpen(true);
         setServerResponse(err);
         setIsLoggedIn(false);
       });
   }
 
   function handleLogout() {
-    setServerResponse("");
     mainApi
       .signout()
       .then(() => {
         setIsLoggedIn(false);
         setCurrentUser({});
-        setServerResponse("");
         setMovies([]);
         setAllMovies([]);
         setSearchedMovies([]);
@@ -135,8 +140,8 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        setIsPopupOpen(true);
         setServerResponse(err);
-        alert(err);
       });
   }
 
@@ -150,10 +155,10 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        setIsPopupOpen(true);
         setServerResponse(err);
         if (err === AUTH_ERROR) {
           handleLogout();
-          alert(err);
         }
       });
   }
@@ -191,11 +196,11 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
+          setIsPopupOpen(true);
           setServerResponse(err);
           if (err === AUTH_ERROR) {
             handleLogout();
           }
-          alert(err);
         })
         .finally(() => setIsLoading(false));
     }
@@ -232,8 +237,8 @@ function App() {
           })
           .catch((err) => {
             console.log(err);
+            setIsPopupOpen(true);
             setServerResponse(err);
-            alert(err);
           });
       }
     }
@@ -287,12 +292,12 @@ function App() {
         setSavedMovies([movie, ...savedMovies]);
       })
       .catch((err) => {
-        setServerResponse(err);
         console.log(err);
+        setIsPopupOpen(true);
+        setServerResponse(err);
         if (err === AUTH_ERROR) {
           handleLogout();
         }
-        alert(err);
       });
   }
 
@@ -309,13 +314,12 @@ function App() {
         setSavedMovies(newSavedMovies);
       })
       .catch((err) => {
-        setServerResponse(err);
         console.log(err);
-        console.log(err.code);
+        setIsPopupOpen(true);
+        setServerResponse(err);
         if (err === AUTH_ERROR) {
           handleLogout();
         }
-        alert(err);
       });
   }
 
@@ -396,6 +400,11 @@ function App() {
           <Route exact path="*" component={NotFoundPage} />
         </Switch>
         <ModalMenu isModalOpen={isModalOpen} closeModal={closeModal} />
+        <Popup
+          isOpen={isPopupOpen}
+          serverResponse={serverResponse}
+          onClose={closePopup}
+        />
       </div>
     </CurrentUserContext.Provider>
   );

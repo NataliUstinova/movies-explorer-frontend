@@ -66,8 +66,8 @@
   border: none;
   background: url(../../images/cross.svg) no-repeat center center;
   background-size: cover;
-  width: 14px;
-  height: 12px;
+  width: 9px;
+  height: 9px;
 }
 
 .movies-card__delete:hover {

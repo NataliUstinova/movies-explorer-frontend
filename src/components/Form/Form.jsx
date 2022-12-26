@@ -9,9 +9,9 @@ const Form = ({ title, isLoginForm, onLogin, onRegister, serverResponse }) => {
   const { values, errors, isDisabled, resetForm, handleInputChange } =
     useValidation(".form__form");
 
-  // useEffect(() => {
-  //   resetForm();
-  // }, [resetForm]);
+  useEffect(() => {
+    resetForm();
+  }, [resetForm]);
 
   function handleSubmit(e) {
     e.preventDefault();

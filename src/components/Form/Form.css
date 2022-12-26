@@ -60,6 +60,20 @@
   margin: 0;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border-bottom: 1px solid #E8E8E8;
+  -webkit-text-fill-color: #000;
+  -webkit-box-shadow:0 0 0 50px rgba(43, 224, 128, 0.05) inset;
+}
+
 .form__input:focus {
   outline: none !important;
   border-color: #2BE080;
