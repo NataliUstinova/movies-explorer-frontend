@@ -128,6 +128,11 @@ function App() {
         setSearchedMovies([]);
         setSearchedShortMovies([]);
         setIsShorts(false);
+
+        setIsShortsSaved(false);
+        setSavedMovies([]);
+        setAllSavedMovies([]);
+
         localStorage.clear();
         history.push("/");
       })
@@ -161,10 +166,13 @@ function App() {
   }, [isShorts]);
 
   useEffect(() => {
+    const shorts = allSavedMovies.filter(
+      (movie) => movie.duration <= SHORTS_DURATION
+    );
     if (isShortsSaved) {
-      setSavedMovies(savedSearchedShortMovies);
+      setSavedMovies(shorts);
     } else {
-      setSavedMovies(savedSearchedMovies);
+      setSavedMovies(allSavedMovies);
     }
   }, [isShortsSaved]);
 
@@ -195,24 +203,22 @@ function App() {
     const searchedFilms = getItem("searchedMovies");
     const isOn = getItem("isShorts");
     const allFilms = getItem("allMovies");
-
-    const searchMoviesSaved = getItem("searchedMoviesSaved");
-    const isOnSaved = getItem("isShortsSaved");
-    const shortsSaved = getItem("shortsSaved");
-    const allFilmsSaved = getItem("allMoviesSaved");
-    setAllSavedMovies(allFilmsSaved);
-
-    setSavedMovies(isOnSaved ? shortsSaved : searchMoviesSaved);
-
-    if (searchMoviesSaved?.length > 0) {
-      setSavedSearchedMovies(searchMoviesSaved);
-    }
-    if (shortsSaved?.length > 0) {
-      setSavedSearchedShortMovies(shortsSaved);
-    }
-    if (isOnSaved) {
-      setIsShortsSaved(isOnSaved);
-    }
+    //сохранение поиска в сохраненных
+    // const searchMoviesSaved = getItem("searchedMoviesSaved");
+    // const isOnSaved = getItem("isShortsSaved");
+    // const shortsSaved = getItem("shortsSaved");
+    // const allFilmsSaved = getItem("allMoviesSaved");
+    // setAllSavedMovies(allFilmsSaved);
+    // setSavedMovies(isOnSaved ? shortsSaved : searchMoviesSaved);
+    // if (searchMoviesSaved?.length > 0) {
+    //   setSavedSearchedMovies(searchMoviesSaved);
+    // }
+    // if (shortsSaved?.length > 0) {
+    //   setSavedSearchedShortMovies(shortsSaved);
+    // }
+    // if (isOnSaved) {
+    //   setIsShortsSaved(isOnSaved);
+    // }
 
     setMovies(isOn ? shortMovies : searchedFilms);
 
@@ -273,7 +279,7 @@ function App() {
         movie.nameEN.toLowerCase().includes(inputQuery.toLowerCase())
       );
     });
-    const shorts = searched.filter(
+    const shorts = allSavedMovies.filter(
       (movie) => movie.duration <= SHORTS_DURATION
     );
     if (isShortsSaved) {
@@ -283,9 +289,9 @@ function App() {
     }
     setSavedSearchedMovies(searched);
     setSavedSearchedShortMovies(shorts);
-    setItem("shortsSaved", shorts);
-    setItem("inputQuerySaved", inputQuery);
-    setItem("searchedMoviesSaved", searched);
+    // setItem("shortsSaved", shorts);
+    // setItem("inputQuerySaved", inputQuery);
+    // setItem("searchedMoviesSaved", searched);
   }
 
   function handleLike(movie) {
