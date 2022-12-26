@@ -7,7 +7,9 @@ const Footer = ({ movies }) => {
   return (
     <footer
       className={`${
-        page !== "/" && movies?.length < 2 && "footer_sticky"
+        page !== "/" &&
+        (movies?.length < 2 || movies == null) &&
+        "footer_sticky"
       } footer`}
     >
       <p className="footer__title">
