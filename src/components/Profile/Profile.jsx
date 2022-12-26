@@ -23,12 +23,12 @@ const Profile = ({
   useEffect(() => setServerResponse(""), []);
 
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser.email) {
       resetForm(currentUser, {}, true);
       values.name = currentUser.name;
       values.email = currentUser.email;
     }
-  }, [currentUser, resetForm]);
+  }, [currentUser.email, resetForm]);
 
   const customValidation =
     !isDisabled ||

@@ -28,6 +28,7 @@ const SavedMovies = ({
       />
       <main>
         <SearchForm
+          isSaved
           onSearch={onSearch}
           isShorts={isShorts}
           setIsShorts={setIsShorts}

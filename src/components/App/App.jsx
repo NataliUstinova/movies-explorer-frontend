@@ -16,6 +16,7 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { SHORTS_DURATION } from "../../utils/constants";
+import { usePath } from "../../hooks/usePath";
 
 function App() {
   const history = useHistory();
@@ -26,6 +27,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [serverResponse, setServerResponse] = useState("");
 
+  const [inputQuery, setInputQuery] = useState("");
   const [allMovies, setAllMovies] = useState([]);
   const [movies, setMovies] = useState([]);
   const [searchedMovies, setSearchedMovies] = useState([]);
@@ -49,28 +51,32 @@ function App() {
   useEffect(() => {
     return () => setServerResponse("");
   }, [setServerResponse]);
-  //user
+  console.log("user", currentUser);
+  console.log("isLoggedIn", isLoggedIn);
+  //get user
   useEffect(() => {
     //shorts toggle check
     const toggleShortsState = getItem("isShorts");
     if (toggleShortsState) {
       setIsShorts(toggleShortsState);
     }
+    setServerResponse("");
+    handleUserInfo(path);
+  }, []);
 
-    if (currentUser) {
-      setServerResponse("");
-      mainApi
-        .getUserInfo()
-        .then((res) => {
-          setCurrentUser(res);
-          setIsLoggedIn(true);
-          history.push(path);
-        })
-        .catch((err) => {
-          setServerResponse(err);
-        });
-    }
-  }, [currentUser._id, isLoggedIn]);
+  function handleUserInfo(page) {
+    mainApi
+      .getUserInfo()
+      .then((res) => {
+        console.log("user work");
+        setCurrentUser(res);
+        setIsLoggedIn(true);
+        history.push(page);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   function handleRegister({ name, email, password }) {
     setServerResponse("");
@@ -85,6 +91,7 @@ function App() {
       })
       .catch((err) => {
         setServerResponse(err);
+        alert(err);
       });
   }
   function handleLogin({ email, password }) {
@@ -95,23 +102,16 @@ function App() {
         setServerResponse(res.message);
         setTimeout(() => {
           setIsLoggedIn(true);
-          history.push("/movies");
+          handleUserInfo("/movies");
           setServerResponse("");
         }, 1000);
       })
       .catch((err) => {
         setServerResponse(err);
+        alert(err);
         setIsLoggedIn(false);
       });
   }
-
-  // console.log("isLoggedIn", isLoggedIn);
-  // console.log("allMovies", allMovies);
-  // console.log("serverResponse", serverResponse);
-  // console.log("isShorts", isShorts);
-  // console.log("movies", movies);
-  // console.log("searchedMovies", searchedMovies);
-  // console.log("searchedShortMovies", searchedShortMovies);
 
   function handleLogout() {
     setServerResponse("");
@@ -136,6 +136,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        alert(err);
         setServerResponse(err);
       });
   }
@@ -151,8 +152,22 @@ function App() {
       .catch((err) => {
         console.log(err);
         setServerResponse(err);
+        if (err === "Необходима авторизация") {
+          alert(err);
+          handleLogout();
+        }
       });
   }
+
+  useEffect(() => {
+    const input = getItem("inputQuery");
+    if (path === "/movies") {
+      setInputQuery(input);
+    }
+    if (path === "/saved") {
+      setInputQuery("");
+    }
+  }, [path]);
 
   useEffect(() => {
     if (isShorts) {
@@ -187,7 +202,11 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
+          alert(err);
           setServerResponse(err);
+          if (err === "Необходима авторизация") {
+            handleLogout();
+          }
         })
         .finally(() => setIsLoading(false));
     }
@@ -240,6 +259,7 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
+          alert(err);
           setServerResponse(err);
         });
     }
@@ -298,8 +318,12 @@ function App() {
         setSavedMovies([movie, ...savedMovies]);
       })
       .catch((err) => {
+        alert(err);
         setServerResponse(err);
         console.log(err);
+        if (err === "Необходима авторизация") {
+          handleLogout();
+        }
       });
   }
 
@@ -316,8 +340,13 @@ function App() {
         setSavedMovies(newSavedMovies);
       })
       .catch((err) => {
+        alert(err);
         setServerResponse(err);
         console.log(err);
+        console.log(err.code);
+        if (err === "Необходима авторизация") {
+          handleLogout();
+        }
       });
   }
 
@@ -348,6 +377,7 @@ function App() {
             setIsShorts={setIsShorts}
             serverResponse={serverResponse}
             savedMovies={savedMovies}
+            inputQuery={inputQuery}
           ></ProtectedRoute>
           <ProtectedRoute
             exact

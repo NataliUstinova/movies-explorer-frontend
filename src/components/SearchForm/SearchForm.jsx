@@ -4,6 +4,7 @@ import Separator from "../Separator/Separator";
 import useValidation from "../../hooks/useValidation";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { useEffect } from "react";
+import { usePath } from "../../hooks/usePath";
 
 const SearchForm = ({
   onSearch,
@@ -11,8 +12,11 @@ const SearchForm = ({
   setIsShorts,
   isShortsSaved,
   setIsShortsSaved,
+  inputQuery,
+  isSaved,
 }) => {
   const { getItem } = useLocalStorage();
+  const { path } = usePath();
   const { values, errors, handleInputChange } =
     useValidation(".search-form__form");
 
@@ -21,14 +25,15 @@ const SearchForm = ({
     onSearch(values.search);
   }
 
+  console.log(inputQuery);
   useEffect(() => {
-    if (getItem("inputQuery")) {
+    if (!isSaved) {
       values.search = getItem("inputQuery");
     }
-    if (window.location.pathname === "/saved") {
-      values.search = getItem("inputQuerySaved");
+    if (isSaved) {
+      values.search = "";
     }
-  }, []);
+  }, [isSaved]);
 
   return (
     <div className="search-form">
