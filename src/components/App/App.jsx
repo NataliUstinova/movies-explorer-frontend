@@ -70,10 +70,6 @@ function App() {
     return () => setServerResponse("");
   }, [setServerResponse]);
 
-  useEffect(() => {
-    setSavedMovies(allSavedMovies);
-  }, [useLocation()]);
-
   //get user
   useEffect(() => {
     //shorts toggle check
@@ -156,7 +152,7 @@ function App() {
         setIsShortsSaved(false);
         setSavedMovies([]);
         setAllSavedMovies([]);
-
+        setSearchedSavedMovies([]);
         localStorage.clear();
         history.push("/");
       })
@@ -209,7 +205,7 @@ function App() {
     if (isShortsSaved) {
       setSavedMovies(shorts);
     } else {
-      setSavedMovies(searchedSavedMovies || allSavedMovies);
+      setSavedMovies(searchedSavedMovies);
     }
   }, [isShortsSaved]);
 
@@ -235,7 +231,7 @@ function App() {
         })
         .finally(() => setIsLoading(false));
     }
-  }, [currentUser._id, isLoggedIn]);
+  }, [currentUser._id, isLoggedIn, useLocation()]);
 
   //get all movies
   useEffect(() => {
@@ -317,6 +313,7 @@ function App() {
     } else {
       setSavedMovies(searched);
     }
+    setAllSavedMovies(searched);
     setSearchedSavedMovies(searched);
     setIsFormDisabled(false);
   }
@@ -324,7 +321,7 @@ function App() {
   //возвращение всех сохраненных
   useEffect(() => {
     setSavedMovies(allSavedMovies);
-  }, []);
+  }, [useLocation(), allSavedMovies]);
 
   function handleLike(movie) {
     mainApi
@@ -352,7 +349,7 @@ function App() {
         const newSavedMovies = savedMovies.filter((m) => {
           return !(movie.id === m.movieId || movie.movieId === m.movieId);
         });
-        setSavedMovies(newSavedMovies);
+        setAllSavedMovies(newSavedMovies);
       })
       .catch((err) => {
         console.log(err);
