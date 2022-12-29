@@ -81,6 +81,11 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        setIsPopupOpen(true);
+        setServerResponse(err);
+        if (err === AUTH_ERROR) {
+          handleLogout();
+        }
       });
   }
 
