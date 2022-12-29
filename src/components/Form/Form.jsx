@@ -5,7 +5,14 @@ import useValidation from "../../hooks/useValidation";
 import { Link } from "react-router-dom";
 import { EMAIL_PATTERN, NAME_PATTERN } from "../../utils/constants";
 
-const Form = ({ title, isLoginForm, onLogin, onRegister, serverResponse }) => {
+const Form = ({
+  title,
+  isLoginForm,
+  onLogin,
+  onRegister,
+  serverResponse,
+  isFormDisabled,
+}) => {
   const { values, errors, isDisabled, resetForm, handleInputChange } =
     useValidation(".form__form");
 
@@ -47,6 +54,7 @@ const Form = ({ title, isLoginForm, onLogin, onRegister, serverResponse }) => {
                   }`}
                   type="text"
                   name="name"
+                  disabled={isFormDisabled}
                   required
                   pattern={NAME_PATTERN}
                   title="Имя должно быть от 2 до 40 символов и может содержать латиницу, кириллицу, пробел или дефис"
@@ -65,13 +73,13 @@ const Form = ({ title, isLoginForm, onLogin, onRegister, serverResponse }) => {
               <input
                 autoComplete="email"
                 type="email"
+                disabled={isFormDisabled}
                 pattern={EMAIL_PATTERN}
                 title="Неверный формат email"
                 required
                 className={`form__input ${
                   errors.email && "form__input-error-color"
                 }`}
-                type="email"
                 name="email"
                 placeholder="Введите email"
                 value={values.email || ""}
@@ -93,6 +101,7 @@ const Form = ({ title, isLoginForm, onLogin, onRegister, serverResponse }) => {
                 type="password"
                 name="password"
                 required
+                disabled={isFormDisabled}
                 autoComplete={isLoginForm ? "current-password" : "new-password"}
                 placeholder="Введите пароль"
                 //TODO
@@ -106,6 +115,7 @@ const Form = ({ title, isLoginForm, onLogin, onRegister, serverResponse }) => {
         <div>
           <p className="form__input-error-text_black">{serverResponse}</p>
           <button
+            disabled={isFormDisabled}
             className={`form__button ${!isDisabled && "form__button_disabled"}`}
             type="submit"
             aria-label={isLoginForm ? "Войти" : "Зарегистрироваться"}

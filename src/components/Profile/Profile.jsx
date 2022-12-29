@@ -14,6 +14,7 @@ const Profile = ({
   onLogout,
   serverResponse,
   setServerResponse,
+  isFormDisabled,
 }) => {
   const currentUser = useContext(CurrentUserContext);
 
@@ -61,6 +62,7 @@ const Profile = ({
                 className="profile__info-text"
                 placeholder="Введите имя"
                 pattern={NAME_PATTERN}
+                disabled={isFormDisabled}
                 title="Имя должно быть от 2 до 40 символов и может содержать латиницу, кириллицу, пробел или дефис"
                 value={values.name || ""}
                 onChange={handleInputChange}
@@ -76,6 +78,7 @@ const Profile = ({
                 name="email"
                 autoComplete="email"
                 required
+                disabled={isFormDisabled}
                 pattern={EMAIL_PATTERN}
                 title="Введите правльный email"
                 className="profile__info-text"

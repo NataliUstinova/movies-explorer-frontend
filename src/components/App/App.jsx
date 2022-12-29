@@ -1,7 +1,13 @@
 import "./App.css";
 import Main from "../Main/Main";
 import React from "react";
-import { Switch, Route, useHistory, Redirect } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  useHistory,
+  Redirect,
+  useLocation,
+} from "react-router-dom";
 import Movies from "../Movies/Movies";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
@@ -30,6 +36,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState({});
 
+  const [isFormDisabled, setIsFormDisabled] = useState(false);
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [serverResponse, setServerResponse] = useState("");
 
@@ -41,6 +49,7 @@ function App() {
 
   const [savedMovies, setSavedMovies] = useState([]);
   const [allSavedMovies, setAllSavedMovies] = useState([]);
+  const [searchedSavedMovies, setSearchedSavedMovies] = useState([]);
   const [isShortsSaved, setIsShortsSaved] = useState(false);
 
   const path = window.location.pathname;
@@ -60,6 +69,10 @@ function App() {
   useEffect(() => {
     return () => setServerResponse("");
   }, [setServerResponse]);
+
+  useEffect(() => {
+    setSavedMovies(allSavedMovies);
+  }, [useLocation()]);
 
   //get user
   useEffect(() => {
@@ -90,6 +103,7 @@ function App() {
   }
 
   function handleRegister({ name, email, password }) {
+    setIsFormDisabled(true);
     mainApi
       .signup({ name, email, password })
       .then((res) => {
@@ -103,9 +117,11 @@ function App() {
         console.log(err);
         setIsPopupOpen(true);
         setServerResponse(err);
-      });
+      })
+      .finally(() => setIsFormDisabled(false));
   }
   function handleLogin({ email, password }) {
+    setIsFormDisabled(true);
     mainApi
       .signin({ email, password })
       .then((res) => {
@@ -121,7 +137,8 @@ function App() {
         setIsPopupOpen(true);
         setServerResponse(err);
         setIsLoggedIn(false);
-      });
+      })
+      .finally(() => setIsFormDisabled(false));
   }
 
   function handleLogout() {
@@ -151,6 +168,7 @@ function App() {
   }
 
   function handleUserUpdate({ name, email }) {
+    setIsFormDisabled(true);
     setServerResponse("");
     mainApi
       .editProfile({ name, email })
@@ -165,7 +183,8 @@ function App() {
         if (err === AUTH_ERROR) {
           handleLogout();
         }
-      });
+      })
+      .finally(() => setIsFormDisabled(false));
   }
 
   useEffect(() => {
@@ -177,13 +196,20 @@ function App() {
   }, [isShorts]);
 
   useEffect(() => {
-    const shorts = allSavedMovies.filter(
-      (movie) => movie.duration <= SHORTS_DURATION
-    );
+    let shorts;
+    if (searchedSavedMovies) {
+      shorts = searchedSavedMovies.filter(
+        (movie) => movie.duration <= SHORTS_DURATION
+      );
+    } else {
+      shorts = allSavedMovies.filter(
+        (movie) => movie.duration <= SHORTS_DURATION
+      );
+    }
     if (isShortsSaved) {
       setSavedMovies(shorts);
     } else {
-      setSavedMovies(allSavedMovies);
+      setSavedMovies(searchedSavedMovies || allSavedMovies);
     }
   }, [isShortsSaved]);
 
@@ -251,6 +277,7 @@ function App() {
 
   //search movies
   function handleSearch(inputQuery) {
+    setIsFormDisabled(true);
     const searched = allMovies.filter((movie) => {
       return (
         movie.nameRU.toLowerCase().includes(inputQuery.toLowerCase()) ||
@@ -270,17 +297,19 @@ function App() {
     setItem("shorts", shorts);
     setItem("inputQuery", inputQuery);
     setItem("searchedMovies", searched);
+    setIsFormDisabled(false);
   }
 
   //saved movies search by saved
   function handleSavedSearch(inputQuery) {
+    setIsFormDisabled(true);
     const searched = allSavedMovies.filter((movie) => {
       return (
         movie.nameRU.toLowerCase().includes(inputQuery.toLowerCase()) ||
         movie.nameEN.toLowerCase().includes(inputQuery.toLowerCase())
       );
     });
-    const shorts = allSavedMovies.filter(
+    const shorts = searched.filter(
       (movie) => movie.duration <= SHORTS_DURATION
     );
     if (isShortsSaved) {
@@ -288,7 +317,14 @@ function App() {
     } else {
       setSavedMovies(searched);
     }
+    setSearchedSavedMovies(searched);
+    setIsFormDisabled(false);
   }
+
+  //возвращение всех сохраненных
+  useEffect(() => {
+    setSavedMovies(allSavedMovies);
+  }, []);
 
   function handleLike(movie) {
     mainApi
@@ -355,6 +391,7 @@ function App() {
             setIsShorts={setIsShorts}
             serverResponse={serverResponse}
             savedMovies={savedMovies}
+            isFormDisabled={isFormDisabled}
           ></ProtectedRoute>
           <ProtectedRoute
             exact
@@ -372,12 +409,17 @@ function App() {
             movies={savedMovies}
             isShortsSaved={isShortsSaved}
             setIsShortsSaved={setIsShortsSaved}
+            isFormDisabled={isFormDisabled}
           ></ProtectedRoute>
           <Route exact path="/signin">
             {isLoggedIn ? (
               <Redirect to="/" />
             ) : (
-              <Login onLogin={handleLogin} serverResponse={serverResponse} />
+              <Login
+                onLogin={handleLogin}
+                serverResponse={serverResponse}
+                isFormDisabled={isFormDisabled}
+              />
             )}
           </Route>
           <Route exact path="/signup">
@@ -387,6 +429,7 @@ function App() {
               <Register
                 onRegister={handleRegister}
                 serverResponse={serverResponse}
+                isFormDisabled={isFormDisabled}
               />
             )}
           </Route>
@@ -401,6 +444,7 @@ function App() {
             serverResponse={serverResponse}
             setServerResponse={setServerResponse}
             component={Profile}
+            isFormDisabled={isFormDisabled}
           ></ProtectedRoute>
           <Route exact path="*" component={NotFoundPage} />
         </Switch>

@@ -18,6 +18,7 @@ const SavedMovies = ({
   savedMovies,
   isShortsSaved,
   setIsShortsSaved,
+  isFormDisabled,
 }) => {
   return (
     <>
@@ -34,6 +35,7 @@ const SavedMovies = ({
           setIsShorts={setIsShorts}
           isShortsSaved={isShortsSaved}
           setIsShortsSaved={setIsShortsSaved}
+          isFormDisabled={isFormDisabled}
         />
         {isLoading ? (
           <Preloader />

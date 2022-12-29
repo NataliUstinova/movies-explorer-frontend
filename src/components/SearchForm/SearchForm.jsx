@@ -12,6 +12,7 @@ const SearchForm = ({
   isShortsSaved,
   setIsShortsSaved,
   isSaved,
+  isFormDisabled,
 }) => {
   const { getItem } = useLocalStorage();
   const { values, errors, handleInputChange, setValues } =
@@ -41,12 +42,17 @@ const SearchForm = ({
           className="search-form__input"
           placeholder="Фильмы"
           required
+          disabled={isFormDisabled}
           value={values.search || ""}
           minLength="1"
           maxLength="200"
           onChange={handleInputChange}
         />
-        <button className="search-form__button" aria-label="найти">
+        <button
+          className="search-form__button"
+          aria-label="найти"
+          disabled={isFormDisabled}
+        >
           Найти
         </button>
         <p className="search-form__error">{errors.search}</p>

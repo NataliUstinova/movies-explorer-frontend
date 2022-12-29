@@ -17,6 +17,7 @@ const Movies = ({
   setIsShorts,
   serverResponse,
   savedMovies,
+  isFormDisabled,
 }) => {
   return (
     <>
@@ -30,6 +31,7 @@ const Movies = ({
           onSearch={onSearch}
           isShorts={isShorts}
           setIsShorts={setIsShorts}
+          isFormDisabled={isFormDisabled}
         />
         {isLoading ? (
           <Preloader />
