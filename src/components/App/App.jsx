@@ -193,7 +193,7 @@ function App() {
 
   useEffect(() => {
     let shorts;
-    if (searchedSavedMovies) {
+    if (searchedSavedMovies?.length > 0) {
       shorts = searchedSavedMovies.filter(
         (movie) => movie.duration <= SHORTS_DURATION
       );
@@ -204,8 +204,8 @@ function App() {
     }
     if (isShortsSaved) {
       setSavedMovies(shorts);
-    } else {
-      setSavedMovies(searchedSavedMovies);
+    } else if (!isShortsSaved) {
+      setSavedMovies(allSavedMovies);
     }
   }, [isShortsSaved]);
 
@@ -305,13 +305,13 @@ function App() {
         movie.nameEN.toLowerCase().includes(inputQuery.toLowerCase())
       );
     });
-    const shorts = searched.filter(
+    const shorts = allSavedMovies.filter(
       (movie) => movie.duration <= SHORTS_DURATION
     );
     if (isShortsSaved) {
       setSavedMovies(shorts);
     } else {
-      setSavedMovies(searched);
+      setSavedMovies(allSavedMovies);
     }
     setAllSavedMovies(searched);
     setSearchedSavedMovies(searched);
