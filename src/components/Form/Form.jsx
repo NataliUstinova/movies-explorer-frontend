@@ -1,18 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Form.css";
 import Logo from "../Logo/Logo";
 import useValidation from "../../hooks/useValidation";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { EMAIL_PATTERN, NAME_PATTERN } from "../../utils/constants";
 
-const Form = ({ title, isLoginForm }) => {
-  const history = useHistory();
-  const { values, errors, isDisabled, handleInputChange } = useValidation({});
+const Form = ({
+  title,
+  isLoginForm,
+  onLogin,
+  onRegister,
+  serverResponse,
+  isFormDisabled,
+}) => {
+  const { values, errors, isDisabled, resetForm, handleInputChange } =
+    useValidation(".form__form");
+
+  useEffect(() => {
+    resetForm();
+  }, [resetForm]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("Отправка формы");
     {
-      isLoginForm ? history.push("/movies") : history.push("/signin");
+      isLoginForm
+        ? onLogin({
+            email: values.email.trim().toLowerCase(),
+            password: values.password,
+          })
+        : onRegister({
+            name: values.name.trim(),
+            email: values.email.trim().toLowerCase(),
+            password: values.password,
+          });
     }
   }
 
@@ -34,8 +54,9 @@ const Form = ({ title, isLoginForm }) => {
                   }`}
                   type="text"
                   name="name"
+                  disabled={isFormDisabled}
                   required
-                  pattern="[a-zA-Zа-яА-ЯёЁ\\ \\-]{2,40}"
+                  pattern={NAME_PATTERN}
                   title="Имя должно быть от 2 до 40 символов и может содержать латиницу, кириллицу, пробел или дефис"
                   placeholder="Введите имя"
                   value={values.name || ""}
@@ -51,13 +72,14 @@ const Form = ({ title, isLoginForm }) => {
               </label>
               <input
                 autoComplete="email"
+                type="email"
+                disabled={isFormDisabled}
+                pattern={EMAIL_PATTERN}
+                title="Неверный формат email"
                 required
-                minLength="2"
-                maxLength="40"
                 className={`form__input ${
                   errors.email && "form__input-error-color"
                 }`}
-                type="email"
                 name="email"
                 placeholder="Введите email"
                 value={values.email || ""}
@@ -78,8 +100,11 @@ const Form = ({ title, isLoginForm }) => {
                 }`}
                 type="password"
                 name="password"
+                required
+                disabled={isFormDisabled}
                 autoComplete={isLoginForm ? "current-password" : "new-password"}
                 placeholder="Введите пароль"
+                //TODO
                 value={values.password || ""}
                 onChange={handleInputChange}
               />
@@ -87,9 +112,10 @@ const Form = ({ title, isLoginForm }) => {
             </div>
           </div>
         </div>
-
         <div>
+          <p className="form__input-error-text_black">{serverResponse}</p>
           <button
+            disabled={isFormDisabled}
             className={`form__button ${!isDisabled && "form__button_disabled"}`}
             type="submit"
             aria-label={isLoginForm ? "Войти" : "Зарегистрироваться"}

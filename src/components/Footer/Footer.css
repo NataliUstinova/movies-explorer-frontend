@@ -4,6 +4,14 @@
   padding: 0 70px;
 }
 
+.footer_sticky {
+  width: inherit;
+  position: absolute;
+  bottom: 0;
+  right: calc((100vw - 100%) / -2);
+  left: calc((100vw - 100%) / -2);
+}
+
 .footer__title {
   margin: 0;
   padding: 79px 0 20px;

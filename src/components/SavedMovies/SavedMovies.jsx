@@ -1,12 +1,25 @@
-import React from "react";
 import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
 import Preloader from "../Preloader/Preloader";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
-import { savedMovies } from "../MoviesCard/mock-data";
 
-const SavedMovies = ({ openModal, closeModal, isLoading, isLoggedIn }) => {
+const SavedMovies = ({
+  openModal,
+  closeModal,
+  isLoading,
+  isLoggedIn,
+  movies,
+  onLike,
+  onDelete,
+  onSearch,
+  isShorts,
+  setIsShorts,
+  savedMovies,
+  isShortsSaved,
+  setIsShortsSaved,
+  isFormDisabled,
+}) => {
   return (
     <>
       <Header
@@ -15,10 +28,28 @@ const SavedMovies = ({ openModal, closeModal, isLoading, isLoggedIn }) => {
         isLoggedIn={isLoggedIn}
       />
       <main>
-        <SearchForm />
-        {isLoading ? <Preloader /> : <MoviesCardList movies={savedMovies} />}
+        <SearchForm
+          isSaved
+          onSearch={onSearch}
+          isShorts={isShorts}
+          setIsShorts={setIsShorts}
+          isShortsSaved={isShortsSaved}
+          setIsShortsSaved={setIsShortsSaved}
+          isFormDisabled={isFormDisabled}
+        />
+        {isLoading ? (
+          <Preloader />
+        ) : (
+          <MoviesCardList
+            onLike={onLike}
+            onDelete={onDelete}
+            movies={movies}
+            savedMovies={savedMovies}
+            isSaved
+          />
+        )}
       </main>
-      <Footer />
+      <Footer movies={movies} />
     </>
   );
 };

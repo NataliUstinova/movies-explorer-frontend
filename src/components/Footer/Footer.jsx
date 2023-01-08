@@ -2,15 +2,22 @@ import React from "react";
 import "./Footer.css";
 import Separator from "../Separator/Separator";
 
-const Footer = () => {
+const Footer = ({ movies }) => {
+  const page = window.location.pathname;
   return (
-    <footer className="footer">
+    <footer
+      className={`${
+        page !== "/" &&
+        (movies?.length < 2 || movies == null) &&
+        "footer_sticky"
+      } footer`}
+    >
       <p className="footer__title">
         Учебный проект Яндекс.Практикум х BeatFilm.
       </p>
       <Separator />
       <div className="footer__text">
-        <p className="footer__year">&#64;&nbsp;{new Date().getFullYear()}</p>
+        <p className="footer__year">&#169;&nbsp;{new Date().getFullYear()}</p>
         <div className="footer__links">
           <a
             className="footer__link"

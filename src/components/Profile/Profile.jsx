@@ -1,23 +1,43 @@
 import "./Profile.css";
 import Header from "../Header/Header";
 import Separator from "../Separator/Separator";
-import { Link } from "react-router-dom";
 import useValidation from "../../hooks/useValidation";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { useContext, useEffect } from "react";
+import { EMAIL_PATTERN, NAME_PATTERN } from "../../utils/constants";
 
-const Profile = ({ openModal, closeModal, isLoggedIn }) => {
-  //TODO user context and edit functions
-  const currentUser = {
-    name: "Ната",
-    email: "nata@mail.ru",
-  };
+const Profile = ({
+  openModal,
+  closeModal,
+  isLoggedIn,
+  onUpdateUser,
+  onLogout,
+  serverResponse,
+  setServerResponse,
+  isFormDisabled,
+}) => {
+  const currentUser = useContext(CurrentUserContext);
 
-  const { values, errors, isDisabled, handleInputChange } = useValidation({
-    form: "editProfile",
-  });
+  const { values, errors, isDisabled, resetForm, handleInputChange } =
+    useValidation(".profile__edit-form");
+
+  useEffect(() => setServerResponse(""), []);
+
+  useEffect(() => {
+    if (currentUser.email) {
+      resetForm(currentUser, {}, true);
+      values.name = currentUser.name;
+      values.email = currentUser.email;
+    }
+  }, [currentUser.email, resetForm]);
+
+  const customValidation =
+    !isDisabled ||
+    (values.name === currentUser.name && values.email === currentUser.email);
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("Редактирование");
+    onUpdateUser({ name: values.name.trim(), email: values.email.trim() });
   }
 
   return (
@@ -40,10 +60,11 @@ const Profile = ({ openModal, closeModal, isLoggedIn }) => {
                 required
                 name="name"
                 className="profile__info-text"
-                placeholder={currentUser.name}
-                pattern="[a-zA-Zа-яА-ЯёЁ\\ \\-]{2,40}"
+                placeholder="Введите имя"
+                pattern={NAME_PATTERN}
+                disabled={isFormDisabled}
                 title="Имя должно быть от 2 до 40 символов и может содержать латиницу, кириллицу, пробел или дефис"
-                value={values.name || currentUser.name}
+                value={values.name || ""}
                 onChange={handleInputChange}
               />
             </div>
@@ -57,11 +78,12 @@ const Profile = ({ openModal, closeModal, isLoggedIn }) => {
                 name="email"
                 autoComplete="email"
                 required
-                minLength="2"
-                maxLength="40"
+                disabled={isFormDisabled}
+                pattern={EMAIL_PATTERN}
+                title="Введите правльный email"
                 className="profile__info-text"
-                placeholder={currentUser.email}
-                value={values.email || currentUser.email}
+                placeholder="Введите email"
+                value={values.email || ""}
                 onChange={handleInputChange}
               />
             </div>
@@ -69,18 +91,22 @@ const Profile = ({ openModal, closeModal, isLoggedIn }) => {
           <div className="profile__text-container">
             <p className="profile__text profile__error-text">{errors.name}</p>
             <p className="profile__text profile__error-text">{errors.email}</p>
+            <p className="profile__text">{serverResponse}</p>
             <button
               type="submit"
               aria-label="Редактировать"
               className={`profile__text ${
-                !isDisabled && "profile__text_disabled"
+                customValidation && "profile__text_disabled"
               }`}
             >
               Редактировать
             </button>
-            <Link to="/" className="profile__text profile__text_exit">
+            <div
+              className="profile__text profile__text_exit"
+              onClick={onLogout}
+            >
               Выйти из аккаунта
-            </Link>
+            </div>
           </div>
         </form>
       </main>

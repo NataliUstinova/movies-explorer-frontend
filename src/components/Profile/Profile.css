@@ -45,7 +45,7 @@
 }
 
 .profile__info-text::placeholder {
-  color: #000;
+  color: #ccc;
 }
 
 .profile__info-text:invalid {
@@ -78,6 +78,7 @@
 
 .profile__text_disabled {
   opacity: 0.5;
+  pointer-events: none;
 }
 
 .profile__text:hover {

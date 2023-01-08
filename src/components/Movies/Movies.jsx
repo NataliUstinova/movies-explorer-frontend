@@ -3,9 +3,22 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 import Preloader from "../Preloader/Preloader";
-import { allMovies } from "../MoviesCard/mock-data";
 
-const Movies = ({ openModal, closeModal, isLoading, isLoggedIn }) => {
+const Movies = ({
+  onDelete,
+  onLike,
+  openModal,
+  closeModal,
+  isLoading,
+  isLoggedIn,
+  movies,
+  onSearch,
+  isShorts,
+  setIsShorts,
+  serverResponse,
+  savedMovies,
+  isFormDisabled,
+}) => {
   return (
     <>
       <Header
@@ -14,10 +27,25 @@ const Movies = ({ openModal, closeModal, isLoading, isLoggedIn }) => {
         isLoggedIn={isLoggedIn}
       />
       <main>
-        <SearchForm />
-        {isLoading ? <Preloader /> : <MoviesCardList movies={allMovies} />}
+        <SearchForm
+          onSearch={onSearch}
+          isShorts={isShorts}
+          setIsShorts={setIsShorts}
+          isFormDisabled={isFormDisabled}
+        />
+        {isLoading ? (
+          <Preloader />
+        ) : (
+          <MoviesCardList
+            serverResponse={serverResponse}
+            savedMovies={savedMovies}
+            movies={movies}
+            onLike={onLike}
+            onDelete={onDelete}
+          />
+        )}
       </main>
-      <Footer />
+      <Footer movies={movies} />
     </>
   );
 };

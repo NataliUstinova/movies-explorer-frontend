@@ -1,0 +1,93 @@
+.popup {
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: ease-in-out;
+  transition-property: opacity, visibility;
+  transition-duration: 0.5s, 0s;
+  transition-delay: 0s, 0.5s;
+}
+
+.popup_opened {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s, 0s;
+}
+
+.popup__relative-container {
+  position: relative;
+}
+
+.popup__close {
+  mask-image: url('../../images/cross.svg');
+  background-color: white;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  z-index: 0;
+  border: 0;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.25s linear;
+}
+
+.popup__close:hover {
+  opacity: 0.6;
+}
+
+.popup__container {
+  position: relative;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  z-index: 3;
+  border-radius: 10px;
+  min-width: 430px;
+  box-sizing: border-box;
+  padding: 70px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+}
+
+.popup__text {
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 29px;
+  text-align: center;
+  color: #000;
+  max-width: 358px;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 540px) {
+  .popup__container {
+    min-width: 282px;
+    padding: 0;
+  }
+  .popup__close {
+    width: 20px;
+    height: 20px;
+    top: -36px;
+    right: 0;
+  }
+  .popup__text {
+    padding: 30px 0;
+    font-size: 14px;
+    line-height: 24px;
+  }
+}
